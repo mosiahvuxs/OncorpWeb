@@ -12,34 +12,35 @@ import br.com.topsys.util.TSUtil;
 @SuppressWarnings("serial")
 @XmlRootElement(name = "grupoNcm")
 @XmlAccessorType(XmlAccessType.FIELD)
-public class GrupoNcm implements Serializable{
-	
+public class GrupoNcm implements Serializable {
+
 	private Long id;
 	private String descricao;
-	
+
 	@XmlTransient
 	private Boolean flagAtivo;
-	
+
 	@XmlTransient
 	private Empresa empresa;
-	
+
 	private String codigo;
-	
-	public GrupoNcm(){
-		
+
+	public GrupoNcm() {
+
 	}
-	
+
 	public GrupoNcm(String descricao, Empresa empresa) {
-		
+
 		this.descricao = descricao;
-		
+
 		this.empresa = empresa;
-		
+
 	}
+
 	public GrupoNcm(Boolean flagAtivo, Empresa empresa) {
-		
+
 		this.flagAtivo = flagAtivo;
-		
+
 		this.empresa = empresa;
 	}
 
@@ -50,36 +51,43 @@ public class GrupoNcm implements Serializable{
 	public Long getId() {
 		return id;
 	}
+
 	public void setId(Long id) {
 		this.id = id;
 	}
+
 	public String getDescricao() {
 		return descricao;
 	}
+
 	public void setDescricao(String descricao) {
 		this.descricao = descricao;
 	}
+
 	public Boolean getFlagAtivo() {
 		return flagAtivo;
 	}
+
 	public void setFlagAtivo(Boolean flagAtivo) {
 		this.flagAtivo = flagAtivo;
 	}
+
 	public Empresa getEmpresa() {
 		return empresa;
 	}
+
 	public void setEmpresa(Empresa empresa) {
 		this.empresa = empresa;
 	}
-	
-	public String getDescricaoFormatada(){
-		
-		if(!TSUtil.isEmpty(this.descricao) && this.descricao.length()>70){
-			
+
+	public String getDescricaoFormatada() {
+
+		if (!TSUtil.isEmpty(this.descricao) && this.descricao.length() > 70) {
+
 			return this.codigo + "-" + this.descricao.substring(0, 70) + "...";
-			
-		}else{
-			
+
+		} else {
+
 			return this.codigo + "-" + this.descricao;
 		}
 	}
@@ -91,6 +99,5 @@ public class GrupoNcm implements Serializable{
 	public void setCodigo(String codigo) {
 		this.codigo = codigo;
 	}
-	
 
 }

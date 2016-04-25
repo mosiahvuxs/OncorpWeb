@@ -18,9 +18,10 @@
         <pattern value="/pesquisa"></pattern>
         <view-id value="/pesquisaItem.xhtml"></view-id>
     </url-mapping>
-    <url-mapping id="detalhe">
-        <pattern value="/detalhe"></pattern>
-        <view-id value="/detalhe.xhtml"></view-id>
+    <url-mapping id="detalhes">
+        <pattern value="/detalhes/#{detalhesFaces.parametro}"/>
+        <view-id value="/detalhes.xhtml"></view-id>
+        <action onPostback="false">#{detalhesFaces.obter}</action>
     </url-mapping>
     
 </pretty-config>

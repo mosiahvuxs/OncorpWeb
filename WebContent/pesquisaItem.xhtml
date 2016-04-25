@@ -90,41 +90,24 @@
 		<c:if test="#{!empty pesquisaItemFaces.itens}">
 		
 		<ul class="resultados">
+			
+			<c:forEach items="#{pesquisaItemFaces.itens}" var="linha">
+			
 			<li>
-				<a href="detalhe">
-					<figure><img src="http://lorempixel.com/150/150/food" alt=""/></figure>
-					<h2 class="nomeProduto">Aqui entra o nome do produto</h2>
-					<p class="codigo">código de barras: 01234567890</p>
+				<a href="#{request.contextPath}/detalhes/#{linha.url}">
+					<c:if test="#{empty linha.fotoPequena}">
+						<figure><img src="http://lorempixel.com/150/150/food" alt=""/></figure>
+					</c:if>
+					<c:if test="#{!empty linha.fotoPequena}">
+						<figure><img src="#{linha.fotoPequena}" alt=""/></figure>
+					</c:if>
+					<h2 class="nomeProduto">#{linha.descricao}</h2>
+					<p class="codigo">código de barras: #{linha.codigoBarras}</p>
 				</a>
 			</li>
-			<li>
-				<a href="detalhe">
-					<figure><img src="http://lorempixel.com/150/150/food" alt=""/></figure>
-					<h2 class="nomeProduto">Aqui entra o nome do produto</h2>
-					<p class="codigo">código de barras: 01234567890</p>
-				</a>
-			</li>
-			<li>
-				<a href="detalhe">
-					<figure><img src="http://lorempixel.com/150/150/food" alt=""/></figure>
-					<h2 class="nomeProduto">Aqui entra o nome do produto</h2>
-					<p class="codigo">código de barras: 01234567890</p>
-				</a>
-			</li>
-			<li>
-				<a href="detalhe">
-					<figure><img src="http://lorempixel.com/150/150/food" alt=""/></figure>
-					<h2 class="nomeProduto">Aqui entra o nome do produto</h2>
-					<p class="codigo">código de barras: 01234567890</p>
-				</a>
-			</li>
-			<li>
-				<a href="detalhe">
-					<figure><img src="http://lorempixel.com/150/150/food" alt=""/></figure>
-					<h2 class="nomeProduto">Aqui entra o nome do produto</h2>
-					<p class="codigo">código de barras: 01234567890</p>
-				</a>
-			</li>
+			
+			</c:forEach>
+			
 		</ul>
 
 		<div id="paginacao">

@@ -1,11 +1,15 @@
 package br.com.oncorpweb.util;
 
+import java.io.IOException;
 import java.text.Normalizer;
 import java.text.Normalizer.Form;
 import java.util.Locale;
 import java.util.regex.Pattern;
 
+import javax.faces.context.ExternalContext;
+
 import br.com.topsys.util.TSUtil;
+import br.com.topsys.web.util.TSFacesUtil;
 
 public final class Utilitarios {
 
@@ -43,6 +47,14 @@ public final class Utilitarios {
 		}
 
 		return null;
+	}
+	
+	@SuppressWarnings("static-access")
+	public static void redirectIndex() throws IOException{
+		
+		ExternalContext externalContext = TSFacesUtil.getFacesContext().getCurrentInstance().getExternalContext(); 
+		
+		externalContext.redirect(externalContext.getRequestContextPath() + "/");
 	}
 
 }

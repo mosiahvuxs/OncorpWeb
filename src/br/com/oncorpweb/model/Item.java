@@ -6,6 +6,7 @@ import java.util.Date;
 import java.util.List;
 
 import br.com.oncorpweb.util.Constantes;
+import br.com.oncorpweb.util.Utilitarios;
 import br.com.topsys.util.TSUtil;
 import br.com.topsys.web.util.TSFacesUtil;
 
@@ -13,7 +14,7 @@ import br.com.topsys.web.util.TSFacesUtil;
 public class Item implements Serializable {
 
 	private Long id, total;
-	private String descricao;
+	private String descricao, url;
 	private Segmento segmento;
 	private Boolean flagAtivo;
 	private String codigoBarras, erro, token, arquivo, caminhoArquivo, caminhoArquivoMobile;
@@ -85,7 +86,7 @@ public class Item implements Serializable {
 		this.descricao = descricao;
 		this.flagAtivo = flagAtivo;
 	}
-	
+
 	public Item(Usuario usuario, Empresa empresa, String token, String codigoBarras, String descricao, Boolean flagAtivo, String codigoInterno) {
 
 		this.usuario = usuario;
@@ -131,7 +132,7 @@ public class Item implements Serializable {
 
 		this.id = id;
 	}
-	
+
 	public Item(String codigoBarras, Empresa empresa) {
 		this.empresa = empresa;
 
@@ -687,6 +688,74 @@ public class Item implements Serializable {
 
 	public void setTotal(Long total) {
 		this.total = total;
+	}
+
+	public String getFotoPequena() {
+
+		if (!TSUtil.isEmpty(this.arquivo) && !TSUtil.isEmpty(this.dataArquivo)) {
+
+			if (TSFacesUtil.getRequest().getServerName().contains("localhost")) {
+
+				return Constantes.PASTA_ARQUIVOS + TSUtil.getAnoMes(this.dataArquivo) + Constantes.FOTO_PEQUENA + this.arquivo;
+
+			} else {
+
+				return Constantes.FW_EXIBICAO + TSUtil.getAnoMes(this.dataArquivo) + Constantes.FOTO_PEQUENA + this.arquivo;
+			}
+
+		}
+
+		return null;
+	}
+
+	public String getFotoMedia() {
+
+		if (!TSUtil.isEmpty(this.arquivo) && !TSUtil.isEmpty(this.dataArquivo)) {
+
+			if (TSFacesUtil.getRequest().getServerName().contains("localhost")) {
+
+				return Constantes.PASTA_ARQUIVOS + TSUtil.getAnoMes(this.dataArquivo) + Constantes.FOTO_MEDIA + this.arquivo;
+
+			} else {
+
+				return Constantes.FW_EXIBICAO + TSUtil.getAnoMes(this.dataArquivo) + Constantes.FOTO_MEDIA + this.arquivo;
+			}
+
+		}
+
+		return null;
+	}
+
+	public String getFotoGrande() {
+
+		if (!TSUtil.isEmpty(this.arquivo) && !TSUtil.isEmpty(this.dataArquivo)) {
+
+			if (TSFacesUtil.getRequest().getServerName().contains("localhost")) {
+
+				return Constantes.PASTA_ARQUIVOS + TSUtil.getAnoMes(this.dataArquivo) + Constantes.FOTO_GRANDE + this.arquivo;
+
+			} else {
+
+				return Constantes.FW_EXIBICAO + TSUtil.getAnoMes(this.dataArquivo) + Constantes.FOTO_GRANDE + this.arquivo;
+			}
+
+		}
+
+		return null;
+	}
+
+	public String getUrl() {
+
+		if (!TSUtil.isEmpty(TSUtil.tratarLong(this.id)) && !TSUtil.isEmpty(TSUtil.tratarString(this.descricao))) {
+
+			return Utilitarios.formatarUrl(this.id + "-" + this.descricao);
+		}
+		
+		return url;
+	}
+
+	public void setUrl(String url) {
+		this.url = url;
 	}
 
 }

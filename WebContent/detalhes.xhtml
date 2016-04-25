@@ -48,28 +48,38 @@
 
 	<figure><img src="http://lorempixel.com/460/460/food" alt=""/></figure>
 	<div class="detalhes">
-		<h2>Aqui entra o nome do produto</h2>
+		<h2>
+			<h:outputText value="#{detalhesFaces.item.descricao}"/>
+		</h2>
 
 		<div class="item metade">
-			<span>código interno: 12345</span>
+			<span>código interno: <h:outputText value="#{detalhesFaces.item.codigoInterno}"/></span>
 		</div>
 		<div class="item metade">
-			<span>código de barras: 0123456789</span>
+			<span>código de barras: <h:outputText value="#{detalhesFaces.item.codigoBarras}"/></span>
 		</div>
 
 
 		<div class="item">
 			<span>grupo segmento</span>
-			<p>06 - Lorem ipsum dolor sit amet, consectetur adipisicing elit</p>
+			<p>
+				<h:outputText value="#{detalhesFaces.item.segmento.grupoSegmento.descricaoFormatada}"/> 
+			</p>
 		</div>
 		<div class="item">
 			<span>segmento</span>
-			<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit</p>
+			<p>
+				<h:outputText value="#{detalhesFaces.item.segmento.descricao}"/> 
+			</p>
 		</div>
+		<c:if test="#{!empty detalhesFaces.item.observacao}">
 		<div class="item">
 			<span>observação</span>
-			<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ut id, nam consequuntur repellendus nihil magni labore, soluta tempora iste fugit, a! Ipsum laborum voluptates, eius cum praesentium numquam. Provident, quidem!</p>
+			<p>
+				<h:outputText value="#{detalhesFaces.item.observacao}" escape="false"/>
+			</p>
 		</div>
+		</c:if>
 	</div>
 
 	<div class="clear"></div>
@@ -78,15 +88,21 @@
 		<div class="topo">informações do segmento</div>
 		<div class="item">
 			<span>grupo ncm</span>
-			<p>Ut id, nam consequuntur repellendus nihil magni labore, soluta tempora iste fugit, a! Ipsum laborum voluptates, eius cum praesentium numquam</p>
+			<p>
+				<h:outputText value="#{detalhesFaces.item.segmento.ncm.grupoNcm.descricao}"/>
+			</p>
 		</div>
 		<div class="item metade">
 			<span>código</span>
-			<p>000</p>
+			<p>
+				<h:outputText value="#{detalhesFaces.item.segmento.ncm.grupoNcm.codigo}"/>
+			</p>
 		</div>
 		<div class="item metade">
 			<span>ncm</span>
-			<p>0000.00.00-lorem</p>
+			<p>
+				<h:outputText value="#{detalhesFaces.item.segmento.ncm.descricaoFormatada}"/>
+			</p>
 		</div>
 
 		<hr />

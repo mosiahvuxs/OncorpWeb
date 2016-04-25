@@ -123,8 +123,44 @@ public class ItemDAO implements CrudDAO<Item> {
 
 	@Override
 	public Item obter(Item model) {
-		// TODO Auto-generated method stub
-		return null;
+		
+		TSDataBaseBrokerIf broker = TSDataBaseBrokerFactory.getDataBaseBrokerIf();
+
+		StringBuilder sql = new StringBuilder();
+
+		sql.append("SELECT I.ID, I.SEGMENTO_ID, SEG.CODIGO, SEG.DESCRICAO, SEG.GRUPO_SEGMENTO_ID, GS.DESCRICAO, GS.CODIGO, NC.ID, NC.DESCRICAO, NC.CODIGO, NC.CODIGO_EXCECAO, GNC.ID, GNC.DESCRICAO, GNC.CODIGO, I.FLAG_ATIVO, I.DESCRICAO, I.CODIGO_BARRAS, I.VALOR_UNITARIO, I.UNIDADE_MEDIDA_ID, I.CODIGO_INTERNO, I.EMPRESA_ID, I.OBSERVACAO, I.DATA_CADASTRO, I.DATA_ATUALIZACAO, I.DATA_ARQUIVO, I.ARQUIVO, I.STATUS_ID FROM PUBLIC.ITENS I LEFT OUTER JOIN SEGMENTO SEG ON SEG.ID = I.SEGMENTO_ID LEFT OUTER JOIN GRUPO_SEGMENTO GS ON GS.ID = SEG.GRUPO_SEGMENTO_ID LEFT OUTER JOIN NCM NC ON NC.ID = SEG.NCM_ID LEFT OUTER JOIN GRUPO_NCM GNC ON GNC.ID = NC.GRUPO_NCM_ID WHERE I.EMPRESA_ID = 1");
+
+		if (!TSUtil.isEmpty(model.getId())) {
+
+			sql.append(" AND I.ID = ?");
+
+		} else {
+
+			if (!TSUtil.isEmpty(TSUtil.tratarString(model.getCodigoBarras()))) {
+
+				sql.append(" AND I.CODIGO_BARRAS = ?");
+
+			}
+
+		}
+
+		broker.setSQL(sql.toString());
+
+		if (!TSUtil.isEmpty(model.getId())) {
+
+			broker.set(model.getId());
+
+		} else {
+
+			if (!TSUtil.isEmpty(TSUtil.tratarString(model.getCodigoBarras()))) {
+
+				broker.set(model.getCodigoBarras());
+
+			}
+
+		}
+
+		return (Item) broker.getObjectBean(Item.class, "id", "segmento.id", "segmento.codigo", "segmento.descricao", "segmento.grupoSegmento.id", "segmento.grupoSegmento.descricao", "segmento.grupoSegmento.codigo", "segmento.ncm.id", "segmento.ncm.descricao", "segmento.ncm.codigo", "segmento.ncm.codigoExcecao", "segmento.ncm.grupoNcm.id", "segmento.ncm.grupoNcm.descricao", "segmento.ncm.grupoNcm.codigo", "flagAtivo", "descricao", "codigoBarras", "valorUnitario", "unidadeMedida.id", "codigoInterno", "empresa.id", "observacao", "dataCadastro", "dataAtualizacao", "dataArquivo", "arquivo", "status.id");
 	}
 
 	@Override
