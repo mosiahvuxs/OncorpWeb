@@ -14,20 +14,18 @@ public class ItemDAO implements CrudDAO<Item> {
 
 		TSDataBaseBrokerIf broker = TSDataBaseBrokerFactory.getDataBaseBrokerIf();
 
-		StringBuilder sql = new StringBuilder("SELECT COUNT(*) FROM PUBLIC.ITENS WHERE I.FLAG_ATIVO = ? AND I.EMPRESA_ID = 1");
+		StringBuilder sql = new StringBuilder("SELECT COUNT(*) FROM PUBLIC.ITENS WHERE FLAG_ATIVO = ? AND EMPRESA_ID = 1");
 
 		if (!TSUtil.isEmpty(TSUtil.tratarString(model.getDescricao()))) {
 
-			sql.append(" AND SEM_ACENTOS(UPPER(I.DESCRICAO)) ILIKE SEM_ACENTOS(UPPER(?))");
+			sql.append(" AND SEM_ACENTOS(UPPER(DESCRICAO)) ILIKE SEM_ACENTOS(UPPER(?))");
 		}
 
 		if (!TSUtil.isEmpty(TSUtil.tratarString(model.getCodigoBarras()))) {
 
-			sql.append(" AND I.CODIGO_BARRAS = ?");
+			sql.append(" AND CODIGO_BARRAS = ?");
 
 		}
-
-		sql.append(" ORDER BY I.DESCRICAO");
 
 		broker.setSQL(sql.toString(), model.getFlagAtivo());
 

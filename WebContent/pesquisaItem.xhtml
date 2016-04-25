@@ -5,7 +5,8 @@
 		xmlns:h="http://xmlns.jcp.org/jsf/html" 
 		xmlns:ui="http://xmlns.jcp.org/jsf/facelets" 
 		xmlns:f="http://xmlns.jcp.org/jsf/core" 
-		xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+		xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+		xmlns:pt="http://xmlns.jcp.org/jsf/passthrough">
 
 <h:head>
 	
@@ -42,18 +43,52 @@
 </div>
 
 <div class="infoProduto">
+	
 	<h3>Pesquisar produto</h3>
+	
+	<h:messages showDetail="true" showSummary="false" errorClass="error" fatalClass="error"/>
 
-	<form action="" class="busca">
+	<h:form styleClass="busca" prependId="false">
+		
 		<label for="">buscar por</label>
-		<input type="text" name="" id="" placeholder="código de barras" />
-		<input type="text" name="" id="" placeholder="descrição" />
-		<input type="submit" value="buscar"/>
-	</form>
+		
+		<h:inputText id="codigoBarras" value="#{pesquisaItemFaces.item.codigoBarras}" pt:placeholder="código de barras"/>
+		<h:inputText id="descricao" value="#{pesquisaItemFaces.item.descricao}" pt:placeholder="descrição"/>
+		
+		<h:commandButton value="buscar" action="#{pesquisaItemFaces.pesquisar}"/>
+		
+	</h:form>
 
-	<div class="listaResultados">
-		<div class="topo">encontrados <span>"0000"</span> resultados para <span>"lorem ipsum"</span></div>
-
+	<div class="listaResultados" style="${pesquisaItemFaces.exibirDivResultado ? 'display:block' : 'display:none'}">
+	
+		<div class="topo" >
+		
+		<c:if test="#{pesquisaItemFaces.item.total > 1}">
+		encontrados 
+		</c:if>
+		
+		<c:if test="#{pesquisaItemFaces.item.total==1}">
+		encontrado
+		</c:if>
+		
+		<c:if test="#{pesquisaItemFaces.item.total==0}">
+			<span>Nenhum resultado foi encontrado para #{pesquisaItemFaces.filtro}</span>
+		</c:if>
+		
+		<span> <h:outputText value="#{pesquisaItemFaces.item.total}" rendered="#{pesquisaItemFaces.item.total > 0}"/> </span> 
+		<c:if test="#{pesquisaItemFaces.item.total > 1}">
+		resultados para
+		</c:if>
+		<c:if test="#{pesquisaItemFaces.item.total==1}">
+		resultado para
+		</c:if>  
+		
+		<span> <h:outputText value="#{pesquisaItemFaces.filtro}" rendered="#{pesquisaItemFaces.item.total > 0}"/> </span>
+		
+		</div>
+		
+		<c:if test="#{!empty pesquisaItemFaces.itens}">
+		
 		<ul class="resultados">
 			<li>
 				<a href="detalhe">
@@ -105,8 +140,10 @@
 			</div>
 		</div>
 		
-
+		</c:if>
+		
 	</div>
+	
 </div>
 
 <div id="mask">

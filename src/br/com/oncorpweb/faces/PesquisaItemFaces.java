@@ -11,6 +11,7 @@ import br.com.oncorpweb.model.Item;
 import br.com.oncorpweb.model.Paginacao;
 import br.com.oncorpweb.util.Constantes;
 import br.com.topsys.util.TSUtil;
+import br.com.topsys.web.util.TSFacesUtil;
 
 @ManagedBean(name = "pesquisaItemFaces")
 @ViewScoped
@@ -20,6 +21,8 @@ public class PesquisaItemFaces {
 	private List<Item> itens;
 	private List<Paginacao> paginacao;
 	private Long paginaCorrente, offSet;
+	private boolean exibirDivResultado;
+	private String filtro;
 
 	public PesquisaItemFaces() {
 
@@ -32,28 +35,64 @@ public class PesquisaItemFaces {
 
 		this.paginaCorrente = 1L;
 
+		this.exibirDivResultado = false;
+
 	}
 
 	public String pesquisar() {
 
-		this.itens = new ArrayList<Item>();
+		if (TSUtil.isEmpty(TSUtil.tratarString(this.item.getCodigoBarras())) && TSUtil.isEmpty(TSUtil.tratarString(this.item.getDescricao()))) {
 
-		ItemDAO itemDAO = new ItemDAO();
+			TSFacesUtil.addErrorMessage("Favor informar um dos campos para realizar a pesquisa.");
 
-		Item model = itemDAO.obterTotal(this.item);
+		} else {
 
-		if (!TSUtil.isEmpty(model) && model.getTotal() > 0) {
+			this.exibirDivResultado = true;
 
-			this.popularPaginacao(model.getTotal(), this.paginaCorrente);
+			this.filtro = null;
 
-			Long offSet = 0L;
+			this.itens = new ArrayList<Item>();
 
-			if (!this.paginaCorrente.equals(1L)) {
+			ItemDAO itemDAO = new ItemDAO();
 
-				offSet = (this.paginaCorrente - 1L) * Constantes.LIMITE_LINHAS;
+			Item model = itemDAO.obterTotal(this.item);
+
+			this.item.setTotal(0L);
+
+			if (!TSUtil.isEmpty(model) && model.getTotal() > 0) {
+
+				this.popularPaginacao(model.getTotal(), this.paginaCorrente);
+
+				Long offSet = 0L;
+
+				if (!this.paginaCorrente.equals(1L)) {
+
+					offSet = (this.paginaCorrente - 1L) * Constantes.LIMITE_LINHAS;
+				}
+
+				this.itens = itemDAO.pesquisar(this.item, Constantes.LIMITE_LINHAS, offSet);
+
+				this.item.setTotal(model.getTotal());
+
 			}
 
-			this.itens = itemDAO.pesquisar(this.item, Constantes.LIMITE_LINHAS, offSet);
+			if (!TSUtil.isEmpty(TSUtil.tratarString(this.item.getCodigoBarras()))) {
+
+				this.filtro = this.item.getCodigoBarras();
+			}
+
+			if (!TSUtil.isEmpty(TSUtil.tratarString(this.item.getDescricao()))) {
+
+				if (!TSUtil.isEmpty(this.filtro)) {
+
+					this.filtro = this.filtro + " E " + this.item.getDescricao();
+
+				} else {
+
+					this.filtro = this.item.getDescricao();
+				}
+
+			}
 
 		}
 
@@ -140,5 +179,21 @@ public class PesquisaItemFaces {
 
 	public void setOffSet(Long offSet) {
 		this.offSet = offSet;
+	}
+
+	public boolean isExibirDivResultado() {
+		return exibirDivResultado;
+	}
+
+	public void setExibirDivResultado(boolean exibirDivResultado) {
+		this.exibirDivResultado = exibirDivResultado;
+	}
+
+	public String getFiltro() {
+		return filtro;
+	}
+
+	public void setFiltro(String filtro) {
+		this.filtro = filtro;
 	}
 }

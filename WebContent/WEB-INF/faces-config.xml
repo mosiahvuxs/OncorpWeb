@@ -13,7 +13,7 @@
 		</navigation-case>
 		<navigation-case>
 			<from-outcome>pesquisa</from-outcome>
-			<to-view-id>/pesquisa</to-view-id>
+			<to-view-id>/pesquisaItem</to-view-id>
 			<redirect/>
 		</navigation-case>
 	</navigation-rule>
