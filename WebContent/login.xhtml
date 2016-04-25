@@ -1,0 +1,57 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE html>
+<html 	lang="pt-br"
+		xmlns="http://www.w3.org/1999/xhtml" 
+		xmlns:h="http://xmlns.jcp.org/jsf/html" 
+		xmlns:ui="http://xmlns.jcp.org/jsf/facelets" 
+		xmlns:f="http://xmlns.jcp.org/jsf/core" 
+		xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+
+<h:head>
+	
+	<meta charset="UTF-8"/>
+	
+	<title>ONCORP Soluções</title>
+	
+	<link rel="stylesheet" href="#{request.contextPath}/css/css.css" />
+	
+	<script type="text/javascript" src="#{request.contextPath}/js/jquery.1.7.1.min.js"/>
+	<script>
+		$(function(){
+			var height = $(window).height();
+			$('body').css('height', height);
+		})
+	</script>
+	
+</h:head>
+
+<h:body styleClass="login">
+
+<h:form>
+	
+	<fieldset>
+		
+		<div class="marca">
+			<a href="http://oncorpgroup.com.br/">
+				<img src="#{request.contextPath}/img/logo.png" alt="" />
+			</a>
+		</div>
+		
+		<h:messages showDetail="true" showSummary="false" errorClass="error" fatalClass="error"/>
+		
+		<label for="usuario">Usuário
+			<h:inputText id="usuario" value="#{loginFaces.usuario.login}" required="true" requiredMessage="Usuário: Campo obrigatório"/>
+		</label>
+		<label for="senha">Senha
+			<h:inputSecret id="senha" value="#{loginFaces.usuario.senha}" required="true" requiredMessage="Senha: Campo obrigatório"/>
+		</label>
+		
+		<h:commandButton action="#{loginFaces.autenticar}" value="Acessar"/>
+		
+	</fieldset>
+	
+</h:form>
+	
+</h:body>
+
+</html>

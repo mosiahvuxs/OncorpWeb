@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+	<meta charset="UTF-8">
+	<title>ONCORP Soluções</title>
+	<link rel="stylesheet" href="css/css.css" />
+	<meta author="Thiago Santos - www.tigurio.com.br">
+	<!-- JAVASCRIPT -->
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+	<link rel="stylesheet" href="http://oncorpgroup.com.br/wp-content/themes/foundry/style/css/fonts.css" />
+	<link href='https://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
+</head>
+<body>
+
+<div class="topo">
+	<address>
+		<span><i class="ti-mobile">&nbsp;</i> central de atendimento: 4003-4563</span>
+		<span><i class="ti-email">&nbsp;</i> atendimento.rj@oncorp.srv.br</span>
+
+		<a class="btn" href="http://oncorpfiscal.com.br/cliente">ÁREA DO CLIENTE</a>
+	</address>
+	<h1 class="marca"><a href="http://oncorpgroup.com.br/"><img src="http://oncorpgroup.com.br/wp-content/uploads/2016/04/tela01.png" alt=""></a></h1>
+	<nav>
+		<ul>
+			<li><a href="http://oncorpgroup.com.br/sobre-nos">a empresa</a></li>
+			<li><a href="http://oncorpgroup.com.br/#servicos">serviços</a></li>
+			<li><a href="http://oncorpgroup.com.br/#clientes">clientes</a></li>
+			<li><a href="http://oncorpgroup.com.br/#contato">contato</a></li>
+		</ul>
+	</nav>
+</div>
+
+<div class="infoProduto">
+
+
+	<h3>Informações do produto</h2>
+
+	<figure><img src="http://lorempixel.com/460/460/food" alt=""></figure>
+	<div class="detalhes">
+		<h2>Aqui entra o nome do produto</h2>
+
+		<div class="item metade">
+			<span>código interno: 12345</span>
+		</div>
+		<div class="item metade">
+			<span>código de barras: 0123456789</span>
+		</div>
+
+
+		<div class="item">
+			<span>grupo segmento</span>
+			<p>06 - Lorem ipsum dolor sit amet, consectetur adipisicing elit</p>
+		</div>
+		<div class="item">
+			<span>segmento</span>
+			<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit</p>
+		</div>
+		<div class="item">
+			<span>observação</span>
+			<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ut id, nam consequuntur repellendus nihil magni labore, soluta tempora iste fugit, a! Ipsum laborum voluptates, eius cum praesentium numquam. Provident, quidem!</p>
+		</div>
+	</div>
+
+	<div class="clear"></div>
+
+	<div class="infoSegmento">
+		<div class="topo">informações do segmento</div>
+		<div class="item">
+			<span>grupo ncm</span>
+			<p>Ut id, nam consequuntur repellendus nihil magni labore, soluta tempora iste fugit, a! Ipsum laborum voluptates, eius cum praesentium numquam</p>
+		</div>
+		<div class="item metade">
+			<span>código</span>
+			<p>000</p>
+		</div>
+		<div class="item metade">
+			<span>ncm</span>
+			<p>0000.00.00-lorem</p>
+		</div>
+
+		<hr />
+
+
+		<script>
+			$(function(){
+			    $('div.tabs > div').hide().filter(":first").show();
+			    $('div.tabs ul.tab-menu a').click(function(){
+			        $('div.tabs > div').hide().filter(this.hash).show();
+			        $('div.tabs ul.tab-menu li').removeClass('selecionado');
+			        $(this).parent().addClass('selecionado');
+			    });
+
+			    $('.ico-visualizar').click(function(event) {
+			    	$('#mask').fadeIn();
+			    	event.preventDefault();
+			    });
+			    $('#mask').click(function(event){
+		    		$(this).fadeOut();
+		    		event.preventDefault();
+		    	});
+			});
+		</script>
+
+		<div class="tabs">
+		    <ul class="tab-menu">
+		        <li class="selecionado">
+		            <a href="#item1">cofins</a>
+		        </li>
+		        <li>
+		            <a href="#item2">icms</a>
+		        </li>
+		        <li>
+		            <a href="#item3">ipi</a>
+		        </li>
+		        <li>
+		            <a href="#item4">pis</a>
+		        </li>
+		    </ul>
+
+
+		    <div id="item1">
+
+		    	<table>
+		    		<thead>
+		    			<tr>
+		    				<td>Ramo</td>
+		    				<td>Regime Tributário</td>
+		    				<td>Operação</td>
+		    				<td>CST</td>
+		    				<td>Alíquota</td>
+		    				<td>Visualização</td>
+		    			</tr>
+		    		</thead>
+		    		<tbody>
+		    			<tr>
+		    				<td>varejo</td>
+		    				<td>lucro real</td>
+		    				<td>entrada</td>
+		    				<td>CÓDIGO - 70 - OPERAÇÃO DE AQUISIÇÃO SEM DIREITO A CRÉDITO</td>
+		    				<td>0,00</td>
+		    				<td><i class="ico-visualizar">ver</i></td>
+		    			</tr>
+		    			<tr>
+		    				<td>varejo</td>
+		    				<td>lucro real</td>
+		    				<td>entrada</td>
+		    				<td>CÓDIGO - 70 - OPERAÇÃO DE AQUISIÇÃO SEM DIREITO A CRÉDITO</td>
+		    				<td>0,00</td>
+		    				<td><i class="ico-visualizar">ver</i></td>
+		    			</tr>
+		    			<tr>
+		    				<td>varejo</td>
+		    				<td>lucro real</td>
+		    				<td>entrada</td>
+		    				<td>CÓDIGO - 70 - OPERAÇÃO DE AQUISIÇÃO SEM DIREITO A CRÉDITO</td>
+		    				<td>0,00</td>
+		    				<td><i class="ico-visualizar">ver</i></td>
+		    			</tr>
+		    		</tbody>
+		    	</table>
+
+		    </div>
+
+		    <div id="item2">
+
+				<table>
+		    		<thead>
+		    			<tr>
+		    				<td>Ramo</td>
+		    				<td>Regime Tributário</td>
+		    				<td>Operação</td>
+		    				<td>CST</td>
+		    				<td>Alíquota</td>
+		    				<td>Visualização</td>
+		    			</tr>
+		    		</thead>
+		    		<tbody>
+		    			<tr>
+		    				<td></td>
+		    				<td></td>
+		    				<td></td>
+		    				<td></td>
+		    				<td></td>
+		    				<td></td>
+		    			</tr>
+		    			<tr>
+		    				<td></td>
+		    				<td></td>
+		    				<td></td>
+		    				<td></td>
+		    				<td></td>
+		    				<td></td>
+		    			</tr>
+		    			<tr>
+		    				<td></td>
+		    				<td></td>
+		    				<td></td>
+		    				<td></td>
+		    				<td></td>
+		    				<td></td>
+		    			</tr>
+		    		</tbody>
+		    	</table>
+
+		    </div>
+
+		    <div id="item3">
+
+		    <table>
+		    		<thead>
+		    			<tr>
+		    				<td>Ramo</td>
+		    				<td>Regime Tributário</td>
+		    				<td>Operação</td>
+		    				<td>CST</td>
+		    				<td>Alíquota</td>
+		    				<td>Visualização</td>
+		    			</tr>
+		    		</thead>
+		    		<tbody>
+		    			<tr>
+		    				<td></td>
+		    				<td></td>
+		    				<td></td>
+		    				<td></td>
+		    				<td></td>
+		    				<td></td>
+		    			</tr>
+		    			<tr>
+		    				<td></td>
+		    				<td></td>
+		    				<td></td>
+		    				<td></td>
+		    				<td></td>
+		    				<td></td>
+		    			</tr>
+		    			<tr>
+		    				<td></td>
+		    				<td></td>
+		    				<td></td>
+		    				<td></td>
+		    				<td></td>
+		    				<td></td>
+		    			</tr>
+		    		</tbody>
+		    	</table>
+
+		    </div>
+
+		    <div id="item4">
+
+		    <table>
+		    		<thead>
+		    			<tr>
+		    				<td>Ramo</td>
+		    				<td>Regime Tributário</td>
+		    				<td>Operação</td>
+		    				<td>CST</td>
+		    				<td>Alíquota</td>
+		    				<td>Visualização</td>
+		    			</tr>
+		    		</thead>
+		    		<tbody>
+		    			<tr>
+		    				<td></td>
+		    				<td></td>
+		    				<td></td>
+		    				<td></td>
+		    				<td></td>
+		    				<td></td>
+		    			</tr>
+		    			<tr>
+		    				<td></td>
+		    				<td></td>
+		    				<td></td>
+		    				<td></td>
+		    				<td></td>
+		    				<td></td>
+		    			</tr>
+		    			<tr>
+		    				<td></td>
+		    				<td></td>
+		    				<td></td>
+		    				<td></td>
+		    				<td></td>
+		    				<td></td>
+		    			</tr>
+		    		</tbody>
+		    	</table>
+
+		    </div>
+
+		</div>
+	</div>
+
+<!-- 	<form action="" class="busca">
+		<label for="">buscar por</label>
+		<input type="text" name="" id="" placeholder="código de barras" />
+		<input type="text" name="" id="" placeholder="descrição" />
+		<input type="submit" value="buscar" formaction="resultadoBusca.html">
+	</form> -->
+	
+</div>
+
+<div id="mask">
+	<div class="conteudo">
+		<div class="infoSegmento">
+			<div class="topo">segmento cst</div>
+			<div class="dadosCst">
+				<div class="item grid4">
+					<span>tipo</span>
+					<p>lorem ipsum dolor si amet</p>
+				</div>
+				<div class="item grid4">
+					<span>ramo empresa</span>
+					<p>lorem</p>
+				</div>
+				<div class="item grid4">
+					<span>regime tributário</span>
+					<p>lorem ipsum</p>
+				</div>
+				<div class="item grid4">
+					<span>operação</span>
+					<p>lorem</p>
+				</div>
+
+				<div class="clear"></div>
+
+				<div class="item grid3">
+					<span>cst</span>
+					<p>lorem-0000</p>
+				</div>
+				<div class="item grid3">
+					<span>alíquota</span>
+					<p>0,00</p>
+				</div>
+				<div class="item grid3">
+					<span>estado</span>
+					<p>lorem ipsum dolor</p>
+				</div>
+
+				<div class="clear"></div>
+
+				<div class="item grid2">
+					<span> subitem st</span>
+					<p>00,00</p>
+				</div>
+				<div class="item grid2">
+					<span>cest</span>
+					<p>00.000,00</p>
+				</div>
+
+				<div class="clear"></div>
+
+				<div class="item grid5">
+					<span>alíquota st</span>
+					<p>0,00</p>
+				</div>
+				<div class="item grid5">
+					<span>base reduzida</span>
+					<p>0,00</p>
+				</div>
+				<div class="item grid5">
+					<span>mva interno</span>
+					<p>0,00</p>
+				</div>
+				<div class="item grid5">
+					<span>mva externo</span>
+					<p>0,00</p>
+				</div>
+				<div class="item grid5">
+					<span>mva importado</span>
+					<p>0,00</p>
+				</div>
+
+				<div class="clear"></div>
+
+				<div class="item grid5">
+					<span>mva atacado</span>
+					<p>0,00</p>
+				</div>
+				<div class="item grid5">
+					<span>mva indústria</span>
+					<p>0,00</p>
+				</div>
+				<div class="item grid5">
+					<span>mva original</span>
+					<p>0,00</p>
+				</div>
+				<div class="item grid5">
+					<span>mva ajustado</span>
+					<p>0,00</p>
+				</div>
+				<div class="item grid5">
+					<span>valor pauta</span>
+					<p>0,00</p>
+				</div>
+
+				<div class="clear"></div>
+
+				<div class="item grid2">
+					<span>vigência inicial</span>
+					<p>00/00/0000</p>
+				</div>
+				<div class="item grid2">
+					<span>vigência final</span>
+					<p>00/00/0000</p>
+				</div>
+
+				<div class="clear"></div>
+
+				<div class="item grid2">
+					<span>lei interno</span>
+					<p>lorem ipsum dolor 00/0000</p>
+				</div>
+				<div class="item grid2">
+					<span>lei saída</span>
+					<p>lorem ipsum dolor 00/0000</p>
+				</div>
+
+				<div class="clear"></div>
+
+				<div class="item grid2">
+					<span>lei link interno</span>
+					<p>wwww.link-interno.com.br</p>
+				</div>
+				<div class="item grid2">
+					<span>lei link saída</span>
+					<p>www.link-saida.com.br</p>
+				</div>
+
+				<div class="clear"></div>
+
+				<div class="item grid1">
+					<span>natureza</span>
+					<p>lorem ipsum dolor sit amet</p>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+	
+</body>
+</html>
