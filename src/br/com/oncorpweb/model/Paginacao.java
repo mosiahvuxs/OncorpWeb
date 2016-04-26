@@ -7,6 +7,7 @@ public class Paginacao implements Serializable {
 
 	private Long pagina, inicio, fim;
 	private boolean current, next, nextPage;
+	private String url;
 
 	public boolean isCurrent() {
 		return current;
@@ -79,6 +80,14 @@ public class Paginacao implements Serializable {
 
 	public void setFim(Long fim) {
 		this.fim = fim;
+	}
+
+	public String getUrl() {
+		return url;
+	}
+
+	public void setUrl(String url) {
+		this.url = url;
 	}
 
 }

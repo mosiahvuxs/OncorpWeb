@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<pretty-config xmlns="http://ocpsoft.com/prettyfaces/3.2.0"
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="http://ocpsoft.com/prettyfaces/3.2.0
-    http://ocpsoft.com/xml/ns/prettyfaces/ocpsoft-pretty-faces-3.2.0.xsd">
+<pretty-config xmlns="http://ocpsoft.com/prettyfaces/3.3.0" 
+               xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+               xsi:schemaLocation="http://ocpsoft.com/prettyfaces/3.3.0
+                                   		http://ocpsoft.com/xml/ns/prettyfaces/ocpsoft-pretty-faces-3.3.0.xsd">
  	
  	<url-mapping id="index">
         <pattern value="/"></pattern>
@@ -19,7 +19,7 @@
         <view-id value="/pesquisaItem.xhtml"></view-id>
     </url-mapping>
     <url-mapping id="pesquisa">
-        <pattern value="/pesquisa/pagina/#{pesquisaItemFaces.paginaCorrente}"></pattern>
+        <pattern value="/pesquisa/filtros/#{pesquisaItemFaces.urlFiltro}"></pattern>
         <view-id value="/pesquisaItem.xhtml"></view-id>
         <action onPostback="false">#{pesquisaItemFaces.paginar}</action>
     </url-mapping>

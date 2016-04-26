@@ -56,5 +56,13 @@ public final class Utilitarios {
 		
 		externalContext.redirect(externalContext.getRequestContextPath() + "/");
 	}
+	
+	@SuppressWarnings("static-access")
+	public static void redirectPesquisa() throws IOException{
+		
+		ExternalContext externalContext = TSFacesUtil.getFacesContext().getCurrentInstance().getExternalContext(); 
+		
+		externalContext.redirect(externalContext.getRequestContextPath() + "/pesquisa");
+	}
 
 }

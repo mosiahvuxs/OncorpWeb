@@ -1,5 +1,6 @@
 package br.com.oncorpweb.faces;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -10,6 +11,7 @@ import br.com.oncorpweb.dao.ItemDAO;
 import br.com.oncorpweb.model.Item;
 import br.com.oncorpweb.model.Paginacao;
 import br.com.oncorpweb.util.Constantes;
+import br.com.oncorpweb.util.Utilitarios;
 import br.com.topsys.util.TSUtil;
 import br.com.topsys.web.util.TSFacesUtil;
 
@@ -22,7 +24,7 @@ public class PesquisaItemFaces {
 	private List<Paginacao> paginacao;
 	private Long paginaCorrente, offSet;
 	private boolean exibirDivResultado;
-	private String filtro;
+	private String filtro, urlFiltro;
 
 	public PesquisaItemFaces() {
 
@@ -53,6 +55,8 @@ public class PesquisaItemFaces {
 
 			this.filtro = null;
 
+			this.urlFiltro = null;
+
 			this.itens = new ArrayList<Item>();
 
 			ItemDAO itemDAO = new ItemDAO();
@@ -61,9 +65,33 @@ public class PesquisaItemFaces {
 
 			this.item.setTotal(0L);
 
+			if (!TSUtil.isEmpty(TSUtil.tratarString(this.item.getCodigoBarras()))) {
+
+				this.filtro = this.item.getCodigoBarras();
+
+				this.urlFiltro = "&codigoBarras=" + this.item.getCodigoBarras();
+			}
+
+			if (!TSUtil.isEmpty(TSUtil.tratarString(this.item.getDescricao()))) {
+
+				if (!TSUtil.isEmpty(this.filtro)) {
+
+					this.filtro = this.filtro + " E " + this.item.getDescricao();
+
+					this.urlFiltro = this.urlFiltro + "&descricao=" + this.item.getDescricao();
+
+				} else {
+
+					this.filtro = this.item.getDescricao();
+
+					this.urlFiltro = "&descricao=" + this.item.getDescricao();
+				}
+
+			}
+
 			if (!TSUtil.isEmpty(model) && model.getTotal() > 0) {
 
-				this.popularPaginacao(model.getTotal(), this.paginaCorrente);
+				this.popularPaginacao(model.getTotal(), this.paginaCorrente, this.urlFiltro);
 
 				Long offSet = 0L;
 
@@ -78,63 +106,123 @@ public class PesquisaItemFaces {
 
 			}
 
-			if (!TSUtil.isEmpty(TSUtil.tratarString(this.item.getCodigoBarras()))) {
-
-				this.filtro = this.item.getCodigoBarras();
-			}
-
-			if (!TSUtil.isEmpty(TSUtil.tratarString(this.item.getDescricao()))) {
-
-				if (!TSUtil.isEmpty(this.filtro)) {
-
-					this.filtro = this.filtro + " E " + this.item.getDescricao();
-
-				} else {
-
-					this.filtro = this.item.getDescricao();
-				}
-
-			}
-
 		}
 
 		return null;
 	}
 
 	public String paginar() {
-		
-		this.item.setCodigoBarras(TSFacesUtil.getRequestParameter("codigoBarras"));
-		this.item.setDescricao(TSFacesUtil.getRequestParameter("descricao"));
 
 		this.itens = new ArrayList<Item>();
 
 		ItemDAO itemDAO = new ItemDAO();
 
-		Item model = itemDAO.obterTotal(this.item);
+		if (!TSUtil.isEmpty(this.urlFiltro)) {
 
-		if (!TSUtil.isEmpty(model) && model.getTotal() > 0) {
-			
-			this.exibirDivResultado = true;
+			String[] filtros = this.urlFiltro.split("&");
 
-			this.item.setTotal(model.getTotal());
+			if (!TSUtil.isEmpty(filtros)) {
 
-			this.popularPaginacao(model.getTotal(), this.paginaCorrente);
+				String pagina = filtros[0].substring(filtros[0].lastIndexOf("=") + 1);
 
-			Long offSet = 0L;
+				if (TSUtil.isNumeric(pagina) && new Integer(pagina) > 0) {
 
-			if (!this.paginaCorrente.equals(1L)) {
+					this.paginaCorrente = new Long(pagina);
 
-				offSet = (this.paginaCorrente - 1L) * Constantes.LIMITE_LINHAS;
+					if (filtros.length > 0) {
+
+						for (int i = 0; i < filtros.length; i++) {
+
+							if (filtros[i].contains("descricao=")) {
+
+								this.item.setDescricao(filtros[i].substring(filtros[i].lastIndexOf("=") + 1));
+							}
+						}
+
+						for (int i = 0; i < filtros.length; i++) {
+
+							if (filtros[i].contains("codigoBarras=")) {
+
+								this.item.setCodigoBarras(filtros[i].substring(filtros[i].lastIndexOf("=") + 1));
+							}
+						}
+
+					}
+
+					if (TSUtil.isEmpty(TSUtil.tratarString(this.item.getCodigoBarras())) && TSUtil.isEmpty(TSUtil.tratarString(this.item.getDescricao()))) {
+
+						try {
+
+							Utilitarios.redirectPesquisa();
+
+						} catch (IOException e) {
+							
+							e.printStackTrace();
+						}
+
+					} else {
+
+						Item model = itemDAO.obterTotal(this.item);
+
+						if (!TSUtil.isEmpty(model) && model.getTotal() > 0) {
+
+							this.exibirDivResultado = true;
+
+							this.item.setTotal(model.getTotal());
+							
+							this.urlFiltro = "";
+
+							if (!TSUtil.isEmpty(TSUtil.tratarString(this.item.getCodigoBarras()))) {
+
+								this.urlFiltro = "&codigoBarras=" + this.item.getCodigoBarras();
+							}
+
+							if (!TSUtil.isEmpty(TSUtil.tratarString(this.item.getDescricao()))) {
+
+								if (!TSUtil.isEmpty(this.urlFiltro)) {
+
+									this.urlFiltro = this.urlFiltro + "&descricao=" + this.item.getDescricao();
+
+								} else {
+
+									this.urlFiltro = "&descricao=" + this.item.getDescricao();
+								}
+
+							}
+
+							this.popularPaginacao(model.getTotal(), this.paginaCorrente, this.urlFiltro);
+
+							Long offSet = 0L;
+
+							if (!this.paginaCorrente.equals(1L)) {
+
+								offSet = (this.paginaCorrente - 1L) * Constantes.LIMITE_LINHAS;
+							}
+
+							this.itens = itemDAO.pesquisar(this.item, Constantes.LIMITE_LINHAS, offSet);
+
+						}
+					}
+				}
+
+			} else {
+
+				try {
+
+					Utilitarios.redirectPesquisa();
+
+				} catch (IOException e) {
+
+					e.printStackTrace();
+				}
 			}
-
-			this.itens = itemDAO.pesquisar(this.item, Constantes.LIMITE_LINHAS, offSet);
 
 		}
 
 		return null;
 	}
 
-	private void popularPaginacao(Long total, Long page) {
+	private void popularPaginacao(Long total, Long page, String urlFitro) {
 
 		this.paginacao = new ArrayList<Paginacao>();
 
@@ -145,6 +233,8 @@ public class PesquisaItemFaces {
 			Paginacao model = new Paginacao();
 
 			model.setPagina(new Long(count));
+
+			model.setUrl(model.getPagina() + "-" + urlFitro);
 
 			if (model.getPagina().equals(page)) {
 
@@ -223,5 +313,13 @@ public class PesquisaItemFaces {
 
 	public void setFiltro(String filtro) {
 		this.filtro = filtro;
+	}
+
+	public String getUrlFiltro() {
+		return urlFiltro;
+	}
+
+	public void setUrlFiltro(String urlFiltro) {
+		this.urlFiltro = urlFiltro;
 	}
 }

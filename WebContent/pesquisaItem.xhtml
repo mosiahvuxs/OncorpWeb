@@ -49,12 +49,12 @@
 	
 	<h:messages showDetail="true" showSummary="false" errorClass="error" fatalClass="error"/>
 
-	<h:form styleClass="busca" prependId="false">
+	<h:form styleClass="busca" id="formBusca" prependId="false">
 		
 		<label for="">buscar por</label>
 		
-		<h:inputText value="#{pesquisaItemFaces.item.codigoBarras}" pt:placeholder="código de barras"/>
-		<h:inputText value="#{pesquisaItemFaces.item.descricao}" pt:placeholder="descrição"/>
+		<h:inputText style="width: 250px;" value="#{pesquisaItemFaces.item.codigoBarras}" pt:placeholder="código de barras"/>
+		<h:inputText style="width: 600px;" value="#{pesquisaItemFaces.item.descricao}" pt:placeholder="descrição"/>
 		
 		<h:commandButton value="buscar" action="#{pesquisaItemFaces.pesquisar}"/>
 		
@@ -117,26 +117,34 @@
 		<h:inputHidden value="#{pesquisaItemFaces.item.descricao}" id="descricao"/>
 		
 		<div id="paginacao">
-		
-			<div id="paginacao" style="display: none;">
-				<div class="paginas">
+			
+			<div class="paginas">
+			
+				<c:if test="#{pesquisaItemFaces.paginaCorrente - 1 > 0}">
+					<h:outputLink value="#{request.contextPath}/pesquisa/filtros/pagina=#{pesquisaItemFaces.paginaCorrente-1}#{pesquisaItemFaces.urlFiltro}" styleClass="#{item.current ? 'select' : ''}">
+						<h:outputText value="&#171;"/>
+					</h:outputLink>
+				</c:if>
 				
-					<c:if test="#{pesquisaItemFaces.paginaCorrente - 1 > 0}">
-						<em>&#171;</em>
-					</c:if>
-					
-					<c:set value="#{pesquisaItemFaces.paginacao.size()}" var="tamanhoLista"/>
-					
-					<c:forEach items="#{pesquisaItemFaces.paginacao}" var="item">
-						<a id="link" class="#{item.current ? 'select' : ''}" href="#{request.contextPath}/pesquisa/pagina/#{item.pagina}">#{item.pagina}</a>
-					</c:forEach>
-					
-					<c:if test="#{pesquisaItemFaces.paginaCorrente!=tamanhoLista}">
-						<em>&#187;</em>
-					</c:if>
-					
-				</div>
+				<c:set value="#{pesquisaItemFaces.paginacao.size()}" var="tamanhoLista"/>
+				
+				<c:forEach items="#{pesquisaItemFaces.paginacao}" var="item">
+					<h:outputLink disabled="#{item.current}" value="#{request.contextPath}/pesquisa/filtros/pagina=#{item.pagina}#{pesquisaItemFaces.urlFiltro}" styleClass="#{item.current ? 'select' : ''}">
+						<h:outputText value="#{item.pagina}"/>
+					</h:outputLink>
+				</c:forEach>
+				
+				<c:if test="#{pesquisaItemFaces.paginaCorrente!=tamanhoLista}">
+					<h:outputLink value="#{request.contextPath}/pesquisa/filtros/pagina=#{pesquisaItemFaces.paginaCorrente+1}#{pesquisaItemFaces.urlFiltro}" styleClass="#{item.current ? 'select' : ''}">
+						<h:outputText value="&#187;"/>
+					</h:outputLink>
+				</c:if>
+				
 			</div>
+			
+		</div>
+		
+		<div id="paginacao"  style="display: none;">
 			
 			<div class="paginas">
 				
