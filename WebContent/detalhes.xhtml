@@ -48,8 +48,14 @@
 
 
 	<h3>Informações do produto</h3>
-
-	<figure><img src="http://lorempixel.com/460/460/food" alt=""/></figure>
+	
+	<c:if test="#{empty detalhesFaces.item.fotoGrande}">
+		<figure><img src="#{request.contextPath}/img/semFoto-g.jpg" alt="Produto não cadastrado" /></figure>
+	</c:if>
+	<c:if test="#{!empty detalhesFaces.item.fotoGrande}">
+		<figure><img src="#{detalhesFaces.item.fotoGrande}" alt="#{detalhesFaces.item.descricao}" /></figure>
+	</c:if>
+	
 	<div class="detalhes">
 		<h2>
 			<h:outputText value="#{detalhesFaces.item.descricao}"/>

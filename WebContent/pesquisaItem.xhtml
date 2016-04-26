@@ -96,7 +96,7 @@
 			<li>
 				<a href="#{request.contextPath}/detalhes/#{linha.url}">
 					<c:if test="#{empty linha.fotoPequena}">
-						<figure><img src="http://lorempixel.com/150/150/food" alt=""/></figure>
+						<figure><img src="#{request.contextPath}/img/semFoto-p.jpg" alt="Produto não cadastrado" /></figure>
 					</c:if>
 					<c:if test="#{!empty linha.fotoPequena}">
 						<figure><img src="#{linha.fotoPequena}" alt=""/></figure>
