@@ -9,7 +9,8 @@ import javax.faces.model.SelectItem;
 public class TipoCst implements Serializable {
 
 	private Long id;
-	private String descricao;
+
+	private String descricao, styleClassSelecionado;
 
 	private Boolean flagAtivo;
 
@@ -110,6 +111,14 @@ public class TipoCst implements Serializable {
 
 	public void setCsts(List<SelectItem> csts) {
 		this.csts = csts;
+	}
+
+	public String getStyleClassSelecionado() {
+		return styleClassSelecionado;
+	}
+
+	public void setStyleClassSelecionado(String styleClassSelecionado) {
+		this.styleClassSelecionado = styleClassSelecionado;
 	}
 
 }

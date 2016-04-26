@@ -5,7 +5,8 @@
 		xmlns:h="http://xmlns.jcp.org/jsf/html" 
 		xmlns:ui="http://xmlns.jcp.org/jsf/facelets" 
 		xmlns:f="http://xmlns.jcp.org/jsf/core" 
-		xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+		xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+		xmlns:jsf="http://xmlns.jcp.org/jsf">
 
 <h:head>
 	
@@ -22,6 +23,8 @@
 </h:head>
 
 <h:body>
+
+<h:form prependId="false">
 
 <div class="topo">
 	<address>
@@ -129,343 +132,206 @@
 		</script>
 
 		<div class="tabs">
+		    
 		    <ul class="tab-menu">
-		        <li class="selecionado">
-		            <a href="#item1">cofins</a>
-		        </li>
-		        <li>
-		            <a href="#item2">icms</a>
-		        </li>
-		        <li>
-		            <a href="#item3">ipi</a>
-		        </li>
-		        <li>
-		            <a href="#item4">pis</a>
-		        </li>
+		    	
+		    	<c:forEach items="#{detalhesFaces.tipoCsts}" var="linha" varStatus="status">
+			        <li class="#{linha.styleClassSelecionado}">
+			            <a href="#item#{status.index+1}">#{linha.descricao}</a>
+			        </li>
+		        </c:forEach>
+		        
 		    </ul>
+			
+			<c:forEach items="#{detalhesFaces.tipoCsts}" var="linha" varStatus="status">
+				
+				<div id="item#{status.index+1}">
 
-
-		    <div id="item1">
-
-		    	<table>
-		    		<thead>
-		    			<tr>
-		    				<td>Ramo</td>
-		    				<td>Regime Tributário</td>
-		    				<td>Operação</td>
-		    				<td>CST</td>
-		    				<td>Alíquota</td>
-		    				<td>Visualização</td>
-		    			</tr>
-		    		</thead>
-		    		<tbody>
-		    			<tr>
-		    				<td>varejo</td>
-		    				<td>lucro real</td>
-		    				<td>entrada</td>
-		    				<td>CÓDIGO - 70 - OPERAÇÃO DE AQUISIÇÃO SEM DIREITO A CRÉDITO</td>
-		    				<td>0,00</td>
-		    				<td><i class="ico-visualizar">ver</i></td>
-		    			</tr>
-		    			<tr>
-		    				<td>varejo</td>
-		    				<td>lucro real</td>
-		    				<td>entrada</td>
-		    				<td>CÓDIGO - 70 - OPERAÇÃO DE AQUISIÇÃO SEM DIREITO A CRÉDITO</td>
-		    				<td>0,00</td>
-		    				<td><i class="ico-visualizar">ver</i></td>
-		    			</tr>
-		    			<tr>
-		    				<td>varejo</td>
-		    				<td>lucro real</td>
-		    				<td>entrada</td>
-		    				<td>CÓDIGO - 70 - OPERAÇÃO DE AQUISIÇÃO SEM DIREITO A CRÉDITO</td>
-		    				<td>0,00</td>
-		    				<td><i class="ico-visualizar">ver</i></td>
-		    			</tr>
-		    		</tbody>
-		    	</table>
-
-		    </div>
-
-		    <div id="item2">
-
-				<table>
-		    		<thead>
-		    			<tr>
-		    				<td>Ramo</td>
-		    				<td>Regime Tributário</td>
-		    				<td>Operação</td>
-		    				<td>CST</td>
-		    				<td>Alíquota</td>
-		    				<td>Visualização</td>
-		    			</tr>
-		    		</thead>
-		    		<tbody>
-		    			<tr>
-		    				<td></td>
-		    				<td></td>
-		    				<td></td>
-		    				<td></td>
-		    				<td></td>
-		    				<td></td>
-		    			</tr>
-		    			<tr>
-		    				<td></td>
-		    				<td></td>
-		    				<td></td>
-		    				<td></td>
-		    				<td></td>
-		    				<td></td>
-		    			</tr>
-		    			<tr>
-		    				<td></td>
-		    				<td></td>
-		    				<td></td>
-		    				<td></td>
-		    				<td></td>
-		    				<td></td>
-		    			</tr>
-		    		</tbody>
-		    	</table>
-
-		    </div>
-
-		    <div id="item3">
-
-		    <table>
-		    		<thead>
-		    			<tr>
-		    				<td>Ramo</td>
-		    				<td>Regime Tributário</td>
-		    				<td>Operação</td>
-		    				<td>CST</td>
-		    				<td>Alíquota</td>
-		    				<td>Visualização</td>
-		    			</tr>
-		    		</thead>
-		    		<tbody>
-		    			<tr>
-		    				<td></td>
-		    				<td></td>
-		    				<td></td>
-		    				<td></td>
-		    				<td></td>
-		    				<td></td>
-		    			</tr>
-		    			<tr>
-		    				<td></td>
-		    				<td></td>
-		    				<td></td>
-		    				<td></td>
-		    				<td></td>
-		    				<td></td>
-		    			</tr>
-		    			<tr>
-		    				<td></td>
-		    				<td></td>
-		    				<td></td>
-		    				<td></td>
-		    				<td></td>
-		    				<td></td>
-		    			</tr>
-		    		</tbody>
-		    	</table>
-
-		    </div>
-
-		    <div id="item4">
-
-		    <table>
-		    		<thead>
-		    			<tr>
-		    				<td>Ramo</td>
-		    				<td>Regime Tributário</td>
-		    				<td>Operação</td>
-		    				<td>CST</td>
-		    				<td>Alíquota</td>
-		    				<td>Visualização</td>
-		    			</tr>
-		    		</thead>
-		    		<tbody>
-		    			<tr>
-		    				<td></td>
-		    				<td></td>
-		    				<td></td>
-		    				<td></td>
-		    				<td></td>
-		    				<td></td>
-		    			</tr>
-		    			<tr>
-		    				<td></td>
-		    				<td></td>
-		    				<td></td>
-		    				<td></td>
-		    				<td></td>
-		    				<td></td>
-		    			</tr>
-		    			<tr>
-		    				<td></td>
-		    				<td></td>
-		    				<td></td>
-		    				<td></td>
-		    				<td></td>
-		    				<td></td>
-		    			</tr>
-		    		</tbody>
-		    	</table>
-
-		    </div>
-
+			    	<table>
+			    		<thead>
+			    			<tr>
+			    				<td>Ramo</td>
+			    				<td>Regime Tributário</td>
+			    				<td>Operação</td>
+			    				<td>CST</td>
+			    				<td>Alíquota</td>
+			    				<td>Visualização</td>
+			    			</tr>
+			    		</thead>
+			    		<tbody>
+			    			<c:forEach var="segmentoCst" items="#{linha.segmentoCsts}">
+				    			<tr>
+				    				<td>#{segmentoCst.ramoEmpresa.descricao}</td>
+				    				<td>#{segmentoCst.regimeTributario.descricao}</td>
+				    				<td>#{segmentoCst.tipoOperacao.descricao}</td>
+				    				<td>CÓDIGO - #{segmentoCst.cst.descricaoFormatada}</td>
+				    				<td>
+				    					<h:outputText value="#{segmentoCst.aliquota}">
+				    						<f:convertNumber type="number" pattern="###,###,##0.00" locale="pt_BR" />
+				    					</h:outputText>
+				    				</td>
+				    				<td>
+				    					<h:commandLink action="#{detalhesFaces.listener}" value="ver" styleClass="ico-visualizar">
+				    						<f:setPropertyActionListener value="#{segmentoCst}" target="#{detalhesFaces.segmentoCst}"/>
+				    						<f:ajax execute="@this" render="conteudo"/>
+				    					</h:commandLink>
+					    			</td>
+				    			</tr>
+			    			</c:forEach>
+			    		</tbody>
+			    	</table>
+	
+			    </div>
+			    
+			</c:forEach>
+			
 		</div>
 	</div>
-
-<!-- 	<form action="" class="busca">
-		<label for="">buscar por</label>
-		<input type="text" name="" id="" placeholder="código de barras" />
-		<input type="text" name="" id="" placeholder="descrição" />
-		<input type="submit" value="buscar" formaction="resultadoBusca.html">
-	</form> -->
 	
 </div>
 
 <div id="mask">
-	<div class="conteudo">
+	
+	<div jsf:id="conteudo" class="conteudo">
 		<div class="infoSegmento">
 			<div class="topo">segmento cst</div>
 			<div class="dadosCst">
 				<div class="item grid4">
 					<span>tipo</span>
-					<p>lorem ipsum dolor si amet</p>
+					<p>
+						<h:outputText value="#{detalhesFaces.segmentoCst.cst.tipo.descricao}"/>
+					</p>
 				</div>
 				<div class="item grid4">
 					<span>ramo empresa</span>
-					<p>lorem</p>
+					<p><h:outputText value="#{detalhesFaces.segmentoCst.ramoEmpresa.descricao}"/></p>
 				</div>
 				<div class="item grid4">
 					<span>regime tributário</span>
-					<p>lorem ipsum</p>
+					<p><h:outputText value="#{detalhesFaces.segmentoCst.regimeTributario.descricao}"/></p>
 				</div>
 				<div class="item grid4">
 					<span>operação</span>
-					<p>lorem</p>
+					<p><h:outputText value="#{detalhesFaces.segmentoCst.tipoOperacao.descricao}"/></p>
 				</div>
 
 				<div class="clear"></div>
 
 				<div class="item grid3">
 					<span>cst</span>
-					<p>lorem-0000</p>
+					<p><h:outputText value="#{detalhesFaces.segmentoCst.cst.descricaoFormatada}"/></p>
 				</div>
 				<div class="item grid3">
 					<span>alíquota</span>
-					<p>0,00</p>
+					<p><h:outputText value="#{detalhesFaces.segmentoCst.aliquota}"><f:convertNumber type="number" pattern="###,###,##0.00" locale="pt_BR" /></h:outputText></p>
 				</div>
 				<div class="item grid3">
 					<span>estado</span>
-					<p>lorem ipsum dolor</p>
+					<p><h:outputText value="#{detalhesFaces.segmentoCst.estado.descricao}"/></p>
 				</div>
 
 				<div class="clear"></div>
 
 				<div class="item grid2">
 					<span> subitem st</span>
-					<p>00,00</p>
+					<p><h:outputText value="#{detalhesFaces.segmentoCst.subItemSt}"/></p>
 				</div>
 				<div class="item grid2">
 					<span>cest</span>
-					<p>00.000,00</p>
+					<p><h:outputText value="#{detalhesFaces.segmentoCst.cest.codigo}"/></p>
 				</div>
 
 				<div class="clear"></div>
 
 				<div class="item grid5">
 					<span>alíquota st</span>
-					<p>0,00</p>
+					<p><h:outputText value="#{detalhesFaces.segmentoCst.aliquotaSt}"><f:convertNumber type="number" pattern="###,###,##0.00" locale="pt_BR" /></h:outputText></p>
 				</div>
 				<div class="item grid5">
 					<span>base reduzida</span>
-					<p>0,00</p>
+					<p><h:outputText value="#{detalhesFaces.segmentoCst.baseReduzida}"><f:convertNumber type="number" pattern="###,###,##0.00" locale="pt_BR" /></h:outputText></p>
 				</div>
 				<div class="item grid5">
 					<span>mva interno</span>
-					<p>0,00</p>
+					<p><h:outputText value="#{detalhesFaces.segmentoCst.mvaInterno}"><f:convertNumber type="number" pattern="###,###,##0.00" locale="pt_BR" /></h:outputText></p>
 				</div>
 				<div class="item grid5">
 					<span>mva externo</span>
-					<p>0,00</p>
+					<p><h:outputText value="#{detalhesFaces.segmentoCst.mvaExterno}"><f:convertNumber type="number" pattern="###,###,##0.00" locale="pt_BR" /></h:outputText></p>
 				</div>
 				<div class="item grid5">
 					<span>mva importado</span>
-					<p>0,00</p>
+					<p><h:outputText value="#{detalhesFaces.segmentoCst.mvaImportado}"><f:convertNumber type="number" pattern="###,###,##0.00" locale="pt_BR" /></h:outputText></p>
 				</div>
 
 				<div class="clear"></div>
 
 				<div class="item grid5">
 					<span>mva atacado</span>
-					<p>0,00</p>
+					<p><h:outputText value="#{detalhesFaces.segmentoCst.mvaOriginalAtacado}"><f:convertNumber type="number" pattern="###,###,##0.00" locale="pt_BR" /></h:outputText></p>
 				</div>
 				<div class="item grid5">
 					<span>mva indústria</span>
-					<p>0,00</p>
+					<p><h:outputText value="#{detalhesFaces.segmentoCst.mvaOriginalIndustria}"><f:convertNumber type="number" pattern="###,###,##0.00" locale="pt_BR" /></h:outputText></p>
 				</div>
 				<div class="item grid5">
 					<span>mva original</span>
-					<p>0,00</p>
+					<p><h:outputText value="#{detalhesFaces.segmentoCst.mvaOriginal}"><f:convertNumber type="number" pattern="###,###,##0.00" locale="pt_BR" /></h:outputText></p>
 				</div>
 				<div class="item grid5">
 					<span>mva ajustado</span>
-					<p>0,00</p>
+					<p><h:outputText value="#{detalhesFaces.segmentoCst.mvaAjustado}"><f:convertNumber type="number" pattern="###,###,##0.00" locale="pt_BR" /></h:outputText></p>
 				</div>
 				<div class="item grid5">
 					<span>valor pauta</span>
-					<p>0,00</p>
+					<p><h:outputText value="#{detalhesFaces.segmentoCst.valorPauta}"><f:convertNumber type="number" pattern="###,###,##0.00" locale="pt_BR" /></h:outputText></p>
 				</div>
 
 				<div class="clear"></div>
 
 				<div class="item grid2">
 					<span>vigência inicial</span>
-					<p>00/00/0000</p>
+					<p><h:outputText value="#{detalhesFaces.segmentoCst.vigenciaInicial}"><f:convertDateTime type="date" pattern="dd/MM/yyyy" locale="pt_BR"/></h:outputText></p>
 				</div>
 				<div class="item grid2">
 					<span>vigência final</span>
-					<p>00/00/0000</p>
+					<p><h:outputText value="#{detalhesFaces.segmentoCst.vigenciaFinal}"><f:convertDateTime type="date" pattern="dd/MM/yyyy" locale="pt_BR"/></h:outputText></p>
 				</div>
 
 				<div class="clear"></div>
 
 				<div class="item grid2">
 					<span>lei interno</span>
-					<p>lorem ipsum dolor 00/0000</p>
+					<p><h:outputText value="#{detalhesFaces.segmentoCst.leiInterno}"/></p>
 				</div>
 				<div class="item grid2">
 					<span>lei saída</span>
-					<p>lorem ipsum dolor 00/0000</p>
+					<p><h:outputText value="#{detalhesFaces.segmentoCst.leiSaida}"/></p>
 				</div>
 
 				<div class="clear"></div>
 
 				<div class="item grid2">
 					<span>lei link interno</span>
-					<p>wwww.link-interno.com.br</p>
+					<p><h:outputText value="#{detalhesFaces.segmentoCst.leiLinkInterno}"/></p>
 				</div>
 				<div class="item grid2">
 					<span>lei link saída</span>
-					<p>www.link-saida.com.br</p>
+					<p><h:outputText value="#{detalhesFaces.segmentoCst.leiLinkSaida}"/></p>
 				</div>
 
 				<div class="clear"></div>
 
 				<div class="item grid1">
 					<span>natureza</span>
-					<p>lorem ipsum dolor sit amet</p>
+					<p><h:outputText value="#{detalhesFaces.segmentoCst.natureza.descricaoFormatada}"/></p>
 				</div>
 			</div>
 		</div>
 	</div>
 </div>
+
+</h:form>
 	
 </h:body>
 

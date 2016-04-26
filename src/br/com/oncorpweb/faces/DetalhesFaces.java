@@ -23,6 +23,7 @@ public class DetalhesFaces {
 	private Item item;
 	private String parametro;
 	private List<TipoCst> tipoCsts;
+	private SegmentoCst segmentoCst;
 
 	public void obter() {
 
@@ -37,6 +38,8 @@ public class DetalhesFaces {
 				this.tipoCsts = new TipoCstDAO().pesquisar(new TipoCst());
 
 				if (!TSUtil.isEmpty(this.tipoCsts) && !TSUtil.isEmpty(this.item.getSegmento()) && !TSUtil.isEmpty(this.item.getSegmento().getId())) {
+
+					this.tipoCsts.get(0).setStyleClassSelecionado("selecionado");
 
 					List<SegmentoCst> segmentoCsts = new SegmentoCstDAO().pesquisar(new SegmentoCst(this.item.getSegmento()));
 
@@ -86,6 +89,14 @@ public class DetalhesFaces {
 		}
 	}
 
+	public String listener() {
+
+		this.getSegmentoCst();
+
+		return null;
+
+	}
+
 	public Item getItem() {
 		return item;
 	}
@@ -108,6 +119,14 @@ public class DetalhesFaces {
 
 	public void setTipoCsts(List<TipoCst> tipoCsts) {
 		this.tipoCsts = tipoCsts;
+	}
+
+	public SegmentoCst getSegmentoCst() {
+		return segmentoCst;
+	}
+
+	public void setSegmentoCst(SegmentoCst segmentoCst) {
+		this.segmentoCst = segmentoCst;
 	}
 
 }

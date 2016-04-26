@@ -130,7 +130,7 @@ public class Cst implements Serializable {
 
 		if (!TSUtil.isEmpty(this.descricao) && !TSUtil.isEmpty(this.codigo)) {
 
-			this.descricaoFormatada = "Código - " + this.codigo + " - " + this.descricao;
+			this.descricaoFormatada = "CÓDIGO - " + this.codigo + " - " + this.descricao;
 		}
 
 		return descricaoFormatada;
