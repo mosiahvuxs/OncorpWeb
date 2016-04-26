@@ -47,6 +47,8 @@ public class PesquisaItemFaces {
 
 		} else {
 
+			this.paginaCorrente = 1L;
+
 			this.exibirDivResultado = true;
 
 			this.filtro = null;
@@ -99,6 +101,39 @@ public class PesquisaItemFaces {
 		return null;
 	}
 
+	public String paginar() {
+		
+		this.item.setCodigoBarras(TSFacesUtil.getRequestParameter("codigoBarras"));
+		this.item.setDescricao(TSFacesUtil.getRequestParameter("descricao"));
+
+		this.itens = new ArrayList<Item>();
+
+		ItemDAO itemDAO = new ItemDAO();
+
+		Item model = itemDAO.obterTotal(this.item);
+
+		if (!TSUtil.isEmpty(model) && model.getTotal() > 0) {
+			
+			this.exibirDivResultado = true;
+
+			this.item.setTotal(model.getTotal());
+
+			this.popularPaginacao(model.getTotal(), this.paginaCorrente);
+
+			Long offSet = 0L;
+
+			if (!this.paginaCorrente.equals(1L)) {
+
+				offSet = (this.paginaCorrente - 1L) * Constantes.LIMITE_LINHAS;
+			}
+
+			this.itens = itemDAO.pesquisar(this.item, Constantes.LIMITE_LINHAS, offSet);
+
+		}
+
+		return null;
+	}
+
 	private void popularPaginacao(Long total, Long page) {
 
 		this.paginacao = new ArrayList<Paginacao>();
@@ -122,20 +157,13 @@ public class PesquisaItemFaces {
 
 			count++;
 
-			if (this.paginacao.size() == Constantes.LIMITE_LINHAS.intValue()) {
+			if (total > Constantes.LIMITE_LINHAS) {
 
-				total = 0L;
+				total = total - Constantes.LIMITE_LINHAS;
 
 			} else {
 
-				if (total > Constantes.LIMITE_LINHAS) {
-
-					total = total - Constantes.LIMITE_LINHAS;
-
-				} else {
-
-					total = 0L;
-				}
+				total = 0L;
 			}
 
 		}

@@ -6,7 +6,8 @@
 		xmlns:ui="http://xmlns.jcp.org/jsf/facelets" 
 		xmlns:f="http://xmlns.jcp.org/jsf/core" 
 		xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
-		xmlns:pt="http://xmlns.jcp.org/jsf/passthrough">
+		xmlns:pt="http://xmlns.jcp.org/jsf/passthrough"
+		xmlns:jsf="http://xmlns.jcp.org/jsf">
 
 <h:head>
 	
@@ -52,13 +53,13 @@
 		
 		<label for="">buscar por</label>
 		
-		<h:inputText id="codigoBarras" value="#{pesquisaItemFaces.item.codigoBarras}" pt:placeholder="código de barras"/>
-		<h:inputText id="descricao" value="#{pesquisaItemFaces.item.descricao}" pt:placeholder="descrição"/>
+		<h:inputText value="#{pesquisaItemFaces.item.codigoBarras}" pt:placeholder="código de barras"/>
+		<h:inputText value="#{pesquisaItemFaces.item.descricao}" pt:placeholder="descrição"/>
 		
 		<h:commandButton value="buscar" action="#{pesquisaItemFaces.pesquisar}"/>
 		
 	</h:form>
-
+	
 	<div class="listaResultados" style="${pesquisaItemFaces.exibirDivResultado ? 'display:block' : 'display:none'}">
 	
 		<div class="topo" >
@@ -109,19 +110,60 @@
 			</c:forEach>
 			
 		</ul>
-
+		
+		<h:form id="formPaginacao" prependId="false">
+		
+		<h:inputHidden value="#{pesquisaItemFaces.item.codigoBarras}" id="codigoBarras"/>
+		<h:inputHidden value="#{pesquisaItemFaces.item.descricao}" id="descricao"/>
+		
 		<div id="paginacao">
-			<div class="paginas">
-				<em>&#171;</em>
-				<a href="" class="select">1</a>
-				<a href="">2</a>
-				<a href="">3</a>
-				<a href="">4</a>
-				<a href="">5</a>
-				<em>&#187;</em>
-
+		
+			<div id="paginacao" style="display: none;">
+				<div class="paginas">
+				
+					<c:if test="#{pesquisaItemFaces.paginaCorrente - 1 > 0}">
+						<em>&#171;</em>
+					</c:if>
+					
+					<c:set value="#{pesquisaItemFaces.paginacao.size()}" var="tamanhoLista"/>
+					
+					<c:forEach items="#{pesquisaItemFaces.paginacao}" var="item">
+						<a id="link" class="#{item.current ? 'select' : ''}" href="#{request.contextPath}/pesquisa/pagina/#{item.pagina}">#{item.pagina}</a>
+					</c:forEach>
+					
+					<c:if test="#{pesquisaItemFaces.paginaCorrente!=tamanhoLista}">
+						<em>&#187;</em>
+					</c:if>
+					
+				</div>
 			</div>
+			
+			<div class="paginas">
+				
+				<h:commandLink action="#{pesquisaItemFaces.paginar}" value="&#171;" rendered="#{pesquisaItemFaces.paginaCorrente - 1 > 0}">
+		        	<f:setPropertyActionListener value="#{pesquisaItemFaces.paginaCorrente-1}" target="#{pesquisaItemFaces.paginaCorrente}"/>
+		        </h:commandLink>
+				
+				<c:set value="#{pesquisaItemFaces.paginacao.size()}" var="tamanhoLista"/>
+				
+				<c:forEach items="#{pesquisaItemFaces.paginacao}" var="item">
+					<h:commandLink action="#{pesquisaItemFaces.paginar}" disabled="#{item.current}" styleClass="select" value="#{item.pagina}" rendered="#{item.current}">
+		        		<f:setPropertyActionListener value="#{item.pagina}" target="#{pesquisaItemFaces.paginaCorrente}"/>
+		        	</h:commandLink>
+		        	<h:commandLink action="#{pesquisaItemFaces.paginar}" value="#{item.pagina}" rendered="#{!item.current}">
+		        		<f:setPropertyActionListener value="#{item.pagina}" target="#{pesquisaItemFaces.paginaCorrente}"/>
+		        	</h:commandLink>
+				</c:forEach>
+				
+				<h:commandLink action="#{pesquisaItemFaces.paginar}" value="&#187;" rendered="#{pesquisaItemFaces.paginaCorrente!=tamanhoLista}">
+		        	<f:setPropertyActionListener value="#{pesquisaItemFaces.paginaCorrente+1}" target="#{pesquisaItemFaces.paginaCorrente}"/>
+		        </h:commandLink>
+				
+			</div>
+			
 		</div>
+		
+		</h:form>
 		
 		</c:if>
 		
