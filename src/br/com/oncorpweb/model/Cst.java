@@ -19,16 +19,16 @@ public class Cst implements Serializable {
 	private String codigo;
 	private TipoCst tipo; // 1 ICMS,2 PIS, 3 COFINS,4 IPI
 	private String descricao;
-	
+
 	@XmlTransient
-	private String descricaoFormatada;
-	
+	private String descricaoFormatada, descricaoDataTableFormatada;
+
 	@XmlTransient
 	private Boolean flagAtivo;
 	@XmlTransient
 	private Empresa empresa;
 	@XmlTransient
-	private String leiInterno, leiLinkInterno, leiSaida, leiLinkSaida,ordernacao;
+	private String leiInterno, leiLinkInterno, leiSaida, leiLinkSaida, ordernacao;
 	@XmlTransient
 	private Natureza natureza;
 	@XmlTransient
@@ -44,7 +44,6 @@ public class Cst implements Serializable {
 
 		this.tipo = tipo;
 	}
-
 
 	public Cst(String codigo, TipoCst tipo) {
 
@@ -193,11 +192,11 @@ public class Cst implements Serializable {
 	}
 
 	public void setLeiLinkSaida(String leiLinkSaida) {
-		
+
 		this.leiLinkSaida = leiLinkSaida;
-		
+
 	}
-	
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -222,6 +221,29 @@ public class Cst implements Serializable {
 			return false;
 		return true;
 
+	}
+
+	public String getDescricaoDataTableFormatada() {
+		
+		if (!TSUtil.isEmpty(this.descricao) && !TSUtil.isEmpty(this.codigo)) {
+
+			this.descricaoDataTableFormatada = "CÓDIGO - " + this.codigo + " - " + this.descricao;
+			
+			if (this.descricaoDataTableFormatada.length() > 55) {
+
+				this.descricaoDataTableFormatada = this.descricaoDataTableFormatada.substring(0, 56).trim() + "...";
+
+			} else {
+
+				this.descricaoDataTableFormatada = this.descricaoDataTableFormatada.trim();
+			}
+		}
+		
+		return descricaoDataTableFormatada;
+	}
+
+	public void setDescricaoDataTableFormatada(String descricaoDataTableFormatada) {
+		this.descricaoDataTableFormatada = descricaoDataTableFormatada;
 	}
 
 }

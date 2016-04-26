@@ -43,67 +43,83 @@ public class PesquisaItemFaces {
 
 	public String pesquisar() {
 
+		this.itens = new ArrayList<Item>();
+
 		if (TSUtil.isEmpty(TSUtil.tratarString(this.item.getCodigoBarras())) && TSUtil.isEmpty(TSUtil.tratarString(this.item.getDescricao()))) {
 
 			TSFacesUtil.addErrorMessage("Favor informar um dos campos para realizar a pesquisa.");
 
 		} else {
 
-			this.paginaCorrente = 1L;
+			if (!TSUtil.isEmpty(TSUtil.tratarString(this.item.getDescricao())) && this.item.getDescricao().length() > 3) {
 
-			this.exibirDivResultado = true;
+				this.paginaCorrente = 1L;
 
-			this.filtro = null;
+				this.exibirDivResultado = true;
 
-			this.urlFiltro = null;
+				this.filtro = null;
 
-			this.itens = new ArrayList<Item>();
+				this.urlFiltro = null;
 
-			ItemDAO itemDAO = new ItemDAO();
+				ItemDAO itemDAO = new ItemDAO();
 
-			Item model = itemDAO.obterTotal(this.item);
+				Item model = itemDAO.obterTotal(this.item);
 
-			this.item.setTotal(0L);
+				this.item.setTotal(0L);
 
-			if (!TSUtil.isEmpty(TSUtil.tratarString(this.item.getCodigoBarras()))) {
+				if (!TSUtil.isEmpty(TSUtil.tratarString(this.item.getCodigoBarras()))) {
 
-				this.filtro = this.item.getCodigoBarras();
+					this.filtro = this.item.getCodigoBarras();
 
-				this.urlFiltro = "&codigoBarras=" + this.item.getCodigoBarras();
-			}
-
-			if (!TSUtil.isEmpty(TSUtil.tratarString(this.item.getDescricao()))) {
-
-				if (!TSUtil.isEmpty(this.filtro)) {
-
-					this.filtro = this.filtro + " E " + this.item.getDescricao();
-
-					this.urlFiltro = this.urlFiltro + "&descricao=" + this.item.getDescricao();
-
-				} else {
-
-					this.filtro = this.item.getDescricao();
-
-					this.urlFiltro = "&descricao=" + this.item.getDescricao();
+					this.urlFiltro = "&codigoBarras=" + this.item.getCodigoBarras();
 				}
 
-			}
+				if (!TSUtil.isEmpty(TSUtil.tratarString(this.item.getDescricao()))) {
 
-			if (!TSUtil.isEmpty(model) && model.getTotal() > 0) {
+					if (!TSUtil.isEmpty(this.filtro)) {
 
-				this.popularPaginacao(model.getTotal(), this.paginaCorrente, this.urlFiltro);
+						this.filtro = this.filtro + " E " + this.item.getDescricao();
 
-				Long offSet = 0L;
+						this.urlFiltro = this.urlFiltro + "&descricao=" + this.item.getDescricao();
 
-				if (!this.paginaCorrente.equals(1L)) {
+					} else {
 
-					offSet = (this.paginaCorrente - 1L) * Constantes.LIMITE_LINHAS;
+						this.filtro = this.item.getDescricao();
+
+						this.urlFiltro = "&descricao=" + this.item.getDescricao();
+					}
+
 				}
 
-				this.itens = itemDAO.pesquisar(this.item, Constantes.LIMITE_LINHAS, offSet);
+				if (!TSUtil.isEmpty(model) && model.getTotal() > 0) {
+					
+					if(model.getTotal() > 100L){
+						
+						this.item.setTotal(100L);
+					
+					} else {
+						
+						this.item.setTotal(model.getTotal());
+					}
 
-				this.item.setTotal(model.getTotal());
+					this.popularPaginacao(model.getTotal(), this.paginaCorrente, this.urlFiltro);
 
+					Long offSet = 0L;
+
+					if (!this.paginaCorrente.equals(1L)) {
+
+						offSet = (this.paginaCorrente - 1L) * Constantes.LIMITE_LINHAS;
+					}
+
+					this.itens = itemDAO.pesquisar(this.item, Constantes.LIMITE_LINHAS, offSet);
+
+					
+
+				}
+
+			} else {
+
+				TSFacesUtil.addErrorMessage("O campo Descrição deve ter mais de 3 caracteres.");
 			}
 
 		}
@@ -156,7 +172,7 @@ public class PesquisaItemFaces {
 							Utilitarios.redirectPesquisa();
 
 						} catch (IOException e) {
-							
+
 							e.printStackTrace();
 						}
 
@@ -168,8 +184,15 @@ public class PesquisaItemFaces {
 
 							this.exibirDivResultado = true;
 
-							this.item.setTotal(model.getTotal());
+							if(model.getTotal() > 100L){
+								
+								this.item.setTotal(100L);
 							
+							} else {
+								
+								this.item.setTotal(model.getTotal());
+							}
+
 							this.urlFiltro = "";
 
 							if (!TSUtil.isEmpty(TSUtil.tratarString(this.item.getCodigoBarras()))) {
@@ -247,13 +270,21 @@ public class PesquisaItemFaces {
 
 			count++;
 
-			if (total > Constantes.LIMITE_LINHAS) {
+			if (this.paginacao.size() == 10) {
 
-				total = total - Constantes.LIMITE_LINHAS;
+				total = 0L;
 
 			} else {
 
-				total = 0L;
+				if (total > Constantes.LIMITE_LINHAS) {
+
+					total = total - Constantes.LIMITE_LINHAS;
+
+				} else {
+
+					total = 0L;
+				}
+
 			}
 
 		}

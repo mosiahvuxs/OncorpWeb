@@ -11,7 +11,7 @@ public class Constantes {
 	
 	public static final String PASTA_ARQUIVOS = "/arquivos/";
 	public static final String FW_EXIBICAO = "http://fw.oncorpfiscal.com.br/";
-	public static final Long LIMITE_LINHAS = 5L;
+	public static final Long LIMITE_LINHAS = 10L;
 	
 	public static final String FOTO_GRANDE = "460x460_";
 	public static final String FOTO_MEDIA = "300x300_";

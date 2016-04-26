@@ -68,7 +68,6 @@
 			<span>código de barras: <h:outputText value="#{detalhesFaces.item.codigoBarras}"/></span>
 		</div>
 
-
 		<div class="item">
 			<span>grupo segmento</span>
 			<p>
@@ -115,7 +114,6 @@
 		</div>
 
 		<hr />
-
 
 		<script>
 			$(function(){
@@ -170,7 +168,7 @@
 				    				<td>#{segmentoCst.ramoEmpresa.descricao}</td>
 				    				<td>#{segmentoCst.regimeTributario.descricao}</td>
 				    				<td>#{segmentoCst.tipoOperacao.descricao}</td>
-				    				<td>CÓDIGO - #{segmentoCst.cst.descricaoFormatada}</td>
+				    				<td>CÓDIGO - #{segmentoCst.cst.descricaoDataTableFormatada}</td>
 				    				<td>
 				    					<h:outputText value="#{segmentoCst.aliquota}">
 				    						<f:convertNumber type="number" pattern="###,###,##0.00" locale="pt_BR" />

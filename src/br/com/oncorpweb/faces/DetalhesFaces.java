@@ -39,7 +39,9 @@ public class DetalhesFaces {
 
 				if (!TSUtil.isEmpty(this.tipoCsts) && !TSUtil.isEmpty(this.item.getSegmento()) && !TSUtil.isEmpty(this.item.getSegmento().getId())) {
 
-					this.tipoCsts.get(0).setStyleClassSelecionado("selecionado");
+					List<TipoCst> tipoCsts = new ArrayList<>();
+
+					tipoCsts.addAll(this.tipoCsts);
 
 					List<SegmentoCst> segmentoCsts = new SegmentoCstDAO().pesquisar(new SegmentoCst(this.item.getSegmento()));
 
@@ -70,6 +72,23 @@ public class DetalhesFaces {
 
 							}
 						}
+
+						this.tipoCsts = new ArrayList<TipoCst>();
+
+						for (TipoCst tipoCstAux : tipoCsts) {
+
+							if (!TSUtil.isEmpty(tipoCstAux.getSegmentoCsts())) {
+
+								this.tipoCsts.add(tipoCstAux);
+
+							}
+						}
+
+						if (!TSUtil.isEmpty(this.tipoCsts)) {
+
+							this.tipoCsts.get(0).setStyleClassSelecionado("selecionado");
+						}
+
 					}
 
 				}
