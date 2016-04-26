@@ -144,33 +144,6 @@
 			
 		</div>
 		
-		<div id="paginacao"  style="display: none;">
-			
-			<div class="paginas">
-				
-				<h:commandLink action="#{pesquisaItemFaces.paginar}" value="&#171;" rendered="#{pesquisaItemFaces.paginaCorrente - 1 > 0}">
-		        	<f:setPropertyActionListener value="#{pesquisaItemFaces.paginaCorrente-1}" target="#{pesquisaItemFaces.paginaCorrente}"/>
-		        </h:commandLink>
-				
-				<c:set value="#{pesquisaItemFaces.paginacao.size()}" var="tamanhoLista"/>
-				
-				<c:forEach items="#{pesquisaItemFaces.paginacao}" var="item">
-					<h:commandLink action="#{pesquisaItemFaces.paginar}" disabled="#{item.current}" styleClass="select" value="#{item.pagina}" rendered="#{item.current}">
-		        		<f:setPropertyActionListener value="#{item.pagina}" target="#{pesquisaItemFaces.paginaCorrente}"/>
-		        	</h:commandLink>
-		        	<h:commandLink action="#{pesquisaItemFaces.paginar}" value="#{item.pagina}" rendered="#{!item.current}">
-		        		<f:setPropertyActionListener value="#{item.pagina}" target="#{pesquisaItemFaces.paginaCorrente}"/>
-		        	</h:commandLink>
-				</c:forEach>
-				
-				<h:commandLink action="#{pesquisaItemFaces.paginar}" value="&#187;" rendered="#{pesquisaItemFaces.paginaCorrente!=tamanhoLista}">
-		        	<f:setPropertyActionListener value="#{pesquisaItemFaces.paginaCorrente+1}" target="#{pesquisaItemFaces.paginaCorrente}"/>
-		        </h:commandLink>
-				
-			</div>
-			
-		</div>
-		
 		</h:form>
 		
 		</c:if>
