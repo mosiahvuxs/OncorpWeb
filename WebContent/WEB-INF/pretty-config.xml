@@ -19,6 +19,10 @@
         <view-id value="/pesquisaItem.xhtml"></view-id>
     </url-mapping>
     <url-mapping id="pesquisa">
+        <pattern value="/pesquisa/"></pattern>
+        <view-id value="/pesquisaItem.xhtml"></view-id>
+    </url-mapping>
+    <url-mapping id="pesquisa">
         <pattern value="/pesquisa/filtros/#{pesquisaItemFaces.urlFiltro}"></pattern>
         <view-id value="/pesquisaItem.xhtml"></view-id>
         <action onPostback="false">#{pesquisaItemFaces.paginar}</action>

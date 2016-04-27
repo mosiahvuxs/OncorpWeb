@@ -53,7 +53,7 @@
 		
 		<label for="">buscar por</label>
 		
-		<h:inputText maxlength="14" style="width: 250px;" value="#{pesquisaItemFaces.item.codigoBarras}" pt:placeholder="código de barras"/>
+		<h:inputText pt:autofocus="true" maxlength="14" style="width: 250px;" value="#{pesquisaItemFaces.item.codigoBarras}" pt:placeholder="código de barras"/>
 		<h:inputText maxlength="100" style="width: 600px;" value="#{pesquisaItemFaces.item.descricao}" pt:placeholder="descrição"/>
 		
 		<h:commandButton value="buscar" action="#{pesquisaItemFaces.pesquisar}"/>

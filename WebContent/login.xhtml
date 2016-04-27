@@ -5,7 +5,8 @@
 		xmlns:h="http://xmlns.jcp.org/jsf/html" 
 		xmlns:ui="http://xmlns.jcp.org/jsf/facelets" 
 		xmlns:f="http://xmlns.jcp.org/jsf/core" 
-		xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+		xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+		xmlns:pt="http://xmlns.jcp.org/jsf/passthrough">
 
 <h:head>
 	
@@ -27,7 +28,7 @@
 
 <h:body styleClass="login">
 
-<h:form>
+<h:form prependId="false" id="form">
 	
 	<fieldset>
 		
@@ -40,7 +41,7 @@
 		<h:messages showDetail="true" showSummary="false" errorClass="error" fatalClass="error"/>
 		
 		<label for="usuario">Usuário
-			<h:inputText id="usuario" value="#{loginFaces.usuario.login}" required="true" requiredMessage="Usuário: Campo obrigatório"/>
+			<h:inputText id="usuario" value="#{loginFaces.usuario.login}" pt:autofocus="true" required="true" requiredMessage="Usuário: Campo obrigatório"/>
 		</label>
 		<label for="senha">Senha
 			<h:inputSecret id="senha" value="#{loginFaces.usuario.senha}" required="true" requiredMessage="Senha: Campo obrigatório"/>
