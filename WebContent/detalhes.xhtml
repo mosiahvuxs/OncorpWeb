@@ -31,7 +31,7 @@
 		<span><i class="ti-mobile">&#160;</i> central de atendimento: 4003-4563</span>
 		<span><i class="ti-email">&#160;</i> atendimento.rj@oncorp.srv.br</span>
 
-		<a class="btn" href="http://oncorpfiscal.com.br/cliente">ÁREA DO CLIENTE</a>
+		<!-- a class="btn" href="http://oncorpfiscal.com.br/cliente">ÁREA DO CLIENTE</a -->
 	</address>
 	<h1 class="marca"><a href="http://oncorpgroup.com.br/"><img src="#{request.contextPath}/img/logo.png" alt=""/></a></h1>
 	<nav>
@@ -129,8 +129,8 @@
 			    	event.preventDefault();
 			    	$("html,body").css({"overflow":"hidden"});
 			    });
-			    $('#mask').click(function(event){
-			    	$(this).fadeOut();
+			    $('.btnFechar').click(function(event){
+		    		$('#mask').fadeOut();
 		    		event.preventDefault();
 		    		$("html,body").css({"overflow":"auto"});
 		    	});
@@ -200,7 +200,7 @@
 	
 	<div jsf:id="conteudo" class="conteudo">
 		<div class="infoSegmento">
-			<div class="topo">segmento cst</div>
+			<div class="topo">segmento cst <span class="btnFechar" onclick="document.getElementById('mask').style.display='none';">[fechar]</span></div>
 			<div class="dadosCst">
 				<div class="item grid4">
 					<span>tipo</span>

@@ -287,10 +287,7 @@ hr {
 
 #mask .infoSegmento {
   margin-top: 0;
-  font-family: "helveticaCd";}
-  #mask .dadosCst{
-  overflow-y: scroll;
-  height:600px; }
+  font-family: "helveticaCd"; }
   #mask .infoSegmento .item {
     padding: 5px 0;
     text-overflow: ellipsis; }
@@ -299,13 +296,21 @@ hr {
     font-size: 14px;
     color: #2e4c68;
     line-height: 120%; }
+  #mask .infoSegmento .btnFechar {
+    color: #fff;
+    display: block;
+    float: right;
+    cursor: pointer; }
   #mask .infoSegmento p {
-    text-transform: none;
+    text-transform: normal;
     font-size: 16px;
     color: #000;
     line-height: 120%;
     border-bottom: 1px solid #000;
-    min-height:20px; }
+    min-height: 20px; }
+  #mask .infoSegmento .dadosCst {
+    overflow-y: scroll;
+    height: 500px; }
 
 form.busca {
   font-family: "helveticaCd";
@@ -419,3 +424,4 @@ ul.resultados {
 }
 
 /*# sourceMappingURL=css.css.map */
+#mask .btnFechar{color: #fff; display: block; float: right;  cursor: pointer;}
