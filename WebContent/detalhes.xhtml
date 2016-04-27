@@ -115,28 +115,6 @@
 
 		<hr />
 
-		<script>
-			$(function(){
-			    $('div.tabs > div').hide().filter(":first").show();
-			    $('div.tabs ul.tab-menu a').click(function(){
-			        $('div.tabs > div').hide().filter(this.hash).show();
-			        $('div.tabs ul.tab-menu li').removeClass('selecionado');
-			        $(this).parent().addClass('selecionado');
-			    });
-
-			    $('.ico-visualizar').click(function(event) {
-			    	$('#mask').fadeIn();
-			    	event.preventDefault();
-			    	$("html,body").css({"overflow":"hidden"});
-			    });
-			    $('.btnFechar').click(function(event){
-		    		$('#mask').fadeOut();
-		    		event.preventDefault();
-		    		$("html,body").css({"overflow":"auto"});
-		    	});
-			});
-		</script>
-
 		<div class="tabs">
 		    
 		    <ul class="tab-menu">
@@ -199,8 +177,31 @@
 <div id="mask">
 	
 	<div jsf:id="conteudo" class="conteudo">
+	
+		<script>
+			$(function(){
+			    $('div.tabs > div').hide().filter(":first").show();
+			    $('div.tabs ul.tab-menu a').click(function(){
+			        $('div.tabs > div').hide().filter(this.hash).show();
+			        $('div.tabs ul.tab-menu li').removeClass('selecionado');
+			        $(this).parent().addClass('selecionado');
+			    });
+
+			    $('.ico-visualizar').click(function(event) {
+			    	$('#mask').fadeIn();
+			    	event.preventDefault();
+			    	$("html,body").css({"overflow":"hidden"});
+			    });
+			    $('.btnFechar').click(function(event){
+		    		$('#mask').fadeOut();
+		    		event.preventDefault();
+		    		$("html,body").css({"overflow":"auto"});
+		    	});
+			});
+		</script>
+		
 		<div class="infoSegmento">
-			<div class="topo">segmento cst <span class="btnFechar" onclick="document.getElementById('mask').style.display='none';">[fechar]</span></div>
+			<div class="topo">segmento cst <span class="btnFechar">[fechar]</span></div>
 			<div class="dadosCst">
 				<div class="item grid4">
 					<span>tipo</span>
