@@ -97,13 +97,24 @@ public class DetalhesFaces {
 
 				try {
 
-					Utilitarios.redirectIndex();
+					Utilitarios.redirectPesquisa();
 
 				} catch (IOException e) {
 
 					e.printStackTrace();
 				}
 
+			}
+
+		} else {
+
+			try {
+
+				Utilitarios.redirectPesquisa();
+
+			} catch (IOException e) {
+
+				e.printStackTrace();
 			}
 		}
 	}

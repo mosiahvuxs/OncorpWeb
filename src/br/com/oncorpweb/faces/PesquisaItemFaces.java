@@ -41,90 +41,98 @@ public class PesquisaItemFaces {
 
 	}
 
+	private boolean validaCampos() {
+
+		boolean validado = true;
+
+		if (TSUtil.isEmpty(TSUtil.tratarString(this.item.getCodigoBarras())) && TSUtil.isEmpty(TSUtil.tratarString(this.item.getDescricao()))) {
+
+			validado = false;
+
+			TSFacesUtil.addErrorMessage("Favor informar um dos campos para realizar a pesquisa.");
+		}
+
+		if (!TSUtil.isEmpty(TSUtil.tratarString(this.item.getDescricao())) && this.item.getDescricao().length() < 4) {
+
+			validado = false;
+
+			TSFacesUtil.addErrorMessage("O campo Descrição deve ter 4 ou mais caracteres.");
+		}
+
+		return validado;
+	}
+
 	public String pesquisar() {
 
 		this.itens = new ArrayList<Item>();
 
-		if (TSUtil.isEmpty(TSUtil.tratarString(this.item.getCodigoBarras())) && TSUtil.isEmpty(TSUtil.tratarString(this.item.getDescricao()))) {
+		if (this.validaCampos()) {
 
-			TSFacesUtil.addErrorMessage("Favor informar um dos campos para realizar a pesquisa.");
+			this.paginaCorrente = 1L;
 
-		} else {
+			this.exibirDivResultado = true;
 
-			if (!TSUtil.isEmpty(TSUtil.tratarString(this.item.getDescricao())) && this.item.getDescricao().length() > 3) {
+			this.filtro = null;
 
-				this.paginaCorrente = 1L;
+			this.urlFiltro = null;
 
-				this.exibirDivResultado = true;
+			ItemDAO itemDAO = new ItemDAO();
 
-				this.filtro = null;
+			Item model = itemDAO.obterTotal(this.item);
 
-				this.urlFiltro = null;
+			this.item.setTotal(0L);
 
-				ItemDAO itemDAO = new ItemDAO();
+			if (!TSUtil.isEmpty(TSUtil.tratarString(this.item.getCodigoBarras()))) {
 
-				Item model = itemDAO.obterTotal(this.item);
+				this.filtro = this.item.getCodigoBarras();
 
-				this.item.setTotal(0L);
-
-				if (!TSUtil.isEmpty(TSUtil.tratarString(this.item.getCodigoBarras()))) {
-
-					this.filtro = this.item.getCodigoBarras();
-
-					this.urlFiltro = "&codigoBarras=" + this.item.getCodigoBarras();
-				}
-
-				if (!TSUtil.isEmpty(TSUtil.tratarString(this.item.getDescricao()))) {
-
-					if (!TSUtil.isEmpty(this.filtro)) {
-
-						this.filtro = this.filtro + " E " + this.item.getDescricao();
-
-						this.urlFiltro = this.urlFiltro + "&descricao=" + this.item.getDescricao();
-
-					} else {
-
-						this.filtro = this.item.getDescricao();
-
-						this.urlFiltro = "&descricao=" + this.item.getDescricao();
-					}
-
-				}
-
-				if (!TSUtil.isEmpty(model) && model.getTotal() > 0) {
-					
-					if(model.getTotal() > 100L){
-						
-						this.item.setTotal(100L);
-					
-					} else {
-						
-						this.item.setTotal(model.getTotal());
-					}
-
-					this.popularPaginacao(model.getTotal(), this.paginaCorrente, this.urlFiltro);
-
-					Long offSet = 0L;
-
-					if (!this.paginaCorrente.equals(1L)) {
-
-						offSet = (this.paginaCorrente - 1L) * Constantes.LIMITE_LINHAS;
-					}
-
-					this.itens = itemDAO.pesquisar(this.item, Constantes.LIMITE_LINHAS, offSet);
-
-					
-
-				}
-
-			} else {
-
-				TSFacesUtil.addErrorMessage("O campo Descrição deve ter mais de 3 caracteres.");
+				this.urlFiltro = "&codigoBarras=" + this.item.getCodigoBarras();
 			}
 
+			if (!TSUtil.isEmpty(TSUtil.tratarString(this.item.getDescricao()))) {
+
+				if (!TSUtil.isEmpty(this.filtro)) {
+
+					this.filtro = this.filtro + " E " + this.item.getDescricao();
+
+					this.urlFiltro = this.urlFiltro + "&descricao=" + this.item.getDescricao();
+
+				} else {
+
+					this.filtro = this.item.getDescricao();
+
+					this.urlFiltro = "&descricao=" + this.item.getDescricao();
+				}
+
+			}
+
+			if (!TSUtil.isEmpty(model) && model.getTotal() > 0) {
+
+				if (model.getTotal() > 100L) {
+
+					this.item.setTotal(100L);
+
+				} else {
+
+					this.item.setTotal(model.getTotal());
+				}
+
+				this.popularPaginacao(model.getTotal(), this.paginaCorrente, this.urlFiltro);
+
+				Long offSet = 0L;
+
+				if (!this.paginaCorrente.equals(1L)) {
+
+					offSet = (this.paginaCorrente - 1L) * Constantes.LIMITE_LINHAS;
+				}
+
+				this.itens = itemDAO.pesquisar(this.item, Constantes.LIMITE_LINHAS, offSet);
+
+			}
 		}
 
 		return null;
+
 	}
 
 	public String paginar() {
@@ -165,18 +173,7 @@ public class PesquisaItemFaces {
 
 					}
 
-					if (TSUtil.isEmpty(TSUtil.tratarString(this.item.getCodigoBarras())) && TSUtil.isEmpty(TSUtil.tratarString(this.item.getDescricao()))) {
-
-						try {
-
-							Utilitarios.redirectPesquisa();
-
-						} catch (IOException e) {
-
-							e.printStackTrace();
-						}
-
-					} else {
+					if (this.validaCampos()) {
 
 						Item model = itemDAO.obterTotal(this.item);
 
@@ -184,12 +181,12 @@ public class PesquisaItemFaces {
 
 							this.exibirDivResultado = true;
 
-							if(model.getTotal() > 100L){
-								
+							if (model.getTotal() > 100L) {
+
 								this.item.setTotal(100L);
-							
+
 							} else {
-								
+
 								this.item.setTotal(model.getTotal());
 							}
 
@@ -225,6 +222,27 @@ public class PesquisaItemFaces {
 							this.itens = itemDAO.pesquisar(this.item, Constantes.LIMITE_LINHAS, offSet);
 
 						}
+					} else {
+
+						try {
+
+							Utilitarios.redirectPesquisa();
+
+						} catch (IOException e) {
+
+							e.printStackTrace();
+						}
+					}
+
+				} else {
+
+					try {
+
+						Utilitarios.redirectPesquisa();
+
+					} catch (IOException e) {
+
+						e.printStackTrace();
 					}
 				}
 
