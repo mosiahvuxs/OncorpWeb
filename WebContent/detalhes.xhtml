@@ -127,10 +127,12 @@
 			    $('.ico-visualizar').click(function(event) {
 			    	$('#mask').fadeIn();
 			    	event.preventDefault();
+			    	$("html,body").css({"overflow":"hidden"});
 			    });
 			    $('#mask').click(function(event){
-		    		$(this).fadeOut();
+			    	$(this).fadeOut();
 		    		event.preventDefault();
+		    		$("html,body").css({"overflow":"auto"});
 		    	});
 			});
 		</script>
