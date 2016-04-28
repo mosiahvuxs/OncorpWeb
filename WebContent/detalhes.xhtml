@@ -114,6 +114,28 @@
 		</div>
 
 		<hr />
+		
+		<script>
+			$(function(){
+			    $('div.tabs > div').hide().filter(":first").show();
+			    $('div.tabs ul.tab-menu a').click(function(){
+			        $('div.tabs > div').hide().filter(this.hash).show();
+			        $('div.tabs ul.tab-menu li').removeClass('selecionado');
+			        $(this).parent().addClass('selecionado');
+			    });
+
+			    $('.ico-visualizar').click(function(event) {
+			    	$('#mask').fadeIn();
+			    	event.preventDefault();
+			    	$("html,body").css({"overflow":"hidden"});
+			    });
+			    $('.btnFechar').click(function(event){
+		    		$('#mask').fadeOut();
+		    		event.preventDefault();
+		    		$("html,body").css({"overflow":"auto"});
+		    	});
+			});
+		</script>
 
 		<div class="tabs">
 		    
@@ -180,18 +202,6 @@
 	
 		<script>
 			$(function(){
-			    $('div.tabs > div').hide().filter(":first").show();
-			    $('div.tabs ul.tab-menu a').click(function(){
-			        $('div.tabs > div').hide().filter(this.hash).show();
-			        $('div.tabs ul.tab-menu li').removeClass('selecionado');
-			        $(this).parent().addClass('selecionado');
-			    });
-
-			    $('.ico-visualizar').click(function(event) {
-			    	$('#mask').fadeIn();
-			    	event.preventDefault();
-			    	$("html,body").css({"overflow":"hidden"});
-			    });
 			    $('.btnFechar').click(function(event){
 		    		$('#mask').fadeOut();
 		    		event.preventDefault();
