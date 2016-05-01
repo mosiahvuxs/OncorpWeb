@@ -11,6 +11,7 @@ import br.com.oncorpweb.dao.EmpresaDAO;
 import br.com.oncorpweb.dao.ItemDAO;
 import br.com.oncorpweb.dao.SegmentoCstDAO;
 import br.com.oncorpweb.dao.TipoCstDAO;
+import br.com.oncorpweb.model.Cst;
 import br.com.oncorpweb.model.Empresa;
 import br.com.oncorpweb.model.Item;
 import br.com.oncorpweb.model.SegmentoCst;
@@ -28,11 +29,11 @@ public class DetalhesFaces {
 	private List<TipoCst> tipoCsts;
 	private SegmentoCst segmentoCst;
 	private Empresa empresa;
-	
-	public DetalhesFaces(){
-		
+
+	public DetalhesFaces() {
+
 		this.empresa = new EmpresaDAO().obter(new Empresa(Constantes.EMPRESA_ONCORP));
-		
+
 	}
 
 	public void obter() {
@@ -53,34 +54,25 @@ public class DetalhesFaces {
 
 					tipoCsts.addAll(this.tipoCsts);
 
-					List<SegmentoCst> segmentoCsts = new SegmentoCstDAO().pesquisar(new SegmentoCst(this.item.getSegmento(),this.empresa.getEstado(), this.empresa.getRegimeTributario(), this.empresa.getRamo()));
+					if (!TSUtil.isEmpty(this.item.getSegmento().getId())) {
 
-					if (!TSUtil.isEmpty(segmentoCsts)) {
+						SegmentoCst model = new SegmentoCst(this.item.getSegmento());
+
+						model.setRamoEmpresa(this.empresa.getRamo());
+						model.setRegimeTributario(this.empresa.getRegimeTributario());
+						model.setCst(new Cst());
 
 						for (TipoCst tipoCst : tipoCsts) {
 
-							tipoCst.setSegmentoCsts(new ArrayList<>());
+							model.getCst().setTipo(tipoCst);
 
-							for (SegmentoCst segmentoCst : segmentoCsts) {
+							if (tipoCst.getId().equals(Constantes.TIPO_CST_ICMS)) {
 
-								if (tipoCst.getId().equals(segmentoCst.getCst().getTipo().getId())) {
-
-									tipoCst.getSegmentoCsts().add(segmentoCst);
-
-								} else if (tipoCst.getId().equals(segmentoCst.getCst().getTipo().getId())) {
-
-									tipoCst.getSegmentoCsts().add(segmentoCst);
-
-								} else if (tipoCst.getId().equals(segmentoCst.getCst().getTipo().getId())) {
-
-									tipoCst.getSegmentoCsts().add(segmentoCst);
-
-								} else if (tipoCst.getId().equals(segmentoCst.getCst().getTipo().getId())) {
-
-									tipoCst.getSegmentoCsts().add(segmentoCst);
-								}
-
+								model.setEstado(this.empresa.getEstado());
 							}
+
+							tipoCst.setSegmentoCsts(new SegmentoCstDAO().pesquisar(model));
+
 						}
 
 						this.tipoCsts = new ArrayList<TipoCst>();
