@@ -34,35 +34,15 @@ public class TipoCstDAO implements CrudDAO<TipoCst> {
 
 	public void excluir(TipoCst model) throws TSApplicationException {
 
-		TSDataBaseBrokerIf broker = TSDataBaseBrokerFactory.getDataBaseBrokerIf();
-
-		broker.setPropertySQL("tipocstdao.excluir", model.getId());
-
-		broker.execute();
-
 	}
 
 	public TipoCst inserir(TipoCst model) throws TSApplicationException {
-
-		TSDataBaseBrokerIf broker = TSDataBaseBrokerFactory.getDataBaseBrokerIf();
-
-		model.setId(broker.getSequenceNextValue("tipo_cst_id_seq"));
-
-		broker.setPropertySQL("tipocstdao.inserir", model.getId(), model.getDescricao(), model.getFlagAtivo());
-
-		broker.execute();
 
 		return model;
 
 	}
 
 	public TipoCst alterar(TipoCst model) throws TSApplicationException {
-
-		TSDataBaseBrokerIf broker = TSDataBaseBrokerFactory.getDataBaseBrokerIf();
-
-		broker.setPropertySQL("tipocstdao.alterar", model.getDescricao(), model.getFlagAtivo(), model.getId());
-
-		broker.execute();
 
 		return model;
 

@@ -22,4 +22,6 @@ public class Constantes {
 	public static final Long TIPO_CST_IPI = 4L;
 	public static final Long TIPO_CST_PIS = 2L;
 
+	public static final Long EMPRESA_ONCORP = 28L;
+
 }

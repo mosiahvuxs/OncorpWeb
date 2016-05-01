@@ -124,6 +124,18 @@ public class SegmentoCst implements Serializable {
 
 	}
 
+	public SegmentoCst(Segmento segmento, Estado estado, RegimeTributario regimeTributario, RamoEmpresa ramo) {
+
+		this.segmento = segmento;
+
+		this.regimeTributario = regimeTributario;
+
+		this.ramoEmpresa = ramo;
+
+		this.estado = estado;
+		
+	}
+
 	public Long getId() {
 		return id;
 	}

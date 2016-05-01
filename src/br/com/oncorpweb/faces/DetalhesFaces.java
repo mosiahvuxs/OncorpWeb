@@ -7,12 +7,15 @@ import java.util.List;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 
+import br.com.oncorpweb.dao.EmpresaDAO;
 import br.com.oncorpweb.dao.ItemDAO;
 import br.com.oncorpweb.dao.SegmentoCstDAO;
 import br.com.oncorpweb.dao.TipoCstDAO;
+import br.com.oncorpweb.model.Empresa;
 import br.com.oncorpweb.model.Item;
 import br.com.oncorpweb.model.SegmentoCst;
 import br.com.oncorpweb.model.TipoCst;
+import br.com.oncorpweb.util.Constantes;
 import br.com.oncorpweb.util.Utilitarios;
 import br.com.topsys.util.TSUtil;
 
@@ -24,6 +27,13 @@ public class DetalhesFaces {
 	private String parametro;
 	private List<TipoCst> tipoCsts;
 	private SegmentoCst segmentoCst;
+	private Empresa empresa;
+	
+	public DetalhesFaces(){
+		
+		this.empresa = new EmpresaDAO().obter(new Empresa(Constantes.EMPRESA_ONCORP));
+		
+	}
 
 	public void obter() {
 
@@ -31,7 +41,7 @@ public class DetalhesFaces {
 
 		if (!TSUtil.isEmpty(id)) {
 
-			this.item = new ItemDAO().obter(new Item(id));
+			this.item = new ItemDAO().obter(new Item(id, this.empresa));
 
 			if (!TSUtil.isEmpty(this.item)) {
 
@@ -43,7 +53,7 @@ public class DetalhesFaces {
 
 					tipoCsts.addAll(this.tipoCsts);
 
-					List<SegmentoCst> segmentoCsts = new SegmentoCstDAO().pesquisar(new SegmentoCst(this.item.getSegmento()));
+					List<SegmentoCst> segmentoCsts = new SegmentoCstDAO().pesquisar(new SegmentoCst(this.item.getSegmento(),this.empresa.getEstado(), this.empresa.getRegimeTributario(), this.empresa.getRamo()));
 
 					if (!TSUtil.isEmpty(segmentoCsts)) {
 
@@ -157,6 +167,14 @@ public class DetalhesFaces {
 
 	public void setSegmentoCst(SegmentoCst segmentoCst) {
 		this.segmentoCst = segmentoCst;
+	}
+
+	public Empresa getEmpresa() {
+		return empresa;
+	}
+
+	public void setEmpresa(Empresa empresa) {
+		this.empresa = empresa;
 	}
 
 }

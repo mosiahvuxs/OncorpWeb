@@ -7,7 +7,9 @@ import java.util.List;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 
+import br.com.oncorpweb.dao.EmpresaDAO;
 import br.com.oncorpweb.dao.ItemDAO;
+import br.com.oncorpweb.model.Empresa;
 import br.com.oncorpweb.model.Item;
 import br.com.oncorpweb.model.Paginacao;
 import br.com.oncorpweb.util.Constantes;
@@ -25,6 +27,7 @@ public class PesquisaItemFaces {
 	private Long paginaCorrente, offSet;
 	private boolean exibirDivResultado;
 	private String filtro, urlFiltro;
+	private Empresa empresa;
 
 	public PesquisaItemFaces() {
 
@@ -32,8 +35,10 @@ public class PesquisaItemFaces {
 	}
 
 	private void iniciar() {
+		
+		this.empresa = new EmpresaDAO().obter(new Empresa(Constantes.EMPRESA_ONCORP));		
 
-		this.item = new Item(Boolean.TRUE);
+		this.item = new Item(Boolean.TRUE, this.empresa);
 
 		this.paginaCorrente = 1L;
 
@@ -65,6 +70,8 @@ public class PesquisaItemFaces {
 	public String pesquisar() {
 
 		this.itens = new ArrayList<Item>();
+		
+		this.item.setEmpresa(this.empresa);
 
 		if (this.validaCampos()) {
 
@@ -138,6 +145,8 @@ public class PesquisaItemFaces {
 	public String paginar() {
 
 		this.itens = new ArrayList<Item>();
+		
+		this.item.setEmpresa(this.empresa);
 
 		ItemDAO itemDAO = new ItemDAO();
 
@@ -370,5 +379,13 @@ public class PesquisaItemFaces {
 
 	public void setUrlFiltro(String urlFiltro) {
 		this.urlFiltro = urlFiltro;
+	}
+
+	public Empresa getEmpresa() {
+		return empresa;
+	}
+
+	public void setEmpresa(Empresa empresa) {
+		this.empresa = empresa;
 	}
 }
