@@ -131,7 +131,7 @@ body.login fieldset input[type=submit] {
 	text-transform: lowercase;
 }
 
-.topo address>a.btn {
+.infoProduto h3>a.btn {
 	padding: 0 30px;
 	float: right;
 	display: inline-block;
