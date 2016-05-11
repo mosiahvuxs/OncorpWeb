@@ -32,7 +32,7 @@ public class DetalhesFaces {
 
 	public DetalhesFaces() {
 
-		this.empresa = new EmpresaDAO().obter(new Empresa(Constantes.EMPRESA_ONCORP));
+		this.empresa = new EmpresaDAO().obter(new Empresa(Constantes.EMPRESA_MASTER));
 
 	}
 

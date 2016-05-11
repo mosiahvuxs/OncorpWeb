@@ -36,7 +36,7 @@ public class PesquisaItemFaces {
 
 	private void iniciar() {
 		
-		this.empresa = new EmpresaDAO().obter(new Empresa(Constantes.EMPRESA_ONCORP));		
+		this.empresa = new EmpresaDAO().obter(new Empresa(Constantes.EMPRESA_MASTER));		
 
 		this.item = new Item(Boolean.TRUE, this.empresa);
 
