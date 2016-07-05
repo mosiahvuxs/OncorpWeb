@@ -72,6 +72,8 @@ public class PesquisaItemFaces {
 		this.itens = new ArrayList<Item>();
 		
 		this.item.setEmpresa(this.empresa);
+		
+		this.exibirDivResultado = false;
 
 		if (this.validaCampos()) {
 

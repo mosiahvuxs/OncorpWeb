@@ -1,0 +1,86 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE html>
+<html 	lang="pt-br"
+		xmlns="http://www.w3.org/1999/xhtml" 
+		xmlns:h="http://xmlns.jcp.org/jsf/html" 
+		xmlns:ui="http://xmlns.jcp.org/jsf/facelets" 
+		xmlns:f="http://xmlns.jcp.org/jsf/core" 
+		xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+		xmlns:jsf="http://xmlns.jcp.org/jsf">
+
+<h:head>
+	<meta charset="UTF-8"/>
+	<title>ONCORP Soluções</title>
+	<link rel="stylesheet" href="#{request.contextPath}/css/css.css" />
+	<!-- <link rel="stylesheet" href="http://www.oncorpgroup.com.br/wp-content/themes/foundry/style/css/fonts.css" /> -->
+	<link rel="stylesheet" href="#{request.contextPath}/css/open_sans.css" />
+	
+	<!-- JAVASCRIPT -->
+    <script type="text/javascript" src="#{request.contextPath}/js/jquery.1.7.1.min.js"/>
+	
+	<script>
+	
+	    $(function(){
+	        var form = $(".cadastro form");
+	
+	        var empty = form.find('input');
+	
+	        $(form).submit(function( event ) {
+	          if ( empty.val() != "" ) {
+	            $( ".msg" ).addClass('ok').text( "Após o envio dos dados, verifique seu e-mail. Um link de confirmação será enviado para que complemente o cadastro com as informações de pagamento." ).show();
+	            return;
+	          }
+	
+	          $( ".msg" ).addClass('error').text( "Todos os campos obrigatoriamente precisam ser preenchidos para continuidade do seu cadastro.").show().delay(5000).fadeOut( 1000 );
+	          event.preventDefault();
+	        });
+	
+	    })
+	
+	</script>
+
+</h:head>
+
+<h:body>
+
+<ui:include src="/topo.xhtml"/>
+
+<div class="cadastro">
+
+    <h3>Cadastro</h3>
+
+    <form  action="javascript:alert( 'success!' );">
+    
+    	<script src="#{request.contextPath}/js/mascaras.js" type="text/javascript"/>
+		<script src="#{request.contextPath}/js/jquery.mask.min.js" type="text/javascript"/>
+        
+        <p class="msg"></p>
+
+        <blockquote>
+            <div class="topo">dados pessoais</div>
+            <fieldset class="w100"><label for="">nome completo</label><input type="text" name="" id=""/></fieldset>
+            <fieldset class="w45 f-left"><label for="">cpf</label><input type="text" name="" id="cpf" class="cpf"/></fieldset>
+            <fieldset class="w45 f-right"><label for="">nascimento</label><input type="date" name="" id=""/></fieldset>
+            <fieldset class="w45 f-left"><label for="">e-mail</label><input type="mail" name="" id=""/></fieldset>
+            <fieldset class="w45 f-right"><label for="">telefone</label><input type="text" name="" id="" class="telefone_com_ddd"/></fieldset>
+        </blockquote>
+
+        <blockquote class="border-bottom">
+            <div class="topo">dados comerciais</div>
+            <fieldset class="w100"><label for="">nome empresa</label><input type="text" name="" id="" /></fieldset>
+            <fieldset class="w45 f-left"><label for="">cnpj</label><input type="number" name="" id="" /></fieldset>
+            <fieldset class="w45 f-right"><label for="">cep</label><input type="number" name="" id="" /></fieldset>
+            <fieldset class="w100"><label for="">endereço completo</label><input type="text" name="" id="" /></fieldset>
+            <fieldset class="w45 f-left"><label for="">complemento</label><input type="text" name="" id="" /></fieldset>
+            <fieldset class="w45 f-right"><label for="">bairro</label><input type="text" name="" id="" /></fieldset>
+            <fieldset class="w45 f-left"><label for="">cidade</label><input type="text" name="" id="" /></fieldset>
+            <fieldset class="w45 f-right"><label for="">estado</label><input type="text" name="" id="" /></fieldset>
+        </blockquote>
+        <input type="submit" value="cadastrar" />
+    </form>
+
+</div>
+
+</h:body>
+
+</html>

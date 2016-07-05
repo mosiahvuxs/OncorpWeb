@@ -605,10 +605,187 @@ ul.resultados p {
 	font-family: "helveticaCd";
 }
 
-/*# sourceMappingURL=css.css.map */
 #mask .btnFechar {
 	color: #fff;
 	display: block;
 	float: right;
 	cursor: pointer;
 }
+
+.cadastro {
+  width: 91%;
+  margin: 1% 4.5% 4.5% 4.5%;
+  display: inline-block; }
+  .cadastro h3 {
+    font-size: 40px;
+    color: #292929;
+    line-height: 200%;
+    font-family: "helveticaCd"; }
+  .cadastro blockquote {
+    clear: both;
+    padding-bottom: 20px;
+    display: inline-block;
+    width: 100%; }
+  .cadastro .topo {
+    background-color: #b7c7d6;
+    color: #fff;
+    text-transform: uppercase;
+    padding: 15px;
+    font-family: "helveticaCd"; }
+  .cadastro form {
+    font-family: "helveticaCd";
+    margin-top: 20px; }
+    .cadastro form fieldset {
+      margin-top: 2%; }
+    .cadastro form input[type=submit] {
+      background-color: #2e4c68;
+      color: #fff;
+      text-align: center;
+      margin: 0 auto;
+      padding: 10px 50px;
+      text-transform: uppercase;
+      display: inherit; }
+    .cadastro form input[type=text], .cadastro form input[type=password], .cadastro form input[type=number], .cadastro form input[type=mail], .cadastro form input[type=date], .cadastro form input[type=phone] {
+      color: #2e4c68;
+      border: 1px solid #2e4c68;
+      padding: 10px;
+      margin: 5px 0;
+      width: 100%;
+      text-transform: uppercase; }
+    .cadastro form label {
+      color: #666;
+      font-size: 18px;
+      text-transform: uppercase;
+      display: block; }
+    .cadastro form p {
+      display: none; }
+  .cadastro .tipoCartao, .cadastro .tipoBoleto, .cadastro .tipoDebito {
+    width: 30%;
+    margin: 1.5%;
+    float: left; }
+    .cadastro .tipoCartao li, .cadastro .tipoBoleto li, .cadastro .tipoDebito li {
+      float: left;
+      display: inline;
+      margin: 10px;
+      border: 1px solid #fff;
+      cursor: pointer; }
+      .cadastro .tipoCartao li.click, .cadastro .tipoBoleto li.click, .cadastro .tipoDebito li.click {
+        border: 1px solid #000; }
+  .cadastro #dadosCartao, .cadastro #dadosDebito {
+    display: none;
+    clear: both; }
+  .cadastro .boxProduto label, .cadastro .periodo label, .cadastro .parcelamento label, .cadastro .valor label {
+    color: #b7c7d6;
+    margin-bottom: 10px; }
+  .cadastro .boxProduto {
+    float: left;
+    width: 30%;
+    margin: 10px 30px 10px 0; }
+    .cadastro .boxProduto img {
+      float: left;
+      margin-right: 10px; }
+    .cadastro .boxProduto p {
+      display: inherit;
+      line-height: 120%; }
+  .cadastro .periodo {
+    float: left;
+    width: 15%;
+    margin: 10px 2.5%; }
+  .cadastro .parcelamento {
+    float: left;
+    width: 15%;
+    margin: 10px 2.5%; }
+  .cadastro .valor {
+    float: left;
+    width: 20%;
+    margin: 10px 0; }
+    .cadastro .valor span {
+      font-size: 20px;
+      color: #2e4c68; }
+
+.msg {
+  width: 100%;
+  border: 1px solid;
+  padding: 15px;
+  margin: 20px 0;
+  color: #fff;
+  border-radius: 3px;
+  text-align: center; }
+
+.ok {
+  background-color: #3dd900;
+  border-color: #2a9002; }
+
+.error {
+  background-color: #ff0000;
+  border-color: #ce0505; }
+
+.alert {
+  background-color: #f3e321;
+  border-color: #f0cc27;
+  color: #000;
+  font-family: "helveticaCd";
+  font-size: 24px; }
+
+.border-bottom {
+  border-bottom: 1px dotted #2e4c68;
+  margin-bottom: 20px; }
+
+.w100 {
+  width: 100%;
+  display: inline-block; }
+
+.w45 {
+  width: 45%; }
+
+.w30 {
+  width: 30%;
+  margin: 0 1.5%; }
+
+.f-left {
+  float: left; }
+
+.f-right {
+  float: right; }
+
+.sprite {
+  background-image: url(../img/sprite.png);
+  background-repeat: no-repeat; }
+  .sprite.pagamento {
+    width: 70px;
+    height: 50px;
+    display: block;
+    text-indent: -9999px; }
+  .sprite.visa {
+    background-position: -9px -2px; }
+  .sprite.master {
+    background-position: -96px -3px; }
+  .sprite.amex {
+    background-position: -172px -4px; }
+  .sprite.elo {
+    background-position: -9px -64px; }
+  .sprite.dinners {
+    background-position: -96px -64px; }
+  .sprite.hipercard {
+    background-position: -172px -64px; }
+  .sprite.boleto {
+    background-position: 0px -3px; }
+  .sprite.bco-brasil {
+    background-position: -318px -4px; }
+  .sprite.bco-bradesco {
+    background-position: -392px -4px; }
+  .sprite.bco-itau {
+    background-position: -318px -65px; }
+  .sprite.bco-hsbc {
+    background-position: -244px -65px; }
+
+@media screen and (max-width: 480px) {
+  .infoProduto figure {
+    width: 100%; }
+  .infoProduto .detalhes {
+    width: 100%; }
+
+  .item.metade {
+    width: 100%; } }
+
+/*# sourceMappingURL=css.css.map */

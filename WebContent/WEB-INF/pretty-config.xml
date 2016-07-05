@@ -33,4 +33,13 @@
         <action onPostback="false">#{detalhesFaces.obter}</action>
     </url-mapping>
     
+    <url-mapping id="cadastro">
+        <pattern value="/cadastro"></pattern>
+        <view-id value="/cadastro.xhtml"></view-id>
+    </url-mapping>
+    <url-mapping id="cadastro">
+        <pattern value="/cadastro/"></pattern>
+        <view-id value="/cadastro.xhtml"></view-id>
+    </url-mapping>
+    
 </pretty-config>
