@@ -47,11 +47,19 @@ public class ClienteDAO implements CrudDAO<Cliente> {
 
 		TSDataBaseBrokerIf broker = TSDataBaseBrokerFactory.getDataBaseBrokerIf();
 
+		broker.beginTransaction();
+
 		model.setId(broker.getSequenceNextValue("clientes_id_seq"));
-		
+
 		broker.setPropertySQL("clientedao.inserir", model.getId(), model.getNome(), model.getIdentificador(), model.getEmail().toLowerCase(), model.getTelefone(), model.getTipoIdentificador().getId(), null, Boolean.FALSE);
 
 		broker.execute();
+
+		model.getClienteEndereco().setCliente(model);
+
+		new ClienteEnderecoDAO().inserir(model.getClienteEndereco(), broker);
+
+		broker.endTransaction();
 
 		return model;
 	}

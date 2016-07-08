@@ -9,6 +9,7 @@ public class Cliente implements Serializable {
 	private TipoIdentificador tipoIdentificador;
 	private String nome, identificador, email, telefone;
 	private Usuario usuario;
+	private ClienteEndereco clienteEndereco;
 
 	public Long getId() {
 		return id;
@@ -64,6 +65,14 @@ public class Cliente implements Serializable {
 
 	public void setUsuario(Usuario usuario) {
 		this.usuario = usuario;
+	}
+
+	public ClienteEndereco getClienteEndereco() {
+		return clienteEndereco;
+	}
+
+	public void setClienteEndereco(ClienteEndereco clienteEndereco) {
+		this.clienteEndereco = clienteEndereco;
 	}
 
 }
