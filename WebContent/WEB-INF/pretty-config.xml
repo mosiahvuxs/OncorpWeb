@@ -41,5 +41,15 @@
         <pattern value="/cadastro/"></pattern>
         <view-id value="/cadastro.xhtml"></view-id>
     </url-mapping>
+    <url-mapping id="cobranca">
+        <pattern value="/cobranca"/>
+        <view-id value="/cobranca.xhtml"></view-id>
+        <action onPostback="false">#{cobrancaFaces.iniciar}</action>
+    </url-mapping>
+    <url-mapping id="cobranca">
+        <pattern value="/cobranca/#{cobrancaFaces.parametro}"/>
+        <view-id value="/cobranca.xhtml"></view-id>
+        <action onPostback="false">#{cobrancaFaces.iniciar}</action>
+    </url-mapping>
     
 </pretty-config>

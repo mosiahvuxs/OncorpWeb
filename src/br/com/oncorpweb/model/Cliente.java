@@ -11,6 +11,17 @@ public class Cliente implements Serializable {
 	private Usuario usuario;
 	private ClienteEndereco clienteEndereco;
 
+	public Cliente() {
+
+	}
+
+	public Cliente(TipoIdentificador tipoIdentificador, Usuario usuario, ClienteEndereco clienteEndereco) {
+
+		this.tipoIdentificador = tipoIdentificador;
+		this.usuario = usuario;
+		this.clienteEndereco = clienteEndereco;
+	}
+
 	public Long getId() {
 		return id;
 	}

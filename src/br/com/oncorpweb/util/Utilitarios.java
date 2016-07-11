@@ -1,6 +1,10 @@
 package br.com.oncorpweb.util;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.text.Normalizer;
 import java.text.Normalizer.Form;
 import java.util.Locale;
@@ -63,6 +67,47 @@ public final class Utilitarios {
 		ExternalContext externalContext = TSFacesUtil.getFacesContext().getCurrentInstance().getExternalContext(); 
 		
 		externalContext.redirect(externalContext.getRequestContextPath() + "/pesquisa");
+	}
+	
+	public static byte[] getBytes(File file) {
+
+		int len = (int) file.length();
+
+		byte[] sendBuf = new byte[len];
+
+		FileInputStream inFile = null;
+
+		try {
+
+			inFile = new FileInputStream(file);
+
+			inFile.read(sendBuf, 0, len);
+
+		} catch (FileNotFoundException fnfex) {
+
+			fnfex.printStackTrace();
+
+		} catch (IOException ioex) {
+
+			ioex.printStackTrace();
+		}
+
+		return sendBuf;
+	}
+	
+	public static String lerArquivo(String caminhoArquivo) {
+
+		try {
+
+			return new String(Utilitarios.getBytes(new File(TSFacesUtil.getServletContext().getRealPath("") + caminhoArquivo)), "UTF-8");
+
+		} catch (UnsupportedEncodingException e) {
+
+			e.printStackTrace();
+		}
+
+		return null;
+
 	}
 
 }

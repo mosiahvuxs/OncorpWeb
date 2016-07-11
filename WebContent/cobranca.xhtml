@@ -1,0 +1,170 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE html>
+<html 	lang="pt-br"
+		xmlns="http://www.w3.org/1999/xhtml" 
+		xmlns:h="http://xmlns.jcp.org/jsf/html" 
+		xmlns:ui="http://xmlns.jcp.org/jsf/facelets" 
+		xmlns:f="http://xmlns.jcp.org/jsf/core" 
+		xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+		xmlns:pt="http://xmlns.jcp.org/jsf/passthrough"
+		xmlns:jsf="http://xmlns.jcp.org/jsf">
+
+<h:head>
+	
+	<meta charset="UTF-8"/>
+	
+	<title>ONCORP Soluções</title>
+	
+	<link rel="stylesheet" href="#{request.contextPath}/css/css.css" />
+	<link rel="stylesheet" href="#{request.contextPath}/css/fonts.css" />
+	<link rel="stylesheet" href="#{request.contextPath}/css/open_sans.css" />
+	
+    <script type="text/javascript" src="#{request.contextPath}/js/jquery.1.7.1.min.js"/>
+    <script type="text/javascript" src="#{request.contextPath}/js/script.js"/>
+	
+</h:head>
+
+<h:body>
+
+<ui:include src="/topo.xhtml"/>
+
+<div class="cadastro">
+
+    <h3>Cadastro</h3>
+
+    <p class="msg alert">Seu cadastro foi cofirmado. Para continuar a aquisição, preencha os dados de cobrança a seguir.</p>
+
+    <form action="">
+        <p class="msg"></p>
+
+        <blockquote class="opcao">
+            <div class="topo">dados de cobrança</div>
+
+            <div class="tipoCartao">
+                <label for="">cartão de crédito</label>
+
+                <ul>
+                    <li>
+                        <span class="pagamento sprite visa">visa</span>
+                        <input type="radio" name="" id="" hidden="hidden" value="visa"/>
+                    </li>
+                    <li>
+                        <span class="pagamento sprite master">mastercard</span>
+                        <input type="radio" name="" id="" hidden="hidden" value="mastercard"/>
+                    </li>
+                    <li>
+                        <span class="pagamento sprite amex">amex</span>
+                        <input type="radio" name="" id="" hidden="hidden" value="amex"/>
+                    </li>
+                    <li>
+                        <span class="pagamento sprite elo">elo</span>
+                        <input type="radio" name="" id="" hidden="hidden" value="elo"/>
+                    </li>
+                    <li>
+                        <span class="pagamento sprite dinners">dinners</span>
+                        <input type="radio" name="" id="" hidden="hidden" value="dinners"/>
+                    </li>
+                    <li>
+                        <span class="pagamento sprite hipercard">hipercard</span>
+                        <input type="radio" name="" id="" hidden="hidden" value="hipercard"/>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="tipoBoleto"></div>
+
+            <div class="tipoDebito">
+                <label for="">Débito em conta</label>
+
+                <ul>
+                    <li>
+                        <span class="pagamento sprite bco-brasil">banco do brasil</span>
+                        <input type="radio" name="" id="" hidden="hidden" value="banco do brasil"/>
+                    </li>
+                    <li>
+                        <span class="pagamento sprite bco-hsbc">hsbc</span>
+                        <input type="radio" name="" id="" hidden="hidden" value="hsbc"/>
+                    </li>
+                    <li>
+                        <span class="pagamento sprite bco-bradesco">bradesco</span>
+                        <input type="radio" name="" id="" hidden="hidden" value="bradesco"/>
+                    </li>
+                    <li>
+                        <span class="pagamento sprite bco-itau">itau</span>
+                        <input type="radio" name="" id="" hidden="hidden" value="itau"/>
+                    </li>
+
+                </ul>
+            </div>
+
+            <div id="dadosCartao">
+                <fieldset class="w100"><label for="">nome no cartão</label><input type="text" name="" id="" /></fieldset>
+                <fieldset class="w45 f-left"><label for="">número</label><input type="number" name="" id="" /></fieldset>
+                <fieldset class="w45 f-right"><label for="">código de segurança</label><input type="number" name="" id="" /></fieldset>
+                <fieldset class="w30 f-left"><label for="">Mês validade</label>
+                    <select name="" id="">
+                        <option disabled="disabled" selected="selected">Selecione</option>
+                        <option value="">Janeiro</option>
+                        <option value="">Fevereiro</option>
+                        <option value="">Março</option>
+                        <option value="">Abril</option>
+                    </select>
+                </fieldset>
+                <fieldset class="w30 f-left"><label for="">Ano validade</label>
+                    <select name="" id="">
+                        <option disabled="disabled" selected="selected">Selecione</option>
+                        <option value="">2016</option>
+                        <option value="">2017</option>
+                        <option value="">2018</option>
+                        <option value="">2019</option>
+                    </select></fieldset>
+            </div>
+
+            <div id="dadosDebito">
+                <fieldset class="w30 f-left"><label for="">numero da conta</label><input type="text" name="" id="" /></fieldset>
+                <fieldset class="w30 f-left"><label for="">agência</label><input type="number" name="" id="" /></fieldset>
+            </div>
+        </blockquote>
+
+        <blockquote class="border-bottom">
+            <div class="topo">produto escolhido</div>
+
+            <div class="boxProduto">
+                <img src="http://www.placehold.it/150x150" alt="" />
+                <label>descrição</label>
+                <p>Aqui entra texto de descrição do produto comprado pelo usuário</p>
+            </div>
+            <div class="periodo">
+                <label for="">período</label>
+                <select name="" id="">
+                    <option disabled="disabled" selected="selected">Selecione o período</option>
+                    <option value="">Mensal</option>
+                    <option value="">Semestral</option>
+                    <option value="">Anual</option>
+                </select>
+            </div>
+            <div class="parcelamento">
+                <label for="">pagamento</label>
+                <select name="" id="">
+                    <option disabled="disabled" selected="selected">Selecione</option>
+                    <option value="">1x de R$ 100,00</option>
+                    <option value="">2x de R$ 50,00</option>
+                    <option value="">3x de R$ 33,33</option>
+                </select>
+            </div>
+            <div class="valor">
+                <label for="">valor total</label>
+                <span>R$ 100,00</span>
+            </div>
+
+        </blockquote>
+        
+        <input type="submit" value="comprar" />
+        
+    </form>
+
+</div>
+	
+</h:body>
+
+</html>

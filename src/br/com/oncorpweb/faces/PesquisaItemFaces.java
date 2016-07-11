@@ -1,6 +1,7 @@
 package br.com.oncorpweb.faces;
 
 import java.io.IOException;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,9 +18,10 @@ import br.com.oncorpweb.util.Utilitarios;
 import br.com.topsys.util.TSUtil;
 import br.com.topsys.web.util.TSFacesUtil;
 
+@SuppressWarnings("serial")
 @ManagedBean(name = "pesquisaItemFaces")
 @ViewScoped
-public class PesquisaItemFaces {
+public class PesquisaItemFaces implements Serializable {
 
 	private Item item;
 	private List<Item> itens;
