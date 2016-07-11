@@ -51,7 +51,7 @@ public class ClienteDAO implements CrudDAO<Cliente> {
 
 		model.setId(broker.getSequenceNextValue("clientes_id_seq"));
 
-		broker.setPropertySQL("clientedao.inserir", model.getId(), model.getNome(), model.getIdentificador(), model.getEmail().toLowerCase(), model.getTelefone(), model.getTipoIdentificador().getId(), null, Boolean.FALSE);
+		broker.setPropertySQL("clientedao.inserir", model.getId(), model.getNome(), model.getIdentificador(), model.getEmail().toLowerCase(), model.getTelefone(), model.getTipoIdentificador().getId(), null, model.getFlagAtivo());
 
 		broker.execute();
 
@@ -66,8 +66,21 @@ public class ClienteDAO implements CrudDAO<Cliente> {
 
 	@Override
 	public Cliente alterar(Cliente model) throws TSApplicationException {
+		
 		// TODO Auto-generated method stub
-		return null;
+		
+		return model;
+	}
+
+	public void ativar(Cliente model) throws TSApplicationException {
+
+		TSDataBaseBrokerIf broker = TSDataBaseBrokerFactory.getDataBaseBrokerIf();
+
+		broker.setSQL("UPDATE PUBLIC.CLIENTES SET FLAG_ATIVO = TRUE WHERE ID = ?");
+
+		broker.set(model.getId());
+
+		broker.execute();
 	}
 
 	@Override

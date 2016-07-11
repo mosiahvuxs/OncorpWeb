@@ -10,16 +10,23 @@ public class Cliente implements Serializable {
 	private String nome, identificador, email, telefone;
 	private Usuario usuario;
 	private ClienteEndereco clienteEndereco;
+	private Boolean flagAtivo;
 
 	public Cliente() {
 
 	}
 
-	public Cliente(TipoIdentificador tipoIdentificador, Usuario usuario, ClienteEndereco clienteEndereco) {
+	public Cliente(Boolean flagAtivo, TipoIdentificador tipoIdentificador, Usuario usuario, ClienteEndereco clienteEndereco) {
 
+		this.flagAtivo = flagAtivo;
 		this.tipoIdentificador = tipoIdentificador;
 		this.usuario = usuario;
 		this.clienteEndereco = clienteEndereco;
+	}
+
+	public Cliente(Long id) {
+		
+		this.id = id;
 	}
 
 	public Long getId() {
@@ -84,6 +91,14 @@ public class Cliente implements Serializable {
 
 	public void setClienteEndereco(ClienteEndereco clienteEndereco) {
 		this.clienteEndereco = clienteEndereco;
+	}
+
+	public Boolean getFlagAtivo() {
+		return flagAtivo;
+	}
+
+	public void setFlagAtivo(Boolean flagAtivo) {
+		this.flagAtivo = flagAtivo;
 	}
 
 }

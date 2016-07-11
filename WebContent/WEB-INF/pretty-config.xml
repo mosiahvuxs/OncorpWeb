@@ -42,7 +42,7 @@
         <view-id value="/cadastro.xhtml"></view-id>
     </url-mapping>
     <url-mapping id="cobranca">
-        <pattern value="/cobranca"/>
+        <pattern value="/cobranca/"/>
         <view-id value="/cobranca.xhtml"></view-id>
         <action onPostback="false">#{cobrancaFaces.iniciar}</action>
     </url-mapping>
@@ -50,6 +50,12 @@
         <pattern value="/cobranca/#{cobrancaFaces.parametro}"/>
         <view-id value="/cobranca.xhtml"></view-id>
         <action onPostback="false">#{cobrancaFaces.iniciar}</action>
+    </url-mapping>
+    
+    <url-mapping id="confirmacaoCadastro">
+        <pattern value="/confirmacao*"/>
+        <view-id value="/confirmacao.xhtml"></view-id>
+        <action onPostback="false">#{confirmacaoFaces.iniciar}</action>
     </url-mapping>
     
 </pretty-config>

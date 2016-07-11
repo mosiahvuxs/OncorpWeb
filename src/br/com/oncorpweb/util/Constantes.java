@@ -6,6 +6,8 @@ public class Constantes {
 
 	}
 
+	public static final String URL_PRODUCAO = "http://oncorpfiscal.com.br/oncorpweb/";
+	
 	public static final String USUARIO_CONECTADO = "usuarioConectado";
 	public static final String AUTENTICACAO_FACES = "autenticacaoFaces";
 	
@@ -24,5 +26,6 @@ public class Constantes {
 
 	public static final Long EMPRESA_ONCORP = 28L;
 	public static final Long EMPRESA_MASTER = 1L;
+	
 
 }
