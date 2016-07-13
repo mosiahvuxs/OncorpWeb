@@ -1,4 +1,4 @@
-$(function(){
+    $(function(){
 
         //CADASTRO
         var form = $(".cadastro form");
@@ -7,7 +7,7 @@ $(function(){
 
         $(form).submit(function( event ) {
           if ( empty.val() != "" ) {
-            $( ".msg" ).addClass('ok').text( "Após o envio dos dados, verifique seu e-mail. Um link de confirmação serão enviado para que complemente o cadastro com as informações de pagamento." ).show();
+            $( ".msg" ).addClass('ok').text( "Após o envio dos dados, verifique seu e-mail. Um link de confirmação será enviado para que complemente o cadastro com as informações de pagamento." ).show();
             return;
           }
 
@@ -16,14 +16,27 @@ $(function(){
         });
 
 
+        // $(".tipo").on('click', function(){
+        //     $(this).find('.tipoJuridica input').prop('checked');
+        //     if($(".tipoJuridica input").prop('checked')){
+        //         $('.comercial').show();
+        //     }else{
+        //         $('.comercial').hide();
+        //     }
+        // })
+        
+        /*
         $(".tipo").on('click', function(){
             $(this).find('.tipoJuridica input').prop('checked');
             if($(".tipoJuridica input").prop('checked')){
                 $('.comercial').show();
-            }else{
-                $('.comercial').hide();
-            }
+                $('.fisica').hide();
+             }else{
+                 $('.comercial').hide();
+                 $('.fisica').show();
+             }
         })
+        */
         //COBRANCA
         $('.opcao .pagamento').click(function(){
             $('.opcao').find('.click').removeClass('click');

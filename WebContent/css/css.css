@@ -453,6 +453,11 @@ ul.resultados {
       cursor: pointer; }
     .cadastro form p {
       display: none; }
+    .cadastro form select {
+      border: 1px solid #2e4c68;
+      margin: 3% 0;
+      padding: 10px;
+      width: 100%; }
   .cadastro .tipoCartao, .cadastro .tipoBoleto, .cadastro .tipoDebito {
     width: 30%;
     margin: 1.5%;

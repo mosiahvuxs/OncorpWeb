@@ -1,16 +1,18 @@
 package br.com.oncorpweb.model;
 
 import java.io.Serializable;
+import java.util.Date;
 
 @SuppressWarnings("serial")
 public class Cliente implements Serializable {
 
 	private Long id;
 	private TipoIdentificador tipoIdentificador;
-	private String nome, identificador, email, telefone;
+	private String nome, identificador, email, telefone, nomeContato, nascimento;
 	private Usuario usuario;
 	private ClienteEndereco clienteEndereco;
 	private Boolean flagAtivo;
+	private Date dataNascimento;
 
 	public Cliente() {
 
@@ -99,6 +101,30 @@ public class Cliente implements Serializable {
 
 	public void setFlagAtivo(Boolean flagAtivo) {
 		this.flagAtivo = flagAtivo;
+	}
+
+	public String getNomeContato() {
+		return nomeContato;
+	}
+
+	public void setNomeContato(String nomeContato) {
+		this.nomeContato = nomeContato;
+	}
+
+	public String getNascimento() {
+		return nascimento;
+	}
+
+	public void setNascimento(String nascimento) {
+		this.nascimento = nascimento;
+	}
+
+	public Date getDataNascimento() {
+		return dataNascimento;
+	}
+
+	public void setDataNascimento(Date dataNascimento) {
+		this.dataNascimento = dataNascimento;
 	}
 
 }

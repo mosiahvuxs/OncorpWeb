@@ -10,6 +10,15 @@ public class ClienteEndereco implements Serializable {
 	private String cep, logradouro, numero, complemento, bairro, cidade;
 	private Estado estado;
 
+	public ClienteEndereco() {
+		
+	}
+
+	public ClienteEndereco(Estado estado) {
+
+		this.estado = estado;
+	}
+
 	public Long getId() {
 		return id;
 	}
