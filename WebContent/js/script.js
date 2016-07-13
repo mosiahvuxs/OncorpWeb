@@ -1,6 +1,7 @@
     $(function(){
 
         //CADASTRO
+    	/*
         var form = $(".cadastro form");
 
         var empty = form.find('input');
@@ -14,6 +15,7 @@
           $( ".msg" ).addClass('error').text( "Todos os campos obrigatoriamente precisam ser preenchidos para continuidade do seu cadastro.").show().delay(5000).fadeOut( 1000 );
           event.preventDefault();
         });
+        */
 
 
         // $(".tipo").on('click', function(){

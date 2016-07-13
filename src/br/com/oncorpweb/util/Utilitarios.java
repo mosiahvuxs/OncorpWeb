@@ -7,11 +7,14 @@ import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.text.Normalizer;
 import java.text.Normalizer.Form;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Locale;
 import java.util.regex.Pattern;
 
 import javax.faces.context.ExternalContext;
 
+import br.com.topsys.util.TSDateUtil;
 import br.com.topsys.util.TSUtil;
 import br.com.topsys.web.util.TSFacesUtil;
 
@@ -108,6 +111,33 @@ public final class Utilitarios {
 
 		return null;
 
+	}
+	
+	public static boolean isValidDate(String data) {
+
+		if (TSUtil.isEmpty(TSUtil.tratarString(data))) {
+
+			return false;
+		}
+
+		SimpleDateFormat dateFormat = new SimpleDateFormat(TSDateUtil.DD_MM_YYYY);
+
+		if (data.trim().length() != dateFormat.toPattern().length()) {
+			return false;
+		}
+
+		dateFormat.setLenient(false);
+
+		try {
+
+			dateFormat.parse(data.trim());
+
+		} catch (ParseException pe) {
+
+			return false;
+		}
+
+		return true;
 	}
 
 }

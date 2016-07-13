@@ -29,6 +29,8 @@ public class Constantes {
 
 	public static final Long PESSOA_FISICA = 1L;
 	public static final Long PESSOA_JURIDICA = 2L;
+
+	public static final Long PAIS_BRAZIL = 2L;
 	
 
 }

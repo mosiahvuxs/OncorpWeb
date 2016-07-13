@@ -16,12 +16,7 @@
 	<link rel="stylesheet" href="#{request.contextPath}/css/open_sans.css" />
 	
 	<!-- JAVASCRIPT -->
-    <script type="text/javascript" src="#{request.contextPath}/js/jquery.1.7.1.min.js"/>
     <script type="text/javascript" src="#{request.contextPath}/js/script.js"/>
-	
-	<style>
-		.invalidStyle { border:1px solid #FF0000 !important; }
-	</style>
 	
 </h:head>
 
@@ -51,7 +46,7 @@
 
     <h:form prependId="false" id="form">
     
-    	<h:messages showSummary="false"/>
+    	<h:messages showDetail="true" showSummary="false" errorClass="error"/>
         
         <p class="msg"></p>
          
@@ -60,7 +55,7 @@
         </div>
         
         <p:outputPanel id="pgTipoPessoa">
-        
+        	
         <blockquote class="tipo">
             <div class="topo">tipo de cadastro</div>
             
@@ -80,15 +75,30 @@
 		<h:panelGroup rendered="#{clienteFaces.cliente.tipoIdentificador.id==1}">
 		
         <blockquote class="fisica">
+            
             <div class="topo">dados pessoais</div>
+            
             <fieldset class="w100">
 	            <label for="nome">nome completo</label>
-	            <h:inputText id="nome" value="#{clienteFaces.cliente.nome}" required="true" styleClass="#{component.valid ? '' : 'invalidStyle'}"/>
+	            <h:inputText id="nome" value="#{clienteFaces.cliente.nome}" maxlength="100"/>
             </fieldset>
-            <fieldset class="w45 f-left cpf"><label for="cpf">cpf</label> <h:inputText styleClass="cpf" value="#{clienteFaces.cliente.identificador}" id="cpf"/></fieldset>
-            <fieldset class="w45 f-right"><label for="">nascimento</label><input type="date" name="" id="" /></fieldset>
-            <fieldset class="w45 f-left"><label for="">e-mail</label><input type="mail" name="" id="" /></fieldset>
-            <fieldset class="w45 f-right"><label for="">telefone</label><input type="phone" name="" id="" /></fieldset>
+            <fieldset class="w45 f-left">
+            	<label for="cpfCli">cpf</label> 
+            	<h:inputText id="cpfCli" value="#{clienteFaces.cliente.identificador}" styleClass="cpf" maxlength="14"/>
+            </fieldset>
+            <fieldset class="w45 f-right">
+            	<label for="data">nascimento</label>
+            	<h:inputText value="#{clienteFaces.cliente.nascimento}" id="data" styleClass="data" maxlength="10"/>
+            </fieldset>
+            <fieldset class="w45 f-left">
+            	<label for="email">e-mail</label>
+            	<h:inputText id="email" value="#{clienteFaces.cliente.email}" maxlength="50"/>
+            </fieldset>
+            <fieldset class="w45 f-right">
+            	<label for="tel">telefone</label>
+            	<h:inputText value="#{clienteFaces.cliente.telefone}" id="tel" styleClass="telefone_com_ddd" maxlength="15"/>
+            </fieldset>
+            
         </blockquote>
 
 		</h:panelGroup>
@@ -96,38 +106,72 @@
 		<h:panelGroup rendered="#{clienteFaces.cliente.tipoIdentificador.id==2}">
 		
         <blockquote class="comercial">
+            
             <div class="topo">dados comerciais</div>
-            <fieldset class="w45 f-left"><label for="razao">Razão social</label>
-            <h:inputText id="razao" value="#{clienteFaces.cliente.nome}" required="true" styleClass="#{component.valid ? '' : 'invalidStyle'}"/>
+            
+            <fieldset class="w45 f-left">
+            	<label for="razao">Razão social</label>
+            	<h:inputText id="razao" value="#{clienteFaces.cliente.nome}" maxlength="100"/>
             </fieldset>
-            <fieldset class="w45 f-right"><label for="">cnpj</label><input type="number" name="" id="" /></fieldset>
-            <fieldset class="w100"><label for="">Responsável para contato</label><input type="text" name="" id="" /></fieldset>
-            <fieldset class="w45 f-left"><label for="">e-mail</label><input type="mail" name="" id="" /></fieldset>
-            <fieldset class="w45 f-right"><label for="">telefone</label><input type="phone" name="" id="" /></fieldset>
-            <!-- <fieldset class="w45 f-right"><label for="">Inscrição estadual</label><input type="number" name="" id="" ></fieldset> -->
+            <fieldset class="w45 f-right">
+            	<label for="cnpj">cnpj</label>
+            	<h:inputText id="cnpj" value="#{clienteFaces.cliente.identificador}" styleClass="cnpj" maxlength="17"/>
+            </fieldset>
+            <fieldset class="w100">
+            	<label for="responsavel">Responsável para contato</label>
+            	<h:inputText id="responsavel" value="#{clienteFaces.cliente.nomeContato}" maxlength="100"/>
+            </fieldset>
+            <fieldset class="w45 f-left">
+            	<label for="emailPJ">e-mail</label>
+            	<h:inputText id="emailPJ" value="#{clienteFaces.cliente.email}" maxlength="50"/>
+            </fieldset>
+            <fieldset class="w45 f-right">
+            	<label for="telefonePJ">telefone</label>
+            	<h:inputText value="#{clienteFaces.cliente.telefone}" id="telefonePJ" styleClass="telefone_com_ddd" maxlength="15"/>
+            </fieldset>
+            
         </blockquote>
         
         </h:panelGroup>
+        
+        <script src="#{request.contextPath}/js/mascaras.js" type="text/javascript"/>
+		<script src="#{request.contextPath}/js/jquery.mask.min.js" type="text/javascript"/>
         
         </p:outputPanel>
 
         <blockquote class="border-bottom">
             <div class="topo">endereço</div>
-            <fieldset class="w45 f-left"><label for="">logradouro</label><input type="text" name="" id="" /></fieldset>
-            <fieldset class="w45 f-right"><label for="">número</label><input type="text" name="" id="" /></fieldset>
-            <fieldset class="w45 f-left"><label for="">complemento</label><input type="text" name="" id="" /></fieldset>
-            <fieldset class="w45 f-right"><label for="">bairro</label><input type="text" name="" id="" /></fieldset>
-            <fieldset class="w45 f-left"><label for="">cidade</label><input type="text" name="" id="" /></fieldset>
-            <fieldset class="w45 f-right"><label for="">estado</label>
-                <select name="" id="">
-                    <option disabled="disabled" selected="selected">Selecione</option>
-                    <option value="">Acre</option>
-                    <option value="">Alagoas</option>
-                    <option value="">Amapá</option>
-                    <option value="">Bahia</option>
-                </select>
+            <fieldset class="w45 f-left">
+            	<label for="logradouro">logradouro</label>
+            	<h:inputText id="logradouro" value="#{clienteFaces.cliente.clienteEndereco.logradouro}" maxlength="100"/>
             </fieldset>
-            <fieldset class="w45 f-left"><label for="">cep</label><input type="number" name="" id="" /></fieldset>
+            <fieldset class="w45 f-right">
+            	<label for="numero">número</label>
+            	<h:inputText id="numero" value="#{clienteFaces.cliente.clienteEndereco.numero}" maxlength="50"/>
+            </fieldset>
+            <fieldset class="w45 f-left">
+            	<label for="complemento">complemento</label>
+            	<h:inputText id="complemento" value="#{clienteFaces.cliente.clienteEndereco.complemento}" maxlength="50"/>
+            </fieldset>
+            <fieldset class="w45 f-right">
+            	<label for="bairro">bairro</label>
+            	<h:inputText id="bairro" value="#{clienteFaces.cliente.clienteEndereco.bairro}" maxlength="50"/>
+            </fieldset>
+            <fieldset class="w45 f-left">
+            <label for="cidade">cidade</label>
+            	<h:inputText id="cidade" value="#{clienteFaces.cliente.clienteEndereco.cidade}" maxlength="50"/>
+            </fieldset>
+            <fieldset class="w45 f-right">
+            	<label for="estado">estado</label>
+            	<h:selectOneMenu id="estado" value="#{clienteFaces.cliente.clienteEndereco.estado.id}">
+            		<f:selectItem itemLabel="Selecione" itemDisabled="true"/>
+            		<f:selectItems value="#{clienteFaces.estados}" var="estado" itemValue="#{estado.id}" itemLabel="#{estado.descricao}"/>
+            	</h:selectOneMenu>
+            </fieldset>
+            <fieldset class="w45 f-left">
+            	<label for="cep">cep</label>
+            	<h:inputText id="cep" value="#{clienteFaces.cliente.clienteEndereco.cep}" styleClass="cep" maxlength="9"/>
+            </fieldset>
         </blockquote>
         
         <h:commandButton value="cadastrar" action="#{clienteFaces.salvar}"/>
