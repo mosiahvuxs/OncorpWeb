@@ -15,7 +15,7 @@ public class ClienteDAO implements CrudDAO<Cliente> {
 
 		broker.setPropertySQL("clientedao.obter", model.getId());
 
-		return (Cliente) broker.getObjectBean(Cliente.class, "id", "email", "flagAtivo", "login", "nome", "senha");
+		return (Cliente) broker.getObjectBean(Cliente.class, "id", "email", "flagAtivo", "login", "nome", "senha", "dataNascimento", "nomeContato");
 	}
 
 	public Cliente obterPorLogin(Cliente model) {
@@ -24,7 +24,7 @@ public class ClienteDAO implements CrudDAO<Cliente> {
 
 		broker.setPropertySQL("clientedao.obterPorLogin", model.getUsuario().getLogin().toLowerCase());
 
-		return (Cliente) broker.getObjectBean(Cliente.class, "id", "email", "flagAtivo", "login", "nome", "senha");
+		return (Cliente) broker.getObjectBean(Cliente.class, "id", "email", "flagAtivo", "login", "nome", "senha", "dataNascimento", "nomeContato");
 	}
 
 	public Cliente obterPorLoginSenha(Cliente model) {
@@ -33,7 +33,7 @@ public class ClienteDAO implements CrudDAO<Cliente> {
 
 		broker.setPropertySQL("clientedao.obterPorLoginSenha", model.getUsuario().getLogin(), model.getUsuario().getSenha());
 
-		return (Cliente) broker.getObjectBean(Cliente.class, "id", "email", "flagAtivo", "login", "nome", "senha");
+		return (Cliente) broker.getObjectBean(Cliente.class, "id", "email", "flagAtivo", "login", "nome", "senha", "dataNascimento", "nomeContato");
 	}
 
 	@Override
@@ -51,7 +51,7 @@ public class ClienteDAO implements CrudDAO<Cliente> {
 
 		model.setId(broker.getSequenceNextValue("clientes_id_seq"));
 
-		broker.setPropertySQL("clientedao.inserir", model.getId(), model.getNome(), model.getIdentificador(), model.getEmail().toLowerCase(), model.getTelefone(), model.getTipoIdentificador().getId(), null, model.getFlagAtivo());
+		broker.setPropertySQL("clientedao.inserir", model.getId(), model.getNome(), model.getIdentificador(), model.getEmail().toLowerCase(), model.getTelefone(), model.getTipoIdentificador().getId(), null, model.getFlagAtivo(), model.getDataNascimento(), model.getNomeContato());
 
 		broker.execute();
 

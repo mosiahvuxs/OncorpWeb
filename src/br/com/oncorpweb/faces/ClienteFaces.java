@@ -166,6 +166,10 @@ public class ClienteFaces implements Serializable {
 				if (Constantes.PESSOA_FISICA.equals(this.cliente.getTipoIdentificador().getId())) {
 
 					this.cliente.setDataNascimento(TSParseUtil.stringToDate(this.cliente.getNascimento(), TSDateUtil.DD_MM_YYYY));
+				
+				} else {
+					
+					this.cliente.setDataNascimento(null);
 				}
 
 				new ClienteDAO().inserir(this.cliente);
