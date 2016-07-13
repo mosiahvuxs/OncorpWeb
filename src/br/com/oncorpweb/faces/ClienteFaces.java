@@ -17,6 +17,8 @@ import br.com.oncorpweb.util.Constantes;
 import br.com.oncorpweb.util.Utilitarios;
 import br.com.topsys.exception.TSApplicationException;
 import br.com.topsys.util.TSCryptoUtil;
+import br.com.topsys.util.TSDateUtil;
+import br.com.topsys.util.TSParseUtil;
 import br.com.topsys.util.TSUtil;
 import br.com.topsys.web.util.TSFacesUtil;
 
@@ -48,6 +50,10 @@ public class ClienteFaces implements Serializable {
 		if (!TSUtil.isEmpty(tipoPessoa)) {
 
 			this.cliente.getTipoIdentificador().setId(new Long(tipoPessoa));
+
+			this.cliente.setIdentificador(null);
+			this.cliente.setNascimento(null);
+			this.cliente.setNomeContato(null);
 
 		}
 
@@ -156,6 +162,11 @@ public class ClienteFaces implements Serializable {
 		if (this.validarCampos()) {
 
 			try {
+
+				if (Constantes.PESSOA_FISICA.equals(this.cliente.getTipoIdentificador().getId())) {
+
+					this.cliente.setDataNascimento(TSParseUtil.stringToDate(this.cliente.getNascimento(), TSDateUtil.DD_MM_YYYY));
+				}
 
 				new ClienteDAO().inserir(this.cliente);
 
