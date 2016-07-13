@@ -26,6 +26,9 @@ public class Constantes {
 
 	public static final Long EMPRESA_ONCORP = 28L;
 	public static final Long EMPRESA_MASTER = 1L;
+
+	public static final Long PESSOA_FISICA = 1L;
+	public static final Long PESSOA_JURIDICA = 2L;
 	
 
 }

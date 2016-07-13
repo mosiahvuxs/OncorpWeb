@@ -5,18 +5,23 @@
 		xmlns:h="http://xmlns.jcp.org/jsf/html" 
 		xmlns:ui="http://xmlns.jcp.org/jsf/facelets" 
 		xmlns:f="http://xmlns.jcp.org/jsf/core" 
-		xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+		xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+		xmlns:p="http://primefaces.org/ui"
+		xmlns:jsf="http://xmlns.jcp.org/jsf">
 
 <h:head>
 	<meta charset="UTF-8"/>
 	<title>ONCORP Soluções</title>
 	<link rel="stylesheet" href="#{request.contextPath}/css/css.css" />
-	<!-- <link rel="stylesheet" href="http://www.oncorpgroup.com.br/wp-content/themes/foundry/style/css/fonts.css" /> -->
 	<link rel="stylesheet" href="#{request.contextPath}/css/open_sans.css" />
 	
 	<!-- JAVASCRIPT -->
     <script type="text/javascript" src="#{request.contextPath}/js/jquery.1.7.1.min.js"/>
     <script type="text/javascript" src="#{request.contextPath}/js/script.js"/>
+	
+	<style>
+		.invalidStyle { border:1px solid #FF0000 !important; }
+	</style>
 	
 </h:head>
 
@@ -44,31 +49,67 @@
 
     <h3>Cadastro</h3>
 
-    <form  action="javascript:alert( 'success!' );">
+    <h:form prependId="false" id="form">
+    
+    	<h:messages showSummary="false"/>
+        
         <p class="msg"></p>
-
+         
+        <div id="msg" style="display: none;">
+        	<p class="ok"> Após o envio dos dados, verifique seu e-mail. Um link de confirmação foi enviado, para que, complemente o cadastro com as informações de pagamento. </p>
+        </div>
+        
+        <p:outputPanel id="pgTipoPessoa">
+        
         <blockquote class="tipo">
             <div class="topo">tipo de cadastro</div>
-            <fieldset class="w45 f-left"><label for=""><input type="radio" name="tipo" id="" class="tipoFisica"/> Pessoa física</label></fieldset>
-            <fieldset><label for="" class="tipoJuridica"><input type="radio" name="tipo" id=""/> Pessoa jurídica</label></fieldset>
+            
+            <p:remoteCommand name="setarPessoa" actionListener="#{clienteFaces.setarPessoa}" immediate="true" update="pgTipoPessoa"/>
+            
+            <h:panelGroup rendered="#{clienteFaces.cliente.tipoIdentificador.id==1}">
+	            <fieldset class="w45 f-left"><label for="fisica"><input type="radio" name="tipoPessoa" id="fisica" class="tipoFisica" checked="checked" onchange="setarPessoa([{name:'tipoPessoa', value:1}]);"/> Pessoa física</label></fieldset>
+	            <fieldset><label for="juridica" class="tipoJuridica"><input type="radio" name="tipoPessoa" id="juridica" onchange="setarPessoa([{name:'tipoPessoa', value:2}]);"/> Pessoa jurídica</label></fieldset>
+            </h:panelGroup>
+            <h:panelGroup rendered="#{clienteFaces.cliente.tipoIdentificador.id==2}">
+	            <fieldset class="w45 f-left"><label for="fisica"><input type="radio" name="tipoPessoa" id="fisica" class="tipoFisica" onchange="setarPessoa([{name:'tipoPessoa', value:1}]);"/> Pessoa física</label></fieldset>
+	            <fieldset><label for="juridica" class="tipoJuridica"><input type="radio" name="tipoPessoa" id="juridica" checked="checked" onchange="setarPessoa([{name:'tipoPessoa', value:2}]);"/> Pessoa jurídica</label></fieldset>
+            </h:panelGroup>
+            
         </blockquote>
-
-        <blockquote>
+		
+		<h:panelGroup rendered="#{clienteFaces.cliente.tipoIdentificador.id==1}">
+		
+        <blockquote class="fisica">
             <div class="topo">dados pessoais</div>
-            <fieldset class="w100"><label for="">nome completo</label><input type="text" name="" id="" /></fieldset>
-            <fieldset class="w45 f-left"><label for="">cpf</label><input type="number" name="" id="" /></fieldset>
+            <fieldset class="w100">
+	            <label for="nome">nome completo</label>
+	            <h:inputText id="nome" value="#{clienteFaces.cliente.nome}" required="true" styleClass="#{component.valid ? '' : 'invalidStyle'}"/>
+            </fieldset>
+            <fieldset class="w45 f-left cpf"><label for="cpf">cpf</label> <h:inputText styleClass="cpf" value="#{clienteFaces.cliente.identificador}" id="cpf"/></fieldset>
             <fieldset class="w45 f-right"><label for="">nascimento</label><input type="date" name="" id="" /></fieldset>
             <fieldset class="w45 f-left"><label for="">e-mail</label><input type="mail" name="" id="" /></fieldset>
             <fieldset class="w45 f-right"><label for="">telefone</label><input type="phone" name="" id="" /></fieldset>
         </blockquote>
 
-        <blockquote class="comercial" style="display:none;">
+		</h:panelGroup>
+		
+		<h:panelGroup rendered="#{clienteFaces.cliente.tipoIdentificador.id==2}">
+		
+        <blockquote class="comercial">
             <div class="topo">dados comerciais</div>
-            <fieldset class="w100"><label for="">Razão social</label><input type="text" name="" id="" /></fieldset>
-            <fieldset class="w45 f-left"><label for="">cnpj</label><input type="number" name="" id="" /></fieldset>
+            <fieldset class="w45 f-left"><label for="razao">Razão social</label>
+            <h:inputText id="razao" value="#{clienteFaces.cliente.nome}" required="true" styleClass="#{component.valid ? '' : 'invalidStyle'}"/>
+            </fieldset>
+            <fieldset class="w45 f-right"><label for="">cnpj</label><input type="number" name="" id="" /></fieldset>
+            <fieldset class="w100"><label for="">Responsável para contato</label><input type="text" name="" id="" /></fieldset>
+            <fieldset class="w45 f-left"><label for="">e-mail</label><input type="mail" name="" id="" /></fieldset>
             <fieldset class="w45 f-right"><label for="">telefone</label><input type="phone" name="" id="" /></fieldset>
             <!-- <fieldset class="w45 f-right"><label for="">Inscrição estadual</label><input type="number" name="" id="" ></fieldset> -->
         </blockquote>
+        
+        </h:panelGroup>
+        
+        </p:outputPanel>
 
         <blockquote class="border-bottom">
             <div class="topo">endereço</div>
@@ -77,20 +118,21 @@
             <fieldset class="w45 f-left"><label for="">complemento</label><input type="text" name="" id="" /></fieldset>
             <fieldset class="w45 f-right"><label for="">bairro</label><input type="text" name="" id="" /></fieldset>
             <fieldset class="w45 f-left"><label for="">cidade</label><input type="text" name="" id="" /></fieldset>
-            <fieldset class="w45 f-right"><label for="">estado</label> 
-	            <select name="select">
-            	  <option value="">SELECIONE</option>
-				  <option value="volvo">BAHIA</option>
-				  <option value="saab">RIO DE JANEIRO</option>
-				  <option value="mercedes">SÃO PAULO</option>
-				</select>
-			</fieldset>
+            <fieldset class="w45 f-right"><label for="">estado</label>
+                <select name="" id="">
+                    <option disabled="disabled" selected="selected">Selecione</option>
+                    <option value="">Acre</option>
+                    <option value="">Alagoas</option>
+                    <option value="">Amapá</option>
+                    <option value="">Bahia</option>
+                </select>
+            </fieldset>
             <fieldset class="w45 f-left"><label for="">cep</label><input type="number" name="" id="" /></fieldset>
         </blockquote>
         
-        <input type="submit" value="cadastrar" />
+        <h:commandButton value="cadastrar" action="#{clienteFaces.salvar}"/>
         
-    </form>
+    </h:form>
 
 </div>
 

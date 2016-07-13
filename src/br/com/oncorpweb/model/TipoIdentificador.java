@@ -8,6 +8,15 @@ public class TipoIdentificador implements Serializable {
 	private Long id;
 	private String descricao;
 
+	public TipoIdentificador() {
+
+	}
+
+	public TipoIdentificador(Long id) {
+
+		this.id = id;
+	}
+
 	public Long getId() {
 		return id;
 	}
