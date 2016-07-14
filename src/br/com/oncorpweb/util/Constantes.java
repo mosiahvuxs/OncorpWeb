@@ -32,5 +32,8 @@ public class Constantes {
 
 	public static final Long PAIS_BRAZIL = 2L;
 	
+	public static final String SMPT = "smtp.oncorp.srv.br";
+	public static final int PORTA = 587;
+	
 
 }

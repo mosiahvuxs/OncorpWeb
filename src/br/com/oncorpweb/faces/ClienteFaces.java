@@ -279,7 +279,7 @@ public class ClienteFaces extends TSMainFaces {
 					this.cliente.setDataNascimento(null);
 				}
 
-				new ClienteDAO().inserir(this.cliente);
+				this.cliente = new ClienteDAO().inserir(this.cliente);
 
 				String corpoEmail = Utilitarios.lerArquivo("/WEB-INF/templateEmails/mailing.html");
 
@@ -288,7 +288,7 @@ public class ClienteFaces extends TSMainFaces {
 				String url = null;
 
 				String clienteCriptografado = TSCryptoUtil.criptografar(this.cliente.getId().toString());
-
+				
 				String itemCriptografado = TSCryptoUtil.criptografar(this.item.getId().toString());
 
 				if (TSFacesUtil.getRequest().getServerName().contains("localhost")) {
