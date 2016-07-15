@@ -11,7 +11,7 @@
 
 <h:head>
 	<meta charset="UTF-8"/>
-	<title>ONCORP Soluções</title>
+	<title>ONCORP Soluções Fiscais</title>
 	<link rel="stylesheet" href="#{request.contextPath}/css/css.css" />
 	<link rel="stylesheet" href="#{request.contextPath}/css/open_sans.css" />
 	
@@ -46,10 +46,8 @@
 
     <h:form prependId="false" id="form">
     
-    	<h:messages showDetail="true" showSummary="false" errorClass="error"/>
+    	<h:messages showDetail="true" id="msg" showSummary="false" infoClass="ok" errorClass="error"/>
         
-        <p class="msg"></p>
-         
         <div id="msg" style="display: none;">
         	<p class="ok"> Após o envio dos dados, verifique seu e-mail. Um link de confirmação foi enviado, para que, complemente o cadastro com as informações de pagamento. </p>
         </div>

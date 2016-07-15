@@ -6,7 +6,7 @@ public class Constantes {
 
 	}
 
-	public static final String URL_PRODUCAO = "http://oncorpfiscal.com.br/oncorpweb/";
+	public static final String URL_PRODUCAO = "http://oncorpfiscal.com.br/oncorpweb";
 
 	public static final String USUARIO_CONECTADO = "usuarioConectado";
 	public static final String AUTENTICACAO_FACES = "autenticacaoFaces";
@@ -31,13 +31,17 @@ public class Constantes {
 	public static final Long PESSOA_JURIDICA = 2L;
 
 	public static final Long PAIS_BRAZIL = 2L;
+	
+	public static final Long GRUPO_CLIENTE_WEB = 8L;
 
 	public static final String SMPT = "smtp.oncorp.srv.br";
 	public static final int PORTA = 587;
 	public static final String EMAIL_SISTEMA_SMTP = "sistema@oncorp.srv.br";
 	public static final String SENHA_SMTP = "obs33422877";
 	public static final String EMAIL_NO_REPLY = "no_reply@oncorp.srv.br";
-	public static final String PERSONALIZACAO_EMAIL_CONFIRMACAO_CADASTRO_CLIENTE = "Confirmacao de Cadastro";
+	public static final String PERSONALIZACAO_EMAIL_ONCORP = "Oncorp Soluções Fiscais";
+
+	public static final String ITEM_URL = "itemUrl";
 	
 
 }

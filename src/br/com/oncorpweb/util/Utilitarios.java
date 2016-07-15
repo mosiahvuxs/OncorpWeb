@@ -55,23 +55,23 @@ public final class Utilitarios {
 
 		return null;
 	}
-	
+
 	@SuppressWarnings("static-access")
-	public static void redirectIndex() throws IOException{
-		
-		ExternalContext externalContext = TSFacesUtil.getFacesContext().getCurrentInstance().getExternalContext(); 
-		
+	public static void redirectIndex() throws IOException {
+
+		ExternalContext externalContext = TSFacesUtil.getFacesContext().getCurrentInstance().getExternalContext();
+
 		externalContext.redirect(externalContext.getRequestContextPath() + "/");
 	}
-	
+
 	@SuppressWarnings("static-access")
-	public static void redirectPesquisa() throws IOException{
-		
-		ExternalContext externalContext = TSFacesUtil.getFacesContext().getCurrentInstance().getExternalContext(); 
-		
+	public static void redirectPesquisa() throws IOException {
+
+		ExternalContext externalContext = TSFacesUtil.getFacesContext().getCurrentInstance().getExternalContext();
+
 		externalContext.redirect(externalContext.getRequestContextPath() + "/pesquisa");
 	}
-	
+
 	public static byte[] getBytes(File file) {
 
 		int len = (int) file.length();
@@ -97,7 +97,7 @@ public final class Utilitarios {
 
 		return sendBuf;
 	}
-	
+
 	public static String lerArquivo(String caminhoArquivo) {
 
 		try {
@@ -112,7 +112,7 @@ public final class Utilitarios {
 		return null;
 
 	}
-	
+
 	public static boolean isValidDate(String data) {
 
 		if (TSUtil.isEmpty(TSUtil.tratarString(data))) {
@@ -138,6 +138,30 @@ public final class Utilitarios {
 		}
 
 		return true;
+	}
+
+	public static void redirectCobranca(String clienteCriptografado) throws IOException {
+
+		if (TSFacesUtil.getRequest().getServerName().contains("localhost")) {
+
+			TSFacesUtil.getFacesContext().getExternalContext().redirect("http://localhost:8080/OncorpWeb" + "/cobranca/clienteId=" + clienteCriptografado);
+
+		} else {
+
+			TSFacesUtil.getFacesContext().getExternalContext().redirect(Constantes.URL_PRODUCAO + "/cobranca/clienteId=" + clienteCriptografado);
+		}
+	}
+	
+	public static void redirectCobranca(String clienteCriptografado, String itemCriptografado) throws IOException {
+
+		if (TSFacesUtil.getRequest().getServerName().contains("localhost")) {
+
+			TSFacesUtil.getFacesContext().getExternalContext().redirect("http://localhost:8080/OncorpWeb" + "/cobranca/clienteId=" + clienteCriptografado + "&itemId=" + itemCriptografado);
+
+		} else {
+
+			TSFacesUtil.getFacesContext().getExternalContext().redirect(Constantes.URL_PRODUCAO + "/cobranca/clienteId=" + clienteCriptografado + "&itemId=" + itemCriptografado);
+		}
 	}
 
 }

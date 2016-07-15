@@ -2,12 +2,16 @@ package br.com.oncorpweb.faces;
 
 import java.util.List;
 
+import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 
-import br.com.oncorpweb.dao.ClienteDAO;
+import org.apache.commons.mail.EmailException;
+
+import br.com.oncorpweb.business.ClienteBS;
 import br.com.oncorpweb.dao.EstadoDAO;
+import br.com.oncorpweb.dao.UsuarioDAO;
 import br.com.oncorpweb.model.Cliente;
 import br.com.oncorpweb.model.ClienteEndereco;
 import br.com.oncorpweb.model.Estado;
@@ -16,6 +20,7 @@ import br.com.oncorpweb.model.Pais;
 import br.com.oncorpweb.model.TipoIdentificador;
 import br.com.oncorpweb.model.Usuario;
 import br.com.oncorpweb.util.Constantes;
+import br.com.oncorpweb.util.EmailUtil;
 import br.com.oncorpweb.util.Utilitarios;
 import br.com.topsys.exception.TSApplicationException;
 import br.com.topsys.util.TSCryptoUtil;
@@ -30,6 +35,8 @@ import br.com.topsys.web.util.TSFacesUtil;
 @ViewScoped
 public class ClienteFaces extends TSMainFaces {
 
+	@EJB
+	private ClienteBS clienteBS;
 	private Cliente cliente;
 	private Item item;
 	private boolean exibirDivOk, exibirDivErro;
@@ -125,6 +132,12 @@ public class ClienteFaces extends TSMainFaces {
 					validado = false;
 
 					super.addErrorMessage("E-mail: campo inválido.");
+
+				} else if (!TSUtil.isEmpty(new UsuarioDAO().obterPorEmail(new Usuario(this.cliente.getEmail())))) {
+
+					validado = false;
+
+					super.addErrorMessage("O E-mail informado já existe!");
 				}
 			}
 
@@ -146,7 +159,7 @@ public class ClienteFaces extends TSMainFaces {
 			}
 
 		} else {
-			
+
 			if (TSUtil.isEmpty(this.cliente.getNome())) {
 
 				validado = false;
@@ -190,6 +203,12 @@ public class ClienteFaces extends TSMainFaces {
 					validado = false;
 
 					super.addErrorMessage("E-mail: campo inválido.");
+
+				} else if (!TSUtil.isEmpty(new UsuarioDAO().obterPorEmail(new Usuario(this.cliente.getEmail())))) {
+
+					validado = false;
+
+					super.addErrorMessage("O E-mail informado já existe!");
 				}
 			}
 
@@ -245,11 +264,11 @@ public class ClienteFaces extends TSMainFaces {
 			validado = false;
 
 			super.addErrorMessage("CEP: campo obrigatório.");
-		
+
 		} else {
-			
+
 			if (this.cliente.getClienteEndereco().getCep().length() < 9) {
-				
+
 				validado = false;
 
 				super.addErrorMessage("CEP: campo inválido.");
@@ -279,30 +298,50 @@ public class ClienteFaces extends TSMainFaces {
 					this.cliente.setDataNascimento(null);
 				}
 
-				this.cliente = new ClienteDAO().inserir(this.cliente);
+				this.cliente = this.clienteBS.inserir(this.cliente);
+
+				this.exibirDivOk = true;
+
+				String clienteCriptografado = TSCryptoUtil.criptografar(this.cliente.getId().toString());
+
+				String url = null;
+
+				if (TSFacesUtil.getRequest().getServerName().contains("localhost")) {
+
+					url = "http://localhost:8080/OncorpWeb/confirmacao/clienteId=" + clienteCriptografado;
+
+				} else {
+
+					url = Constantes.URL_PRODUCAO + "/confirmacao/clienteId=" + clienteCriptografado;
+				}
+
+				Item item = (Item) TSFacesUtil.getObjectInSession(Constantes.ITEM_URL);
+
+				if (!TSUtil.isEmpty(item)) {
+
+					String itemCriptografado = TSCryptoUtil.criptografar(item.getId().toString());
+
+					url = url + "&itemId=" + itemCriptografado;
+
+				}
 
 				String corpoEmail = Utilitarios.lerArquivo("/WEB-INF/templateEmails/mailing.html");
 
 				corpoEmail = corpoEmail.replace("[cliente]", this.cliente.getNome().toUpperCase());
 
-				String url = null;
+				corpoEmail = corpoEmail.replace("[urlConfirmacao]", url);
 
-				String clienteCriptografado = TSCryptoUtil.criptografar(this.cliente.getId().toString());
-				
-				String itemCriptografado = TSCryptoUtil.criptografar(this.item.getId().toString());
+				EmailUtil.enviarEmailHtml(Constantes.EMAIL_NO_REPLY, this.cliente.getEmail(), "Confirmação de Cadastro", corpoEmail.toString(), Constantes.PERSONALIZACAO_EMAIL_ONCORP);
 
-				if (TSFacesUtil.getRequest().getServerName().contains("localhost")) {
-
-					url = "http://localhost:8080/OncorpWeb/confirmacao/c=" + clienteCriptografado + "&" + "i=" + itemCriptografado;
-
-				} else {
-
-					url = Constantes.URL_PRODUCAO + "/confirmacao/c=" + clienteCriptografado + "&" + "i=" + itemCriptografado;
-				}
-
-				this.exibirDivOk = true;
+				super.addInfoMessage("Após o envio dos dados, verifique seu e-mail. Um link de confirmação foi enviado, para que, complemente o cadastro com as informações de pagamento.");
 
 			} catch (TSApplicationException e) {
+
+				super.addErrorMessage("Não foi possível realizar o cadastro. Tente novamente mais tarde.");
+
+				e.printStackTrace();
+
+			} catch (EmailException e) {
 
 				e.printStackTrace();
 			}

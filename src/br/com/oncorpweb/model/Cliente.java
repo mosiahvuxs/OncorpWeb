@@ -11,7 +11,6 @@ public class Cliente implements Serializable {
 	private String nome, identificador, email, telefone, nomeContato, nascimento;
 	private Usuario usuario;
 	private ClienteEndereco clienteEndereco;
-	private Boolean flagAtivo;
 	private Date dataNascimento;
 
 	public Cliente() {
@@ -20,14 +19,13 @@ public class Cliente implements Serializable {
 
 	public Cliente(Boolean flagAtivo, TipoIdentificador tipoIdentificador, Usuario usuario, ClienteEndereco clienteEndereco) {
 
-		this.flagAtivo = flagAtivo;
 		this.tipoIdentificador = tipoIdentificador;
 		this.usuario = usuario;
 		this.clienteEndereco = clienteEndereco;
 	}
 
 	public Cliente(Long id) {
-		
+
 		this.id = id;
 	}
 
@@ -93,14 +91,6 @@ public class Cliente implements Serializable {
 
 	public void setClienteEndereco(ClienteEndereco clienteEndereco) {
 		this.clienteEndereco = clienteEndereco;
-	}
-
-	public Boolean getFlagAtivo() {
-		return flagAtivo;
-	}
-
-	public void setFlagAtivo(Boolean flagAtivo) {
-		this.flagAtivo = flagAtivo;
 	}
 
 	public String getNomeContato() {

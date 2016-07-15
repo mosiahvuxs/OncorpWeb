@@ -53,7 +53,7 @@
     </url-mapping>
     
     <url-mapping id="confirmacaoCadastro">
-        <pattern value="/confirmacao*"/>
+        <pattern value="/confirmacao/#{confirmacaoFaces.parametro}"/>
         <view-id value="/confirmacao.xhtml"></view-id>
         <action onPostback="false">#{confirmacaoFaces.iniciar}</action>
     </url-mapping>

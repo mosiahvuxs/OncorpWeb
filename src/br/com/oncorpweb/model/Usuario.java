@@ -8,6 +8,15 @@ public class Usuario implements Serializable {
 	private Long id;
 	private String nome, login, senha, email;
 	private Boolean flagAtivo;
+	private Grupo grupo;
+
+	public Usuario() {
+
+	}
+
+	public Usuario(String email) {
+		this.email = email;
+	}
 
 	public Long getId() {
 		return id;
@@ -80,6 +89,14 @@ public class Usuario implements Serializable {
 
 	public void setEmail(String email) {
 		this.email = email;
+	}
+
+	public Grupo getGrupo() {
+		return grupo;
+	}
+
+	public void setGrupo(Grupo grupo) {
+		this.grupo = grupo;
 	}
 
 }

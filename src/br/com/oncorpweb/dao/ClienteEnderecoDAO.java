@@ -22,11 +22,14 @@ public class ClienteEnderecoDAO implements CrudDAO<ClienteEndereco> {
 	public List<ClienteEndereco> pesquisar(ClienteEndereco model) {
 
 		// TODO Auto-generated method stub
-		
+
 		return null;
 	}
 
-	public ClienteEndereco inserir(ClienteEndereco model, TSDataBaseBrokerIf broker) throws TSApplicationException {
+	@Override
+	public ClienteEndereco inserir(ClienteEndereco model) throws TSApplicationException {
+
+		TSDataBaseBrokerIf broker = TSDataBaseBrokerFactory.getDataBaseBrokerIf();
 
 		model.setId(broker.getSequenceNextValue("cliente_enderecos_id_seq"));
 
@@ -47,12 +50,6 @@ public class ClienteEnderecoDAO implements CrudDAO<ClienteEndereco> {
 	public void excluir(ClienteEndereco model) throws TSApplicationException {
 		// TODO Auto-generated method stub
 
-	}
-
-	@Override
-	public ClienteEndereco inserir(ClienteEndereco model) throws TSApplicationException {
-		// TODO Auto-generated method stub
-		return null;
 	}
 
 }

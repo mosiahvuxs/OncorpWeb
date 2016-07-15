@@ -27,6 +27,15 @@ public class UsuarioDAO implements CrudDAO<Usuario> {
 		return (Usuario) broker.getObjectBean(Usuario.class, "id", "email", "flagAtivo", "login", "nome", "senha");
 	}
 
+	public Usuario obterPorEmail(Usuario model) {
+
+		TSDataBaseBrokerIf broker = TSDataBaseBrokerFactory.getDataBaseBrokerIf();
+
+		broker.setPropertySQL("usuariodao.obterPorEmail", model.getEmail().toLowerCase());
+
+		return (Usuario) broker.getObjectBean(Usuario.class, "id", "email", "flagAtivo", "login", "nome", "senha");
+	}
+
 	public Usuario obterPorLoginSenha(Usuario model) {
 
 		TSDataBaseBrokerIf broker = TSDataBaseBrokerFactory.getDataBaseBrokerIf();
@@ -44,8 +53,27 @@ public class UsuarioDAO implements CrudDAO<Usuario> {
 
 	@Override
 	public Usuario inserir(Usuario model) throws TSApplicationException {
-		// TODO Auto-generated method stub
-		return null;
+
+		TSDataBaseBrokerIf broker = TSDataBaseBrokerFactory.getDataBaseBrokerIf();
+
+		model.setId(broker.getSequenceNextValue("usuarios_id_seq"));
+
+		broker.setPropertySQL("usuariodao.inserir", model.getId(), model.getEmail(), model.getFlagAtivo(), model.getLogin(), model.getNome(), model.getSenha(), model.getGrupo().getId());
+
+		broker.execute();
+
+		return model;
+	}
+
+	public void ativar(Usuario model) throws TSApplicationException {
+
+		TSDataBaseBrokerIf broker = TSDataBaseBrokerFactory.getDataBaseBrokerIf();
+
+		broker.setSQL("UPDATE PUBLIC.USUARIOS SET FLAG_ATIVO = TRUE WHERE ID = ?");
+
+		broker.set(model.getId());
+
+		broker.execute();
 	}
 
 	@Override
@@ -57,7 +85,7 @@ public class UsuarioDAO implements CrudDAO<Usuario> {
 	@Override
 	public void excluir(Usuario model) throws TSApplicationException {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 }
