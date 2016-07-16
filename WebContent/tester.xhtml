@@ -1,22 +1,17 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE html>
 <html 	lang="pt-br"
-		xmlns="http://www.w3.org/1999/xhtml" 
-		xmlns:h="http://xmlns.jcp.org/jsf/html" 
-		xmlns:ui="http://xmlns.jcp.org/jsf/facelets" 
-		xmlns:f="http://xmlns.jcp.org/jsf/core" 
-		xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
-		xmlns:pt="http://xmlns.jcp.org/jsf/passthrough">
+		xmlns="http://www.w3.org/1999/xhtml">
 
-<h:head>
+<head>
 	
 	<meta charset="UTF-8"/>
 	
 	<title>ONCORP Soluções</title>
 	
-	<link rel="stylesheet" href="#{request.contextPath}/css/css.css" />
+	<link rel="stylesheet" href="css/css.css" />
+	<script type="text/javascript" src="js/jquery.1.7.1.min.js"/>
 	
-	<script type="text/javascript" src="#{request.contextPath}/js/jquery.1.7.1.min.js"/>
 	<script>
 		$(function(){
 			var height = $(window).height();
@@ -24,103 +19,70 @@
 		})
 	</script>
 	
-    <script type="text/javascript" src="https://stc.pagseguro.uol.com.br/pagseguro/api/v2/checkout/pagseguro.directpayment.js"></script>
-    <script type="text/javascript">
     
-    $("#getSenderHash").click(function(){
-        var senderHash = PagSeguroDirectPayment.getSenderHash();
-        eval(senderHash);
-        print();
-        $("input#senderHash").val(senderHash);
-    })
-    </script>
     
-</h:head>
+</head>
 
-<h:body styleClass="login">
+<body class="login">
 
-<h:form prependId="false" id="form">
+<form id="formPagSeguro">
 	
-	<INPUT onclick="getSenderHash()" type="submit" value="Identificador"/>
+	<input onclick="getSenderHash()" type="button" value="Identificador Compra"/>
 	
 	<br/>
 	
-	<INPUT onclick="createHashCardToken();" type="submit" value="Hash Cartao Credito"/>
+	<input onclick="pegarToken('4111111111111111', 'visa', '123', '12', '2030');" type="button" value="Hash Cartao Credito"/>
 	
-	<fieldset>
-		
-		<div class="marca">
-			<a href="http://oncorpgroup.com.br/">
-				<img src="#{request.contextPath}/img/logo.png" alt="" />
-			</a>
-		</div>
-		
-		<h:messages showDetail="true" showSummary="false" errorClass="error" fatalClass="error"/>
-		
-		<label for="usuario">Usuário
-			<h:inputText id="usuario" value="#{loginFaces.usuario.login}" pt:autofocus="true" required="false" requiredMessage="Usuário: Campo obrigatório"/>
-		</label>
-		<label for="senha">Senha
-			<h:inputSecret id="senha" value="#{loginFaces.usuario.senha}" required="false" requiredMessage="Senha: Campo obrigatório"/>
-		</label>
-		
-		<h:inputHidden id="senderHash" />
-		<br/>
-		<h:inputHidden id="senderHashCartao" />
-		
-		<h:commandButton action="#{loginFaces.autenticar}" value="Acessar"/>
-		
-	</fieldset>
+	<input id="senderHash" type="text"/>	
 	
-</h:form>
+	<br/>
+	
+	<input type="text" id="senderHashCartao"/>
+	
+	<script type="text/javascript" src="https://stc.pagseguro.uol.com.br/pagseguro/api/v2/checkout/pagseguro.directpayment.js"/>
+	<script type="text/javascript">
 
-<script type="text/javascript">
+	function pegarToken(numero,cartao,codigo,validade_mes,validade_ano){
+		
+		PagSeguroDirectPayment.setSessionId('00236c387f194dc78daff991d9995202');   
+	
+		var param = PagSeguroDirectPayment.createCardToken({
+	        cardNumber: numero,
+	        brand: cartao,
+	        cvv: codigo,
+	        expirationMonth: validade_mes,
+	        expirationYear: validade_ano,
+	        success: function(response){
+	        	var x = document.getElementById("senderHashCartao");   // Get the element with id="demo"
+	        	x.value = response.card.token;  
+	        	alert('Sucesso ' + response.card.token);
+	            
+	        },
+	        error: function(response){
+	        	alert('Erro ' + response.error);
+	        }
+	   });
+		
+	}
 	
 	function getSenderHash(){ 
 		
+		PagSeguroDirectPayment.setSessionId('00236c387f194dc78daff991d9995202'); 
+		
 		var senderHash = PagSeguroDirectPayment.getSenderHash();
 		
-		$("input#senderHash").val(senderHash);
+		$('#senderHash').val(senderHash);
 		
-		alert(PagSeguroDirectPayment.getSenderHash());
+		alert(senderHash);
+		
+		//$("input#senderHash").val(senderHash);
 		
 	}
 		
-</script>
-
-<script type="text/javascript">
-
-	function createHashCardToken(){ 
-		
-		PagSeguroDirectPayment.setSessionId('899bcdc91ebe488a949b40d9703f1e0c');   
-		
-		var sender_hash = PagSeguroDirectPayment.getSenderHash();
-		
-		alert('Transação:' + sender_hash);
-		
-		var param = {
-				cardNumber: '4111111111111111',
-				brand: 'visa',
-				cvv: '123',
-				expirationMonth: '12',
-				expirationYear: '2030',
-				success: function(response) {
-				//token gerado, esse deve ser usado na chamada da API do Checkout Transparente
-				},
-				error: function(response) {
-				//tratamento do erro
-				},
-				complete: function(response) {
-				//tratamento comum para todas chamadas
-				}
-		}
-		
-		alert(JSON.parse(PagSeguroDirectPayment.createCardToken(param)));
+	</script>
 	
-	}
-		
-</script>
+</form>
 
-</h:body>	
+</body>	
 
 </html>
