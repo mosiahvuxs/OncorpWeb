@@ -1,9 +1,12 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE html>
 <html 	lang="pt-br"
-		xmlns="http://www.w3.org/1999/xhtml">
+		xmlns="http://www.w3.org/1999/xhtml"
+		xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      	xmlns:jsf="http://xmlns.jcp.org/jsf"
+      	xmlns:p="http://primefaces.org/ui">
 
-<head>
+<head jsf:id="head">
 	
 	<meta charset="UTF-8"/>
 	
@@ -19,13 +22,11 @@
 		})
 	</script>
 	
-    
-    
 </head>
 
-<body class="login">
+<body jsf:id="body" class="login">
 
-<form id="formPagSeguro">
+<form jsf:id="form" jsf:prependId="false">
 	
 	<input onclick="getSenderHash()" type="button" value="Identificador Compra"/>
 	
@@ -33,18 +34,22 @@
 	
 	<input onclick="pegarToken('4111111111111111', 'visa', '123', '12', '2030');" type="button" value="Hash Cartao Credito"/>
 	
-	<input id="senderHash" type="text"/>	
+	<input id="senderHash" type="text" jsf:value="#{pagSeguroFaces.senderHash}"/>	
 	
 	<br/>
 	
-	<input type="text" id="senderHashCartao"/>
+	<input type="text" jsf:id="senderHashCartao" jsf:value="#{pagSeguroFaces.hashTokenCartao}"/>
 	
-	<script type="text/javascript" src="https://stc.pagseguro.uol.com.br/pagseguro/api/v2/checkout/pagseguro.directpayment.js"/>
+	<button jsf:action="#{pagSeguroFaces.checkoutCartaoCredito}">OK</button>
+	
+</form>
+
+<script type="text/javascript" src="https://stc.sandbox.pagseguro.uol.com.br/pagseguro/api/v2/checkout/pagseguro.directpayment.js"/>
 	<script type="text/javascript">
 
 	function pegarToken(numero,cartao,codigo,validade_mes,validade_ano){
 		
-		PagSeguroDirectPayment.setSessionId('00236c387f194dc78daff991d9995202');   
+		PagSeguroDirectPayment.setSessionId('#{pagSeguroFaces.sessionId}');   
 	
 		var param = PagSeguroDirectPayment.createCardToken({
 	        cardNumber: numero,
@@ -53,13 +58,29 @@
 	        expirationMonth: validade_mes,
 	        expirationYear: validade_ano,
 	        success: function(response){
-	        	var x = document.getElementById("senderHashCartao");   // Get the element with id="demo"
+	        	
+	        	var x = document.getElementById("senderHashCartao");
+	        	
 	        	x.value = response.card.token;  
-	        	alert('Sucesso ' + response.card.token);
-	            
+	        	
+	        	$(document).ready(function(){
+	        	    
+        	        $("#senderHashCartao").val(x.value);
+	        	    
+	        	});
+	        	 
+	        	alert('Sucesso: ' + response.card.token);
+	        	
 	        },
-	        error: function(response){
-	        	alert('Erro ' + response.error);
+	        error: function(error, response, body){
+	        	$.each(error.errors, function( key, value ) {
+	        		
+	        		if(key == '30404')
+	        		  alert(key + ": " + 'Sessão inválida!');
+	        		});
+	        	//alert('Erro: ' + error.errors.code);
+	        	console.log(error);
+
 	        }
 	   });
 		
@@ -67,11 +88,19 @@
 	
 	function getSenderHash(){ 
 		
-		PagSeguroDirectPayment.setSessionId('00236c387f194dc78daff991d9995202'); 
+		PagSeguroDirectPayment.setSessionId('#{pagSeguroFaces.sessionId}'); 
 		
 		var senderHash = PagSeguroDirectPayment.getSenderHash();
 		
-		$('#senderHash').val(senderHash);
+		var x = document.getElementById("senderHash");
+    	
+    	x.value = senderHash;  
+    	
+    	$(document).ready(function(){
+    	    
+	        $("#senderHash").val(x.value);
+    	    
+    	});
 		
 		alert(senderHash);
 		
@@ -80,8 +109,6 @@
 	}
 		
 	</script>
-	
-</form>
 
 </body>	
 

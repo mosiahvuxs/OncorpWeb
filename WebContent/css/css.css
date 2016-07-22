@@ -1,4 +1,4 @@
-/*FONT;*/
+#{request.contextPath}//*FONT;*/
 @font-face {
 	font-family: 'helveticaCd';
 	src: url("../fonts/helveticacd.eot");
