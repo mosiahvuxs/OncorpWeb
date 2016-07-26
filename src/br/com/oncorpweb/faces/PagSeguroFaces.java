@@ -4,7 +4,6 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
 import javax.faces.bean.ViewScoped;
 
 import br.com.uol.pagseguro.domain.AccountCredentials;
@@ -16,7 +15,6 @@ import br.com.uol.pagseguro.domain.Sender;
 import br.com.uol.pagseguro.domain.SenderDocument;
 import br.com.uol.pagseguro.domain.Transaction;
 import br.com.uol.pagseguro.domain.direct.Holder;
-import br.com.uol.pagseguro.domain.direct.Installment;
 import br.com.uol.pagseguro.domain.direct.checkout.CreditCardCheckout;
 import br.com.uol.pagseguro.enums.Currency;
 import br.com.uol.pagseguro.enums.DocumentType;
@@ -24,7 +22,9 @@ import br.com.uol.pagseguro.enums.PaymentMode;
 import br.com.uol.pagseguro.enums.ShippingType;
 import br.com.uol.pagseguro.exception.PagSeguroServiceException;
 import br.com.uol.pagseguro.properties.PagSeguroConfig;
+import br.com.uol.pagseguro.service.NotificationService;
 import br.com.uol.pagseguro.service.SessionService;
+import br.com.uol.pagseguro.service.TransactionSearchService;
 import br.com.uol.pagseguro.service.TransactionService;
 
 @SuppressWarnings("serial")
@@ -45,6 +45,23 @@ public class PagSeguroFaces implements Serializable {
 			if (sessionId != null) {
 
 				this.sessionId = sessionId;
+			}
+
+			String transactionCode = "28C18DB0-567B-4350-B418-2010550A2F13";
+
+			Transaction transaction = null;
+
+			try {
+
+				transaction = TransactionSearchService.searchByCode(PagSeguroConfig.getAccountCredentials(), transactionCode);
+
+			} catch (PagSeguroServiceException e) {
+				System.err.println(e.getMessage());
+			}
+
+			if (transaction != null) {
+				System.out.println("reference: " + transaction.getReference());
+				System.out.println("status: " + transaction.getStatus());
 			}
 
 		} catch (PagSeguroServiceException e) {
@@ -72,7 +89,7 @@ public class PagSeguroFaces implements Serializable {
 		// "c56498561304790552773@sandbox.pagseguro.com.br"));
 
 		request.setSender(new Sender("Rolando Lero", //
-				"e", //
+				"moisessrocha@gmail.com", //
 				new Phone("71", "33336666"), //
 				new SenderDocument(DocumentType.CPF, "000.000.001-91")));
 
@@ -116,8 +133,9 @@ public class PagSeguroFaces implements Serializable {
 		request.addParameter("installmentValue", "5000.00");
 		request.addParameter("installmentValue", "5000.00");
 		request.addParameter("installmentQuantity", "1");
-		
-		//request.setInstallment(new Installment(1, new BigDecimal("5000.00")));
+
+		// request.setInstallment(new Installment(1, new
+		// BigDecimal("5000.00")));
 
 		try {
 			/*
