@@ -1,11 +1,24 @@
 package br.com.oncorpweb.faces;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.net.URL;
+import java.net.URLConnection;
+import java.util.Scanner;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
+import javax.script.Invocable;
+import javax.script.ScriptEngine;
+import javax.script.ScriptEngineManager;
+import javax.script.ScriptException;
 
+import br.com.topsys.web.util.TSFacesUtil;
 import br.com.uol.pagseguro.domain.AccountCredentials;
 import br.com.uol.pagseguro.domain.Address;
 import br.com.uol.pagseguro.domain.Document;
@@ -22,7 +35,6 @@ import br.com.uol.pagseguro.enums.PaymentMode;
 import br.com.uol.pagseguro.enums.ShippingType;
 import br.com.uol.pagseguro.exception.PagSeguroServiceException;
 import br.com.uol.pagseguro.properties.PagSeguroConfig;
-import br.com.uol.pagseguro.service.NotificationService;
 import br.com.uol.pagseguro.service.SessionService;
 import br.com.uol.pagseguro.service.TransactionSearchService;
 import br.com.uol.pagseguro.service.TransactionService;
@@ -34,7 +46,7 @@ public class PagSeguroFaces implements Serializable {
 
 	private String sessionId, senderHash, hashTokenCartao;
 
-	public PagSeguroFaces() {
+	public PagSeguroFaces() throws IOException, ScriptException, NoSuchMethodException {
 
 		try {
 
