@@ -1,24 +1,12 @@
 package br.com.oncorpweb.faces;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.net.URL;
-import java.net.URLConnection;
-import java.util.Scanner;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
-import javax.script.Invocable;
-import javax.script.ScriptEngine;
-import javax.script.ScriptEngineManager;
-import javax.script.ScriptException;
 
-import br.com.topsys.web.util.TSFacesUtil;
 import br.com.uol.pagseguro.domain.AccountCredentials;
 import br.com.uol.pagseguro.domain.Address;
 import br.com.uol.pagseguro.domain.Document;
@@ -46,44 +34,39 @@ public class PagSeguroFaces implements Serializable {
 
 	private String sessionId, senderHash, hashTokenCartao;
 
-	public PagSeguroFaces() throws IOException, ScriptException, NoSuchMethodException {
+	public PagSeguroFaces() throws PagSeguroServiceException {
 
-		try {
+		this.init();
+	}
 
-			AccountCredentials accountCredentials = PagSeguroConfig.getAccountCredentials();
+	public void init() throws PagSeguroServiceException {
 
-			final String sessionId = SessionService.createSession(accountCredentials);
+		//String transacaoId = TSFacesUtil.getRequestParameter("transacaoId");
 
-			if (sessionId != null) {
+		//System.out.println(transacaoId);
 
-				this.sessionId = sessionId;
-			}
+		AccountCredentials accountCredentials = PagSeguroConfig.getAccountCredentials();
 
-			String transactionCode = "28C18DB0-567B-4350-B418-2010550A2F13";
+		final String sessionId = SessionService.createSession(accountCredentials);
 
-			Transaction transaction = null;
+		if (sessionId != null) {
 
-			try {
+			this.sessionId = sessionId;
 
-				transaction = TransactionSearchService.searchByCode(PagSeguroConfig.getAccountCredentials(), transactionCode);
-
-			} catch (PagSeguroServiceException e) {
-				System.err.println(e.getMessage());
-			}
-
-			if (transaction != null) {
-				System.out.println("reference: " + transaction.getReference());
-				System.out.println("status: " + transaction.getStatus());
-			}
-
-		} catch (PagSeguroServiceException e) {
-
-			e.printStackTrace();
+			System.out.println("SessionID: " + this.sessionId);
 		}
 
 	}
 
-	public void checkoutCartaoCredito() {
+	public void checkoutCartaoCredito() throws IOException {
+
+		System.out.println("Transacao ID: " + this.senderHash);
+
+		System.out.println("Token Cartao Credito: " + this.hashTokenCartao);
+
+	}
+
+	public void gerarTransacaoCartaoCredito() {
 
 		CreditCardCheckout request = new CreditCardCheckout();
 
@@ -173,6 +156,26 @@ public class PagSeguroFaces implements Serializable {
 
 		} catch (PagSeguroServiceException e) {
 			System.err.println(e.getMessage());
+		}
+	}
+
+	public void consultarTransacao() {
+
+		String transactionCode = "28C18DB0-567B-4350-B418-2010550A2F13";
+
+		Transaction transaction = null;
+
+		try {
+
+			transaction = TransactionSearchService.searchByCode(PagSeguroConfig.getAccountCredentials(), transactionCode);
+
+		} catch (PagSeguroServiceException e) {
+			System.err.println(e.getMessage());
+		}
+
+		if (transaction != null) {
+			System.out.println("reference: " + transaction.getReference());
+			System.out.println("status: " + transaction.getStatus());
 		}
 	}
 

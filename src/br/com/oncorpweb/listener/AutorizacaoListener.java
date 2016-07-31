@@ -21,7 +21,7 @@ public class AutorizacaoListener implements PhaseListener {
 
 		HttpSession session = (HttpSession) context.getExternalContext().getSession(true);
 
-		if (!paginaAtual.contains("tester") &&!paginaAtual.contains("cadastro") && !paginaAtual.contains("confirmacao") && !paginaAtual.contains("login") && session.getAttribute(Constantes.USUARIO_CONECTADO) == null) {
+		if (!paginaAtual.contains("capturaTokens") && !paginaAtual.contains("tester") && !paginaAtual.contains("cadastro") && !paginaAtual.contains("confirmacao") && !paginaAtual.contains("login") && session.getAttribute(Constantes.USUARIO_CONECTADO) == null) {
 
 			session.removeAttribute(Constantes.AUTENTICACAO_FACES);
 
